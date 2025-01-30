@@ -3,7 +3,7 @@ import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { GuardUser } from "../../components/guard-user/GuardUser";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 
-export const ArticlesListScreen: Component = () => {
+const ArticlesListScreen: Component = () => {
   return (
     <GuardUser>
       <SiteTitle>Articles</SiteTitle>
@@ -14,3 +14,5 @@ export const ArticlesListScreen: Component = () => {
     </GuardUser>
   );
 };
+
+export default ArticlesListScreen;

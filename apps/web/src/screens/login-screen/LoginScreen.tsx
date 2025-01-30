@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 import { redirect } from "@solidjs/router";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 
-export const LoginScreen: Component = () => {
+const LoginScreen: Component = () => {
   const [username, setUsername] = createSignal("");
   const [password, setPassword] = createSignal("");
   const { setUser } = useAuth();
@@ -88,3 +88,5 @@ export const LoginScreen: Component = () => {
     </GuardGuest>
   );
 };
+
+export default LoginScreen;

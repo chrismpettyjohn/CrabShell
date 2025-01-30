@@ -1,11 +1,14 @@
-import { Switch, type Component } from "solid-js";
+import { lazy, type Component } from "solid-js";
 import { Router as BaseRouter, Route } from "@solidjs/router";
-import { LoginScreen } from "./login-screen/LoginScreen";
-import { RegisterScreen } from "./register-screen/RegisterScreen";
-import { MeScreen } from "./me-screen/MeScreen";
-import { PlayScreen } from "./play-screen/PlayScreen";
-import { LogoutScreen } from "./logout-screen/LogoutScreen";
-import { ArticlesListScreen } from "./articles-list-screen/ArticlesListScreen";
+
+const LoginScreen = lazy(() => import("./login-screen/LoginScreen"));
+const RegisterScreen = lazy(() => import("./register-screen/RegisterScreen"));
+const MeScreen = lazy(() => import("./me-screen/MeScreen"));
+const PlayScreen = lazy(() => import("./play-screen/PlayScreen"));
+const LogoutScreen = lazy(() => import("./logout-screen/LogoutScreen"));
+const ArticlesListScreen = lazy(
+  () => import("./articles-list-screen/ArticlesListScreen")
+);
 
 export const Router: Component = () => {
   return (

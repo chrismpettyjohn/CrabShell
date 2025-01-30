@@ -2,7 +2,7 @@ import { createSignal, type Component } from "solid-js";
 import { GuardGuest } from "../../components/guard-guest/GuardGuest";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 
-export const RegisterScreen: Component = () => {
+const RegisterScreen: Component = () => {
   const [username, setUsername] = createSignal("");
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
@@ -90,3 +90,5 @@ export const RegisterScreen: Component = () => {
     </GuardGuest>
   );
 };
+
+export default RegisterScreen;

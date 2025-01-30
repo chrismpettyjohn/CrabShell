@@ -3,7 +3,7 @@ import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { GuardUser } from "../../components/guard-user/GuardUser";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 
-export const MeScreen: Component = () => {
+const MeScreen: Component = () => {
   return (
     <GuardUser>
       <SiteTitle>Me</SiteTitle>
@@ -454,3 +454,5 @@ export const MeScreen: Component = () => {
     </GuardUser>
   );
 };
+
+export default MeScreen;
