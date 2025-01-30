@@ -8,9 +8,9 @@ import {
 } from "./auth.types";
 
 export class AuthService {
-  public login(email: string, password: string): Promise<AuthLoginResponse> {
+  public login(username: string, password: string): Promise<AuthLoginResponse> {
     return postToApi<AuthLoginParams, AuthLoginResponse>("auth/login", {
-      email,
+      username,
       password,
     });
   }

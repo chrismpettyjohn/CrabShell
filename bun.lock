@@ -23,6 +23,7 @@
       "name": "@crabshell/api",
       "version": "0.0.1",
       "dependencies": {
+        "@crabshell/client": "workspace:*",
         "@nestjs/common": "^11.0.6",
         "@nestjs/core": "^11.0.6",
         "@nestjs/jwt": "11.0.0",

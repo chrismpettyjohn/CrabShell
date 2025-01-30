@@ -1,7 +1,16 @@
-import type { Component } from "solid-js";
+import { createSignal, type Component } from "solid-js";
 import { GuardGuest } from "../../components/guard-guest/GuardGuest";
 
 export const RegisterScreen: Component = () => {
+  const [username, setUsername] = createSignal("");
+  const [email, setEmail] = createSignal("");
+  const [password, setPassword] = createSignal("");
+  const [passwordAgain, setPasswordAgain] = createSignal("");
+
+  async function onRegister(e: Event) {
+    e.preventDefault();
+    console.log({ username: username(), password: password() });
+  }
   return (
     <GuardGuest>
       <div class="login-page">
@@ -14,14 +23,15 @@ export const RegisterScreen: Component = () => {
           <div class="login-box">
             <h2>Join HabCrab Today!</h2>
             <p>Create your free account</p>
-            <form action="/register">
+            <form onSubmit={onRegister}>
               <label for="username">Username</label>
               <input
                 type="text"
                 id="username"
                 name="username"
                 placeholder="Username"
-                value="{{.Username}}"
+                value={username()}
+                onInput={(e) => setUsername(e.target.value ?? "")}
                 required
               />
 
@@ -31,7 +41,8 @@ export const RegisterScreen: Component = () => {
                 id="email"
                 name="email"
                 placeholder="Email"
-                value="{{.Email}}"
+                value={email()}
+                onInput={(e) => setEmail(e.target.value ?? "")}
                 required
               />
 
@@ -41,6 +52,19 @@ export const RegisterScreen: Component = () => {
                 id="password"
                 name="password"
                 placeholder="Password"
+                value={password()}
+                onInput={(e) => setPassword(e.target.value ?? "")}
+                required
+              />
+
+              <label for="password">Password Again</label>
+              <input
+                type="password"
+                id="passwordAgain"
+                name="passwordAgain"
+                placeholder="Password Again"
+                value={passwordAgain()}
+                onInput={(e) => setPasswordAgain(e.target.value ?? "")}
                 required
               />
 

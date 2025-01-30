@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DB_HOST, DB_NAME, DB_PASS, DB_USER } from './app.const';
@@ -27,7 +25,5 @@ import { ArticleModule } from './article/article.module';
     UserModule,
     GroupModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

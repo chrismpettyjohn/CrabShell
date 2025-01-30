@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { AuthLoginParams, AuthRegisterParams } from '@crabshell/client';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-export class LoginDto {
+export class AuthLoginDTO implements AuthLoginParams {
   @IsString()
   @IsNotEmpty()
   username: string;
@@ -11,11 +12,22 @@ export class LoginDto {
   password: string;
 }
 
-export class RegisterDto extends LoginDto {
+export class AuthRegisterDTO implements AuthRegisterParams {
   @IsString()
+  @IsNotEmpty()
+  username: string;
+
+  @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @IsString()
   @IsNotEmpty()
-  gender: number;
+  @MinLength(6)
+  password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(6)
+  passwordAgain: string;
 }

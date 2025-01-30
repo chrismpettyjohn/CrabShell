@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
-import { LoginDto, RegisterDto } from './auth.dto';
+import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
 import {
   USER_DEFAULT_CREDITS,
@@ -37,7 +37,7 @@ export class AuthService {
     return user;
   }
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: AuthLoginDTO) {
     const user = await this.validateUser(loginDto.username, loginDto.password);
 
     const payload = { sub: user.id, username: user.username };
@@ -59,7 +59,7 @@ export class AuthService {
     };
   }
 
-  async register(registerDto: RegisterDto) {
+  async register(registerDto: AuthRegisterDTO) {
     const existingUser = await this.userRepository.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
     });
@@ -73,11 +73,11 @@ export class AuthService {
 
     const now = Math.floor(Date.now() / 1000);
 
-    const user = await this.userRepository.create({
+    await this.userRepository.create({
       username: registerDto.username,
       password: hashedPassword,
       email: registerDto.email,
-      gender: registerDto.gender,
+      gender: 1,
       accountCreatedAt: now,
       lastOnlineAt: now,
       ipLast: '127.0.0.1', // You should get this from request

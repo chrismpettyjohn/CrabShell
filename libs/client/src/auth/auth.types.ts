@@ -1,7 +1,7 @@
 import { UserWire } from "../user/user.types";
 
 export interface AuthLoginParams {
-  email: string;
+  username: string;
   password: string;
 }
 

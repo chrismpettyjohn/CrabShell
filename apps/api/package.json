@@ -27,7 +27,8 @@
     "bcryptjs": "2.4.3",
     "mysql2": "3.12.0",
     "dotenv": "16.4.7", 
-    "passport-jwt": "4.0.1"
+    "passport-jwt": "4.0.1",
+    "@crabshell/client": "workspace:*"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

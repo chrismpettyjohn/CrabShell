@@ -44,12 +44,3 @@
   src: url('/assets/fonts/milky-nice/MilkyNice-Clean.ttf') format('truetype'),
   url('/assets/fonts/milky-nice/MilkyNice-Clean.otf') format('opentype');
 }
-
-/* Usage Example */
-body {
-  font-family: 'MilkyNice', sans-serif;
-}
-
-h1 {
-  font-family: 'MilkyNice-Clean', sans-serif;
-}
