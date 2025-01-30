@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('imagine_sessions')
+@Entity('crab_sessions')
 export class SessionEntity {
   @PrimaryGeneratedColumn()
   id!: number;
