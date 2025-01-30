@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+a {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  margin: 0;
+}
+
+.logo img {
+  width: 150px;
+}
+
+.login-box {
+  background-color: #2a2a2a;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 550px;
+}
+
+.online-status {
+  margin: 0;
+  font-weight: bold;
+}
+
+
+h2 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-size: 14px;
+  text-align: left;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  width: 100%;
+}
+
+.password-box .toggle-visibility {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.success-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.success-btn:hover {
+  background-color: #218838;
+}
+
+.info-btn {
+  background-color: #3c8dc7;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.info-btn:hover {
+  background-color: rgb(33, 129, 136);
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.actions a {
+  color: #61dafb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.actions a:hover {
+  text-decoration: underline;
+}
+
+footer a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+}
+
+footer a:hover {
+  border-color: white;
+}
