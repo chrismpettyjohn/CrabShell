@@ -1,10 +1,11 @@
-import { UserWire } from "@crabshell/client";
+import { authService, UserWire } from "@crabshell/client";
 import {
   createContext,
   useContext,
   createSignal,
   type Component,
   type JSX,
+  onMount,
 } from "solid-js";
 
 interface AuthContextValue {
@@ -17,13 +18,15 @@ const AuthContext = createContext<AuthContextValue>();
 export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
   const [user, setUser] = createSignal<UserWire | null>(null);
 
-  const value = {
-    user,
-    setUser,
-  };
+  onMount(async () => {
+    const currUser = await authService.viewAuthenticatedUser();
+    setUser(currUser);
+  });
 
   return (
-    <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, setUser }}>
+      {props.children}
+    </AuthContext.Provider>
   );
 };
 
