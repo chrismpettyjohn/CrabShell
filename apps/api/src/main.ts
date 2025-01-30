@@ -9,21 +9,25 @@ import fastifyCookie from '@fastify/cookie';
 
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
-  
-  // Register cookie plugin at adapter level
+
   await fastifyAdapter.register(fastifyCookie, {
-    secret: 'my-secret', // change this to a proper secret
+    secret: 'my-secret', // Change this to a secure secret
+    parseOptions: { httpOnly: true, secure: true, sameSite: 'lax' },
   });
 
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    fastifyAdapter
+    fastifyAdapter,
   );
 
   app.setGlobalPrefix('api');
-  app.enableCors();
+
+  app.enableCors({
+    origin: 'http://localhost:3000', // Allow requests from frontend
+    credentials: true, // Enable cookies
+  });
 
   await app.listen(HTTP_PORT, '0.0.0.0');
-  console.log(`Application is running on: ${await app.getUrl()}`);
+  console.log(`@crabshell/api is running on: ${await app.getUrl()}`);
 }
 bootstrap();

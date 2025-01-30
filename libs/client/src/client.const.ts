@@ -5,6 +5,7 @@ export async function fetchFromApi<T>(url: string): Promise<T> {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("API Error");
@@ -19,6 +20,7 @@ export async function postToApi<I, O>(url: string, body: I): Promise<O> {
     headers: {
       "Content-Type": "application/json",
     },
+    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("API Error");
