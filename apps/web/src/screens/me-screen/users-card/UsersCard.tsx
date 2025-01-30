@@ -1,12 +1,10 @@
-export function UsersCard() {
-  return (
-    <div class="card">
-      <h2>Users</h2>
-      <div class="tabs-container">
-        <span class="active">Newest</span>
-        <span>Online</span>
-        <span>My Friends</span>
-      </div>
+import { createSignal } from "solid-js";
+import { TabBar } from "../../../components/tab-bar/TabBar";
+
+const tabs = [
+  {
+    label: "Newest",
+    view: () => (
       <div class="users-list">
         <div class="row">
           <div class="avatar-container">
@@ -74,6 +72,25 @@ export function UsersCard() {
           </div>
         </div>
       </div>
+    ),
+  },
+  {
+    label: "Online",
+    view: () => <p>online</p>,
+  },
+  {
+    label: "My Friends",
+    view: () => <p>mu friends</p>,
+  },
+];
+
+export function UsersCard() {
+  const [tab, setTab] = createSignal(tabs[0]);
+
+  return (
+    <div class="card">
+      <h2>Users</h2>
+      <TabBar tabs={tabs} activeTab={tab} setTab={setTab} />
     </div>
   );
 }

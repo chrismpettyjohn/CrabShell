@@ -2,6 +2,7 @@ import { IMAGER_BASE_URL, SITE_NAME } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
 import { A, useLocation } from "@solidjs/router";
 import { EnterHotelButton } from "./enter-hotel-button/EnterHotelButton";
+import { onMount } from "solid-js";
 
 const SIDEBAR_LINKS = [
   { path: "/me", icon: "fa-home", label: "Dashboard" },
@@ -38,7 +39,7 @@ export function SiteSidebar() {
           <div class="avatar-container">
             <img
               class="avatar"
-              src={`${IMAGER_BASE_URL}?figure=.Look&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif`}
+              src={`${IMAGER_BASE_URL}?figure=${user()?.look}&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif`}
             />
           </div>
           <h2>{user()?.username}</h2>
