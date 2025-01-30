@@ -1,10 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
+import { FastifyReply } from 'fastify';
+import { cookieConfig } from './auth.config';
 import {
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
@@ -19,7 +20,6 @@ export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly sessionRepository: SessionRepository,
-    private readonly jwtService: JwtService,
   ) {}
 
   async validateUser(username: string, password: string): Promise<UserEntity> {
@@ -37,19 +37,18 @@ export class AuthService {
     return user;
   }
 
-  async login(loginDto: AuthLoginDTO) {
+  async login(loginDto: AuthLoginDTO, reply: FastifyReply) {
     const user = await this.validateUser(loginDto.username, loginDto.password);
-
-    const payload = { sub: user.id, username: user.username };
-    const accessToken = await this.jwtService.signAsync(payload);
-
+    
     // Create session
-    await this.sessionRepository.create({
+    const session = await this.sessionRepository.create({
       userID: user.id,
     });
 
+    // Set session cookie using the session ID
+    reply.setCookie('sessionId', String(session.id), cookieConfig);
+
     return {
-      access_token: accessToken,
       user: {
         id: user.id,
         username: user.username,
@@ -59,7 +58,7 @@ export class AuthService {
     };
   }
 
-  async register(registerDto: AuthRegisterDTO) {
+  async register(registerDto: AuthRegisterDTO, reply: FastifyReply) {
     const existingUser = await this.userRepository.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
     });
@@ -73,7 +72,7 @@ export class AuthService {
 
     const now = Math.floor(Date.now() / 1000);
 
-    await this.userRepository.create({
+    const user = await this.userRepository.create({
       username: registerDto.username,
       password: hashedPassword,
       email: registerDto.email,
@@ -83,7 +82,6 @@ export class AuthService {
       ipLast: '127.0.0.1', // You should get this from request
       ipRegistered: '127.0.0.1', // You should get this from request
       onlineStatus: 0,
-      // Default values from entity
       rankID: 1,
       credits: USER_DEFAULT_CREDITS,
       vipPoints: USER_DEFAULT_POINTS,
@@ -95,17 +93,37 @@ export class AuthService {
       machineAddress: null,
     });
 
-    return this.login(registerDto);
+    return this.login({ username: user.username, password: registerDto.password }, reply);
   }
 
-  async getProfile(userId: number) {
+  async logout(sessionId: number, reply: FastifyReply) {
+    await this.sessionRepository.delete({ id: sessionId });
+    reply.clearCookie('sessionId');
+    return { message: 'Logged out successfully' };
+  }
+
+  async validateSession(sessionId: number): Promise<UserEntity> {
+    const session = await this.sessionRepository.findOne({
+      where: { id: sessionId }
+    });
+
+    if (!session) {
+      throw new UnauthorizedException('Invalid session');
+    }
+
     const user = await this.userRepository.findOne({
-      where: { id: userId },
+      where: { id: session.userID }
     });
 
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
+
+    return user;
+  }
+
+  async getProfile(sessionId: number) {
+    const user = await this.validateSession(sessionId);
 
     return {
       id: user.id,
