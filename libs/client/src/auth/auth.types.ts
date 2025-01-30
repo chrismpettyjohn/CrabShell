@@ -1,15 +1,11 @@
-import { UserData } from "../user/user.types";
+import { UserWire } from "../user/user.types";
 
 export interface AuthLoginParams {
   email: string;
   password: string;
 }
 
-export interface AuthLoginData {
-  success: boolean;
-  message?: string;
-  user?: UserData;
-}
+export type AuthLoginResponse = UserWire;
 
 export interface AuthRegisterParams {
   email: string;
@@ -18,6 +14,5 @@ export interface AuthRegisterParams {
   passwordAgain: string;
 }
 
-export interface AuthRegisterData {}
-
-export type AuthProfileData = UserData;
+export type AuthRegisterResponse = UserWire;
+export type AuthProfileResponse = UserWire;

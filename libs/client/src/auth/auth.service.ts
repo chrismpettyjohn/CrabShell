@@ -1,15 +1,15 @@
 import { fetchFromApi, postToApi } from "../client.const";
 import {
-  AuthLoginData,
   AuthLoginParams,
-  AuthProfileData,
-  AuthRegisterData,
+  AuthLoginResponse,
+  AuthProfileResponse,
   AuthRegisterParams,
+  AuthRegisterResponse,
 } from "./auth.types";
 
 export class AuthService {
-  public login(email: string, password: string): Promise<AuthLoginData> {
-    return postToApi<AuthLoginParams, AuthLoginData>("auth/login", {
+  public login(email: string, password: string): Promise<AuthLoginResponse> {
+    return postToApi<AuthLoginParams, AuthLoginResponse>("auth/login", {
       email,
       password,
     });
@@ -20,16 +20,19 @@ export class AuthService {
     username: string,
     password: string,
     passwordAgain: string
-  ): Promise<AuthRegisterData> {
-    return postToApi<AuthRegisterParams, AuthRegisterData>("auth/register", {
-      email,
-      username,
-      password,
-      passwordAgain,
-    });
+  ): Promise<AuthRegisterResponse> {
+    return postToApi<AuthRegisterParams, AuthRegisterResponse>(
+      "auth/register",
+      {
+        email,
+        username,
+        password,
+        passwordAgain,
+      }
+    );
   }
 
-  public viewAuthenticatedUser(): Promise<AuthProfileData> {
+  public viewAuthenticatedUser(): Promise<AuthProfileResponse> {
     return fetchFromApi("auth/profile");
   }
 

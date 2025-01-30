@@ -1,17 +1,13 @@
 import type { Component } from "solid-js";
-
-import styles from "./App.module.css";
 import { SiteSidebar } from "./components/site-sidebar/SiteSidebar";
 import { AuthProvider } from "./context/AuthContext";
+import { Router } from "./screens/Router";
 
-const App: Component = () => {
+export const CrabShellApp: Component = () => {
   return (
     <AuthProvider>
-      <div class={styles.App}>
-        <SiteSidebar />
-      </div>
+      <SiteSidebar />
+      <Router />
     </AuthProvider>
   );
 };
-
-export default App;

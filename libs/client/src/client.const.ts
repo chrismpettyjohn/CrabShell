@@ -6,6 +6,9 @@ export async function fetchFromApi<T>(url: string): Promise<T> {
       "Content-Type": "application/json",
     },
   });
+  if (!response.ok) {
+    throw new Error("Registration failed");
+  }
   return response.json();
 }
 
