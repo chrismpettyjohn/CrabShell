@@ -4,6 +4,7 @@ import { SITE_NAME } from "../../App.const";
 import { authService } from "@crabshell/client";
 import { useAuth } from "../../context/AuthContext";
 import { redirect } from "@solidjs/router";
+import { SiteTitle } from "../../components/site-title/SiteTitle";
 
 export const LoginScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -28,6 +29,7 @@ export const LoginScreen: Component = () => {
 
   return (
     <GuardGuest>
+      <SiteTitle>Log In</SiteTitle>
       <div class="login-page">
         <div class="container">
           <div class="logo">

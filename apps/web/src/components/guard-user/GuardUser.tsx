@@ -16,5 +16,5 @@ export function GuardUser({ children }: GuardUserProps) {
     }
   });
 
-  return !user() ? children : null;
+  return user() ? children : null;
 }

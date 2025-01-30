@@ -1,5 +1,6 @@
 import { createSignal, type Component } from "solid-js";
 import { GuardGuest } from "../../components/guard-guest/GuardGuest";
+import { SiteTitle } from "../../components/site-title/SiteTitle";
 
 export const RegisterScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -13,6 +14,7 @@ export const RegisterScreen: Component = () => {
   }
   return (
     <GuardGuest>
+      <SiteTitle>Register</SiteTitle>
       <div class="login-page">
         <div class="container">
           <div class="logo">
