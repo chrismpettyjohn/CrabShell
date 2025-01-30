@@ -1,4 +1,7 @@
+import { useSession } from "../../context/SessionProvider";
+
 export function SiteSidebar() {
+  const { user } = useSession();
   return (
     <>
       <header>
@@ -26,7 +29,7 @@ export function SiteSidebar() {
               src="imageURL?figure=.Look&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
             />
           </div>
-          <h2>.Username</h2>
+          <h2>{user()?.username}</h2>
           <div class="quick-stats">
             <div class="stat-block">
               <h3>.BadgeCount</h3>
