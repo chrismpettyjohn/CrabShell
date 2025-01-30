@@ -1,3 +1,4 @@
+import { IMAGER_BASE_URL } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
 
 export function SiteSidebar() {
@@ -26,21 +27,21 @@ export function SiteSidebar() {
           <div class="avatar-container">
             <img
               class="avatar"
-              src="imageURL?figure=.Look&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
+              src={`${IMAGER_BASE_URL}?figure=.Look&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif`}
             />
           </div>
           <h2>{user()?.username}</h2>
           <div class="quick-stats">
             <div class="stat-block">
-              <h3>.BadgeCount</h3>
+              <h3>-1</h3>
               <p>Badges</p>
             </div>
             <div class="stat-block">
-              <h3>.FriendCount</h3>
+              <h3>-1</h3>
               <p>Friends</p>
             </div>
             <div class="stat-block">
-              <h3>.Achievement</h3>
+              <h3>-1</h3>
               <p>Achievements</p>
             </div>
           </div>
