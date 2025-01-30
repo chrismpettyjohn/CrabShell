@@ -6,7 +6,6 @@ import { Router } from "./screens/Router";
 export const CrabShellApp: Component = () => {
   return (
     <AuthProvider>
-      <SiteSidebar />
       <Router />
     </AuthProvider>
   );

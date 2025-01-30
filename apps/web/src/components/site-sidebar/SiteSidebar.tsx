@@ -1,8 +1,20 @@
-import { IMAGER_BASE_URL } from "../../App.const";
+import { IMAGER_BASE_URL, SITE_NAME } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
+import { useLocation } from "@solidjs/router";
+
+const SIDEBAR_LINKS = [
+  { path: "/me", icon: "fa-home", label: "Dashboard" },
+  { path: "/articles", icon: "fa-newspaper", label: "News Articles" },
+  { path: "/high-scores", icon: "fa-trophy", label: "High Scores" },
+  { path: "/staff", icon: "fa-users", label: "Staff Team" },
+  { path: "/play", icon: "fa-gamepad", label: "Play Game" },
+  { path: "/logout", icon: "fa-sign-out", label: "Logout" },
+];
 
 export function SiteSidebar() {
   const { user } = useAuth();
+  const location = useLocation();
+
   return (
     <>
       <header>
@@ -15,7 +27,7 @@ export function SiteSidebar() {
             />
           </div>
         </div>
-        <div class="text-logo">habcrab</div>
+        <div class="text-logo">{SITE_NAME}</div>
         <div class="actions">
           <button class="enter-hotel-btn">
             <b>.OnlineUsers</b>&nbsp;users online
@@ -47,30 +59,12 @@ export function SiteSidebar() {
           </div>
         </div>
         <div class="navigation">
-          <a href="/" class="active">
-            <i class="fa fa-home" />
-            Dashboard
-          </a>
-          <a href="/articles">
-            <i class="fa fa-newspaper" />
-            News Articles
-          </a>
-          <a href="/high-scores">
-            <i class="fa fa-trophy" />
-            High Scores
-          </a>
-          <a href="/staff">
-            <i class="fa fa-users" />
-            Staff Team
-          </a>
-          <a href="/play">
-            <i class="fa fa-gamepad" />
-            Play Game
-          </a>
-          <a href="/logout">
-            <i class="fa fa-sign-out" />
-            Logout
-          </a>
+          {SIDEBAR_LINKS.map(({ path, icon, label }) => (
+            <a href={path} class={location.pathname === path ? "active" : ""}>
+              <i class={`fa ${icon}`} />
+              {label}
+            </a>
+          ))}
         </div>
         <footer>
           <a href="/about">CrabShell</a>

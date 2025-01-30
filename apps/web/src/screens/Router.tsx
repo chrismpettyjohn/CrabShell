@@ -5,6 +5,7 @@ import { RegisterScreen } from "./register-screen/RegisterScreen";
 import { MeScreen } from "./me-screen/MeScreen";
 import { PlayScreen } from "./play-screen/PlayScreen";
 import { LogoutScreen } from "./logout-screen/LogoutScreen";
+import { ArticlesListScreen } from "./articles-list-screen/ArticlesListScreen";
 
 export const Router: Component = () => {
   return (
@@ -14,6 +15,7 @@ export const Router: Component = () => {
       <Route path="/me" component={MeScreen} />
       <Route path="/play" component={PlayScreen} />
       <Route path="/logout" component={LogoutScreen} />
+      <Route path="/articles" component={ArticlesListScreen} />
     </BaseRouter>
   );
 };
