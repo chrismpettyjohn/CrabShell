@@ -49,8 +49,8 @@ export class UserEntity {
   @Column({ name: 'account_created' })
   accountCreatedAt!: number;
 
-  @Column({ name: 'online', type: 'int' })
-  onlineStatus: number;
+  @Column({ name: 'online' })
+  onlineStatus: '0' | '1';
 
   @Column({ name: 'last_online' })
   lastOnlineAt!: number;

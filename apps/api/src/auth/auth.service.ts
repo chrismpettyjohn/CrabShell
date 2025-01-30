@@ -37,9 +37,12 @@ export class AuthService {
     return user;
   }
 
-  async login(loginDto: AuthLoginDTO, reply: FastifyReply) {
+  async login(
+    loginDto: AuthLoginDTO,
+    reply: FastifyReply,
+  ): Promise<UserEntity> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
-    
+
     // Create session
     const session = await this.sessionRepository.create({
       userID: user.id,
@@ -48,17 +51,13 @@ export class AuthService {
     // Set session cookie using the session ID
     reply.setCookie('sessionId', String(session.id), cookieConfig);
 
-    return {
-      user: {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        rankID: user.rankID,
-      },
-    };
+    return user;
   }
 
-  async register(registerDto: AuthRegisterDTO, reply: FastifyReply) {
+  async register(
+    registerDto: AuthRegisterDTO,
+    reply: FastifyReply,
+  ): Promise<UserEntity> {
     const existingUser = await this.userRepository.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
     });
@@ -81,7 +80,7 @@ export class AuthService {
       lastOnlineAt: now,
       ipLast: '127.0.0.1', // You should get this from request
       ipRegistered: '127.0.0.1', // You should get this from request
-      onlineStatus: 0,
+      onlineStatus: '0',
       rankID: 1,
       credits: USER_DEFAULT_CREDITS,
       vipPoints: USER_DEFAULT_POINTS,
@@ -93,7 +92,10 @@ export class AuthService {
       machineAddress: null,
     });
 
-    return this.login({ username: user.username, password: registerDto.password }, reply);
+    return this.login(
+      { username: user.username, password: registerDto.password },
+      reply,
+    );
   }
 
   async logout(sessionId: number, reply: FastifyReply) {
@@ -104,7 +106,7 @@ export class AuthService {
 
   async validateSession(sessionId: number): Promise<UserEntity> {
     const session = await this.sessionRepository.findOne({
-      where: { id: sessionId }
+      where: { id: sessionId },
     });
 
     if (!session) {
@@ -112,7 +114,7 @@ export class AuthService {
     }
 
     const user = await this.userRepository.findOne({
-      where: { id: session.userID }
+      where: { id: session.userID },
     });
 
     if (!user) {
@@ -122,20 +124,7 @@ export class AuthService {
     return user;
   }
 
-  async getProfile(sessionId: number) {
-    const user = await this.validateSession(sessionId);
-
-    return {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      rankID: user.rankID,
-      credits: user.credits,
-      vipPoints: user.vipPoints,
-      activityPoints: user.activityPoints,
-      look: user.look,
-      gender: user.gender,
-      motto: user.motto,
-    };
+  async getProfile(sessionId: number): Promise<UserEntity> {
+    return this.validateSession(sessionId);
   }
 }
