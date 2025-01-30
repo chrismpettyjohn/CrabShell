@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+out/
+.bundle/
+.cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs and debugging
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDE-specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
