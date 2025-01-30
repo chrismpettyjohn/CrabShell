@@ -1,17 +1,16 @@
 import type { Component } from "solid-js";
 
-import logo from "./logo.svg";
 import styles from "./App.module.css";
 import { SiteSidebar } from "./components/site-sidebar/SiteSidebar";
-import { SessionProvider } from "./context/SessionProvider";
+import { AuthProvider } from "./context/AuthContext";
 
 const App: Component = () => {
   return (
-    <SessionProvider>
+    <AuthProvider>
       <div class={styles.App}>
         <SiteSidebar />
       </div>
-    </SessionProvider>
+    </AuthProvider>
   );
 };
 

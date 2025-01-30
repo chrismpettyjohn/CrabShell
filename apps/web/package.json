@@ -1,5 +1,6 @@
 {
   "name": "@crabshell/web",
+  "version": "0.0.1",
   "private": true,
   "description": "",
   "type": "module",
@@ -16,6 +17,7 @@
     "vite-plugin-solid": "^2.11.0"
   },
   "dependencies": {
-    "solid-js": "^1.9.4"
+    "solid-js": "^1.9.4",
+    "@crabshell/client": "workspace:*"
   }
 }

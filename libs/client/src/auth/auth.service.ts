@@ -32,6 +32,10 @@ export class AuthService {
   public viewAuthenticatedUser(): Promise<AuthProfileData> {
     return fetchFromApi("auth/profile");
   }
+
+  public async logout(): Promise<void> {
+    await postToApi("auth/logout", {});
+  }
 }
 
 export const authService: AuthService = new AuthService();

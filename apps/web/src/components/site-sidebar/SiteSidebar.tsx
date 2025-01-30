@@ -1,7 +1,7 @@
-import { useSession } from "../../context/SessionProvider";
+import { useAuth } from "../../context/AuthContext";
 
 export function SiteSidebar() {
-  const { user } = useSession();
+  const { user } = useAuth();
   return (
     <>
       <header>
