@@ -1,4 +1,5 @@
 import { usersService } from "@crabshell/client";
+import { A } from "@solidjs/router";
 import { createSignal, onMount, onCleanup } from "solid-js";
 
 export function EnterHotelButton() {
@@ -17,10 +18,10 @@ export function EnterHotelButton() {
   });
 
   return (
-    <a href="/play">
+    <A href="/play">
       <button class="enter-hotel-btn">
         <b>{usersOnline()}</b>&nbsp;users online
       </button>
-    </a>
+    </A>
   );
 }

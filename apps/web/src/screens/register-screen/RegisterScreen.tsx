@@ -1,6 +1,7 @@
 import { createSignal, type Component } from "solid-js";
 import { GuardGuest } from "../../components/guard-guest/GuardGuest";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { A } from "@solidjs/router";
 
 const RegisterScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -75,15 +76,15 @@ const RegisterScreen: Component = () => {
               </button>
             </form>
             <div class="actions">
-              <a href="/login">Return to Login</a>
+              <A href="/login">Return to Login</A>
             </div>
           </div>
           <br />
           <footer>
             Powered by{" "}
-            <a href="/about">
+            <A href="/about">
               <b>CrabShell</b>
-            </a>
+            </A>
           </footer>
         </div>
       </div>

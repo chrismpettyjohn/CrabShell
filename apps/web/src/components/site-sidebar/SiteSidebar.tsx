@@ -1,6 +1,6 @@
 import { IMAGER_BASE_URL, SITE_NAME } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
-import { useLocation } from "@solidjs/router";
+import { A, useLocation } from "@solidjs/router";
 import { EnterHotelButton } from "./enter-hotel-button/EnterHotelButton";
 
 const SIDEBAR_LINKS = [
@@ -59,14 +59,14 @@ export function SiteSidebar() {
         </div>
         <div class="navigation">
           {SIDEBAR_LINKS.map(({ path, icon, label }) => (
-            <a href={path} class={location.pathname === path ? "active" : ""}>
+            <A href={path} class={location.pathname === path ? "active" : ""}>
               <i class={`fa ${icon}`} />
               {label}
-            </a>
+            </A>
           ))}
         </div>
         <footer>
-          <a href="/about">CrabShell</a>
+          <A href="/about">CrabShell</A>
         </footer>
       </div>
     </>

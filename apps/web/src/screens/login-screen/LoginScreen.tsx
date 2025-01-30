@@ -3,7 +3,7 @@ import { GuardGuest } from "../../components/guard-guest/GuardGuest";
 import { SITE_NAME } from "../../App.const";
 import { authService } from "@crabshell/client";
 import { useAuth } from "../../context/AuthContext";
-import { redirect } from "@solidjs/router";
+import { A, redirect } from "@solidjs/router";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 
 const LoginScreen: Component = () => {
@@ -68,20 +68,20 @@ const LoginScreen: Component = () => {
               </button>
             </form>
             <br />
-            <a href="/register">
+            <A href="/register">
               <button class="info-btn" disabled={!canSubmit()}>
                 Join today for free
               </button>
-            </a>
+            </A>
             <div class="actions">
-              <a href="/forgot-password">Forgot Password?</a>
+              <A href="/forgot-password">Forgot Password?</A>
             </div>
           </div>
           <br />
           <footer>
-            <a href="/about">
+            <A href="/about">
               <b>CrabShell</b>
-            </a>
+            </A>
           </footer>
         </div>
       </div>
