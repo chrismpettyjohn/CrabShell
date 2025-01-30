@@ -4,3 +4,5 @@ export interface UserWire {
   look: string;
   motto: string;
 }
+
+export type UsersOnlineResponse = UserWire[];

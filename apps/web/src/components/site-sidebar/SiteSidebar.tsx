@@ -1,6 +1,7 @@
 import { IMAGER_BASE_URL, SITE_NAME } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation } from "@solidjs/router";
+import { EnterHotelButton } from "./enter-hotel-button/EnterHotelButton";
 
 const SIDEBAR_LINKS = [
   { path: "/me", icon: "fa-home", label: "Dashboard" },
@@ -29,9 +30,7 @@ export function SiteSidebar() {
         </div>
         <div class="text-logo">{SITE_NAME}</div>
         <div class="actions">
-          <button class="enter-hotel-btn">
-            <b>.OnlineUsers</b>&nbsp;users online
-          </button>
+          <EnterHotelButton />
         </div>
       </header>
       <div id="sidebar">
