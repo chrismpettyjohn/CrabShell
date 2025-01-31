@@ -1,6 +1,7 @@
 import { lazy, type Component } from "solid-js";
 import { Router as BaseRouter, Route } from "@solidjs/router";
 
+const LandingScreen = lazy(() => import("./landing-screen/LandingScreen"));
 const LoginScreen = lazy(() => import("./login-screen/LoginScreen"));
 const RegisterScreen = lazy(() => import("./register-screen/RegisterScreen"));
 const MeScreen = lazy(() => import("./me-screen/MeScreen"));
@@ -32,6 +33,7 @@ const StaffScreen = lazy(() => import("./staff-screen/StaffScreen"));
 export const Router: Component = () => {
   return (
     <BaseRouter>
+      <Route path="/" component={LandingScreen} />
       <Route path="/login" component={LoginScreen} />
       <Route path="/register" component={RegisterScreen} />
       <Route path="/me" component={MeScreen} />
