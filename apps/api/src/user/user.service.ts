@@ -90,6 +90,7 @@ export class UserService {
       order: {
         id: 'DESC',
       },
+      take: 10,
     });
   }
 }
