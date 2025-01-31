@@ -21,7 +21,7 @@ export class UserController {
 
   @Get('newest')
   async newest(): Promise<UserDTO[]> {
-    const onlineUsers: UserEntity[] = await this.userService.getOnline();
+    const onlineUsers: UserEntity[] = await this.userService.getNewest();
     return onlineUsers.map(UserDTO.fromEntity);
   }
 
