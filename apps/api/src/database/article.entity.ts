@@ -12,7 +12,7 @@ export class ArticleEntity {
   id!: number;
 
   @Column({ name: 'user_id' })
-  userID!: number;
+  userId!: number;
 
   @Column()
   name!: string;

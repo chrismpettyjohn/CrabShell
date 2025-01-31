@@ -2,6 +2,10 @@
 export * from "./achievement/achievement.service";
 export * from "./achievement/achievement.types";
 
+// Article
+export * from "./article/article.service";
+export * from "./article/article.types";
+
 // // Auth
 export * from "./auth/auth.service";
 export * from "./auth/auth.types";
