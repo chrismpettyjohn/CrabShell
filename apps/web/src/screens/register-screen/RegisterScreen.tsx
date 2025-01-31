@@ -31,7 +31,7 @@ const RegisterScreen: Component = () => {
       <div class="login-page">
         <div class="container">
           <div class="logo">
-            <img src="/assets/img/logo.png" alt="Habbo Logo" />
+            <img src="/img/logo.png" alt="Habbo Logo" />
           </div>
           <p class="online-status">{onlineUsers().length} crabs online</p>
           <br />

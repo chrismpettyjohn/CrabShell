@@ -19,11 +19,7 @@ export function SiteSidebar() {
       <header>
         <div class="brand-container">
           <div style="display:flex;justify-content: center;align-items: center;gap:4px;">
-            <img
-              class="logo"
-              src="/assets/img/logo.png"
-              style="height: 60px;"
-            />
+            <img class="logo" src="/img/logo.png" style="height: 60px;" />
           </div>
         </div>
         <div class="text-logo">{SITE_NAME}</div>
