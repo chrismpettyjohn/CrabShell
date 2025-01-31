@@ -4,6 +4,7 @@ import { SiteTitle } from "../../components/site-title/SiteTitle";
 import { A, redirect } from "@solidjs/router";
 import { authService } from "@crabshell/client";
 import { useAuth } from "../../context/AuthContext";
+import { UserCount } from "../../components/user-count/UserCount";
 
 const RegisterScreen: Component = () => {
   const { setUser } = useAuth();
@@ -31,7 +32,9 @@ const RegisterScreen: Component = () => {
           <div class="logo">
             <img src="/assets/img/logo.png" alt="Habbo Logo" />
           </div>
-          <p class="online-status">0 crabs online</p>
+          <p class="online-status">
+            <UserCount /> crabs online
+          </p>
           <br />
           <div class="login-box">
             <h2>Join HabCrab Today!</h2>

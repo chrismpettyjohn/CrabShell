@@ -5,6 +5,7 @@ import { authService } from "@crabshell/client";
 import { useAuth } from "../../context/AuthContext";
 import { A, redirect } from "@solidjs/router";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { UserCount } from "../../components/user-count/UserCount";
 
 const LoginScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -35,7 +36,9 @@ const LoginScreen: Component = () => {
           <div class="logo">
             <img src="/assets/img/logo.png" alt="Habbo Logo" />
           </div>
-          <p class="online-status">0 crabs online</p>
+          <p class="online-status">
+            <UserCount /> crabs online
+          </p>
           <br />
           <div class="login-box">
             <h2>Welcome to {SITE_NAME}!</h2>
