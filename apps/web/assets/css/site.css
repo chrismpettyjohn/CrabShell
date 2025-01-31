@@ -261,7 +261,7 @@ header .text-logo  {
     color: var(--color-brand);
 }
 
-#sidebar .navigation .active {
+#sidebar .navigation .active, #sidebar .navigation .current {
     border-color: var(--bg-two);
     background-color: var(--color-four);
     color: var(--color-brand);

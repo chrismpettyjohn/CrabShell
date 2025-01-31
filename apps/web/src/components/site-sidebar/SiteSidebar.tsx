@@ -34,12 +34,21 @@ export function SiteSidebar() {
       <div id="sidebar">
         <UserArea />
         <div class="navigation">
-          {SIDEBAR_LINKS.map(({ path, icon, label }) => (
-            <A href={path} class={location.pathname === path ? "active" : ""}>
-              <i class={`fa ${icon}`} />
-              {label}
-            </A>
-          ))}
+          {SIDEBAR_LINKS.map(({ path, icon, label }) => {
+            const currentBase = location.pathname
+              .split("/")
+              .slice(0, 2)
+              .join("/"); // Extract first two segments
+            const linkBase = path.split("/").slice(0, 2).join("/"); // Extract first two segments from link
+            const isActive = currentBase === linkBase;
+
+            return (
+              <A href={path} class={`${isActive ? "current" : ""}`.trim()}>
+                <i class={`fa ${icon}`} />
+                {label}
+              </A>
+            );
+          })}
         </div>
         <footer>
           <b>CrabShell</b>
