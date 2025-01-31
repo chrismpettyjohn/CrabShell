@@ -424,6 +424,8 @@ button:hover {
     box-shadow: var(--shadow-one);
     max-width: 100%;
     overflow: hidden;
+    height: 100%;
+    max-height: 600px;
 }
 
 .post-card .post-header {
@@ -464,13 +466,12 @@ button:hover {
     font-size: 14px;
     color: var(--color-one);
     height: 100%;
-    max-height: 300px;
     padding: 0;
     margin-bottom: 8px;
 }
 
 .post-card iframe {
-    height: 300px;
+    height: 100%;
 }
 
 .post-card .post-tags {
@@ -508,6 +509,9 @@ button:hover {
     color: var(--color-one);
 }
 
+.post-card .post-footer {
+    margin-top: 8px;
+}
 
 .post-card .post-footer .fa {
     margin-right: 5px;
