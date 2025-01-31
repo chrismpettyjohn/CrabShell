@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/assets/fonts/quicksand/Quicksand-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/assets/fonts/quicksand/Quicksand-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/assets/fonts/quicksand/Quicksand-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/assets/fonts/quicksand/Quicksand-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/assets/fonts/quicksand/Quicksand-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MilkyNice';
+  src: url('/assets/fonts/milky-nice/MilkyNice.ttf') format('truetype'),
+  url('/assets/fonts/milky-nice/MilkyNice.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'MilkyNice-Clean';
+  src: url('/assets/fonts/milky-nice/MilkyNice-Clean.ttf') format('truetype'),
+  url('/assets/fonts/milky-nice/MilkyNice-Clean.otf') format('opentype');
+}

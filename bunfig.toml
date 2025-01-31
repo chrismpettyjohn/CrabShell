@@ -1,3 +1,2 @@
 [install]
-# Use workspaces for monorepo management
 workspaces = ["apps/*", "libs/*"]
