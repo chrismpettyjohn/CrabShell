@@ -9,6 +9,9 @@ const LogoutScreen = lazy(() => import("./logout-screen/LogoutScreen"));
 const ArticlesListScreen = lazy(
   () => import("./articles-list-screen/ArticlesListScreen")
 );
+const ArticlesViewScreen = lazy(
+  () => import("./articles-view-screen/ArticlesViewScreen")
+);
 
 export const Router: Component = () => {
   return (
@@ -19,6 +22,7 @@ export const Router: Component = () => {
       <Route path="/play" component={PlayScreen} />
       <Route path="/logout" component={LogoutScreen} />
       <Route path="/articles" component={ArticlesListScreen} />
+      <Route path="/articles/:articleId" component={ArticlesViewScreen} />
     </BaseRouter>
   );
 };

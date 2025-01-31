@@ -3,6 +3,7 @@ import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { GuardUser } from "../../components/guard-user/GuardUser";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 import { articleService, ArticleWire } from "@crabshell/client";
+import { A } from "@solidjs/router";
 
 const ArticlesListScreen: Component = () => {
   const [articles, setArticles] = createSignal<ArticleWire[]>([]);
@@ -34,18 +35,20 @@ const ArticlesListScreen: Component = () => {
           <div class="news-articles">
             <div class="container" id="articles-container">
               {articles().map((_) => (
-                <div
-                  class="article-card"
-                  data-category="Client"
-                  style={`background-image: url(${_.imageUrl});`}
-                >
-                  <div class="card-content">
-                    <div class="label">Client</div>
-                    <h3>{_.name}</h3>
-                    <p>{_.description}</p>
-                    <span>{_.createdAt}</span>
+                <A href={`/articles/${_.id}`}>
+                  <div
+                    class="article-card"
+                    data-category="Client"
+                    style={`background-image: url(${_.imageUrl});`}
+                  >
+                    <div class="card-content">
+                      <div class="label">Client</div>
+                      <h3>{_.name}</h3>
+                      <p>{_.description}</p>
+                      <span>{_.createdAt}</span>
+                    </div>
                   </div>
-                </div>
+                </A>
               ))}
             </div>
           </div>

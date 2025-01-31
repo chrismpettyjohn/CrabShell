@@ -878,6 +878,11 @@ button:hover {
     color: var(--color-two);
     margin: 0;
 }
+
+.news-articles a {
+    text-decoration: none;;
+}
+
 .news-articles .card {
     background-position: 500px;
     cursor: pointer;
