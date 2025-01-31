@@ -18,6 +18,10 @@ export * from "./badge/badge.types";
 export * from "./group/group.service";
 export * from "./group/group.types";
 
+// High Scores
+export * from "./high-scores/high-scores.service";
+export * from "./high-scores/high-scores.types";
+
 // User
 export * from "./user/user.service";
 export * from "./user/user.types";

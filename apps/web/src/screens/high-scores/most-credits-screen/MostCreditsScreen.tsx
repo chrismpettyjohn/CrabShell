@@ -1,7 +1,15 @@
-import { Component } from "solid-js";
+import { Component, createSignal, onMount } from "solid-js";
 import { HighScoresLayout } from "../HighScoresLayout";
+import { HighScoresByCreditsRow, highScoresService } from "@crabshell/client";
 
 const MostCreditsScreen: Component = () => {
+  const [rows, setRows] = createSignal<HighScoresByCreditsRow[]>([]);
+
+  onMount(async () => {
+    const response = await highScoresService.getByCredits();
+    setRows(response.items);
+  });
+
   return (
     <HighScoresLayout>
       <div class="scores-table active" id="credits">
@@ -15,18 +23,20 @@ const MostCreditsScreen: Component = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>#1</td>
-              <td>
-                <img
-                  class="avatar"
-                  src="{{imageURL}}?user=Chris&headonly=1"
-                  style="object-fit: contain"
-                />
-              </td>
-              <td>LeChris</td>
-              <td>10,000</td>
-            </tr>
+            {rows().map((_, i) => (
+              <tr>
+                <td>#{i + 1}</td>
+                <td>
+                  <img
+                    class="avatar"
+                    src="{{imageURL}}?user=Chris&headonly=1"
+                    style="object-fit: contain"
+                  />
+                </td>
+                <td>{_.username}</td>
+                <td>{_.credits}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

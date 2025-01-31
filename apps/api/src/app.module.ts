@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { GroupModule } from './group/group.module';
 import { ArticleModule } from './article/article.module';
+import { HighScoresModule } from './high-scores/high-scores.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ArticleModule } from './article/article.module';
     DatabaseModule,
     UserModule,
     GroupModule,
+    HighScoresModule,
   ],
 })
 export class AppModule {}
