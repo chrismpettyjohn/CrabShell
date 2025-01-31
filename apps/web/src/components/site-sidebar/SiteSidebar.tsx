@@ -51,7 +51,9 @@ export function SiteSidebar() {
           })}
         </div>
         <footer>
-          <b>CrabShell</b>
+          <A href="/about">
+            <b>CrabShell</b>
+          </A>
         </footer>
       </div>
     </>

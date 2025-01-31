@@ -78,7 +78,9 @@ const LoginScreen: Component = () => {
           </div>
           <br />
           <footer>
-            <b>CrabShell</b>
+            <A href="/about">
+              <b>CrabShell</b>
+            </A>
           </footer>
         </div>
       </div>

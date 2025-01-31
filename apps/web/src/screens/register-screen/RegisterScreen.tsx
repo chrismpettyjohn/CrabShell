@@ -93,7 +93,10 @@ const RegisterScreen: Component = () => {
           </div>
           <br />
           <footer>
-            Powered by <b>CrabShell</b>
+            Powered by{" "}
+            <A href="/about">
+              <b>CrabShell</b>
+            </A>
           </footer>
         </div>
       </div>
