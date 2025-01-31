@@ -1,5 +1,5 @@
 import { fetchFromApi } from "../client.const";
-import { UsersOnlineResponse } from "./user.types";
+import { UserByIdResponse, UsersOnlineResponse } from "./user.types";
 
 export class UsersService {
   public getOnlineUsers(): Promise<UsersOnlineResponse> {
@@ -8,6 +8,9 @@ export class UsersService {
 
   public getNewestUsers(): Promise<UsersOnlineResponse> {
     return fetchFromApi("users/newest");
+  }
+  public getById(userId: number): Promise<UserByIdResponse> {
+    return fetchFromApi(`users/${userId}`);
   }
 
   public getFriends(userId: number): Promise<UsersOnlineResponse> {

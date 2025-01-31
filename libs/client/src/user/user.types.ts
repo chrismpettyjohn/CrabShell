@@ -6,3 +6,5 @@ export interface UserWire {
 }
 
 export type UsersOnlineResponse = UserWire[];
+
+export type UserByIdResponse = UserWire;

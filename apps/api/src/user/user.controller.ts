@@ -32,6 +32,11 @@ export class UserController {
     return this.userService.getAchievements(user.id!);
   }
 
+  @Get('/:userID')
+  byId(@Param('userID', UserPipe) user: UserEntity): UserDTO {
+    return UserDTO.fromEntity(user);
+  }
+
   @Get('/:userID/badges')
   async badges(
     @Param('userID', UserPipe) user: UserEntity,

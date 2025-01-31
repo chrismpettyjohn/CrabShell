@@ -21,7 +21,7 @@ export function PostsTimeline() {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/LDU_Txk06tM?autoplay=1&start=35"
+            src="https://www.youtube.com/embed/LDU_Txk06tM?start=35"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
