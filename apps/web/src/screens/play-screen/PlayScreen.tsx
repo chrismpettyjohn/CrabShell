@@ -21,7 +21,7 @@ const PlayScreen: Component = () => {
       <SiteTitle>Play</SiteTitle>
       <iframe
         style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-        src={`${NITRO_URL}?sso=${sso}`}
+        src={`${NITRO_URL}?sso=${sso()}`}
       />
     </GuardUser>
   );
