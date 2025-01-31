@@ -1,96 +1,29 @@
 import { createSignal } from "solid-js";
 import { TabBar } from "../../../components/tab-bar/TabBar";
+import { groupsService } from "@crabshell/client";
+import { MyGroupsCard } from "./MyGroupsCard";
+import { GroupsListCard } from "./GroupsListCard";
 
 const tabs = [
   {
     label: "Newest",
-    view: () => (
-      <div class="users-list">
-        <div class="row">
-          <div class="avatar-container">
-            <img
-              class="avatar"
-              src="{{imageURL}}?user=Chris&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
-            />
-          </div>
-          <div class="avatar-info">
-            <h4>LeChris</h4>
-            <img src="https://i.imgur.com/6Dq8uGr.png" class="status" />
-            <p>i eat oysters and have 10 legs</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="avatar-container">
-            <img
-              class="avatar"
-              src="{{imageURL}}?user=Tre&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
-            />
-          </div>
-          <div class="avatar-info">
-            <h4>Tre</h4>
-            <img src="https://i.imgur.com/6Dq8uGr.png" class="status" />
-            <p>big crustaceans turn me on</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="avatar-container">
-            <img
-              class="avatar"
-              src="{{imageURL}}?user=angel&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
-            />
-          </div>
-          <div class="avatar-info">
-            <h4>angel</h4>
-            <img src="https://i.imgur.com/6Dq8uGr.png" class="status" />
-            <p>big crustaceans turn me on</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="avatar-container">
-            <img
-              class="avatar"
-              src="{{imageURL}}?user=Crab&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
-            />
-          </div>
-          <div class="avatar-info">
-            <h4>Crab</h4>
-            <img src="https://i.imgur.com/6Dq8uGr.png" class="status" />
-            <p>big crustaceans turn me on</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="avatar-container">
-            <img
-              class="avatar"
-              src="{{imageURL}}?user=Lobster&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif"
-            />
-          </div>
-          <div class="avatar-info">
-            <h4>Lobster</h4>
-            <img src="https://i.imgur.com/6Dq8uGr.png" class="status" />
-            <p>big crustaceans turn me on</p>
-          </div>
-        </div>
-      </div>
-    ),
+    view: () => <GroupsListCard getGroups={groupsService.getNewestGroups} />,
   },
   {
     label: "Popular",
-    view: () => <p>popular</p>,
+    view: () => <GroupsListCard getGroups={groupsService.getPopularGroups} />,
   },
-  {
-    label: "My Groups",
-    view: () => <p>my groups</p>,
-  },
+  { label: "My Groups", view: () => <MyGroupsCard /> },
 ];
 
 export function GroupsCard() {
-  const [tab, setTab] = createSignal(tabs[0]);
+  const [tabIndex, setTabIndex] = createSignal(0); // Reactive signal for tab index
 
   return (
     <div class="card">
       <h2>Groups</h2>
-      <TabBar tabs={tabs} activeTab={tab} setTab={setTab} />
+      <TabBar tabs={tabs} activeTab={tabIndex} setTab={setTabIndex} />
+      <div class="tab-content">{tabs[tabIndex()].view()}</div>{" "}
     </div>
   );
 }
