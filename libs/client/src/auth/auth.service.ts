@@ -36,8 +36,9 @@ export class AuthService {
     return fetchFromApi("auth/profile");
   }
 
-  public generateSSO(): Promise<string> {
-    return fetchFromApi("auth/sso");
+  public async generateSSO(): Promise<string> {
+    const response: Record<"sso", string> = await fetchFromApi("auth/sso");
+    return response.sso;
   }
 
   public async logout(): Promise<void> {

@@ -56,7 +56,8 @@ export class AuthController {
       Number(request.cookies['sessionId']),
     );
 
-    return this.authService.generateSSO(user.id!);
+    const sso = await this.authService.generateSSO(user.id!);
+    return reply.send({ sso });
   }
 
   @Get('profile')

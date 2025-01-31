@@ -103,7 +103,7 @@ export class AuthService {
   }
 
   async generateSSO(userId: number): Promise<string> {
-    const gameSSO: string = 'crabshell_' + generate(50) + '_' + userId;
+    const gameSSO: string = 'crabshell_' + generate(30) + '_' + userId;
     await this.userRepository.update({ id: userId }, { gameSSO });
     return gameSSO;
   }

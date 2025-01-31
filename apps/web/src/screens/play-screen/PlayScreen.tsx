@@ -12,17 +12,17 @@ const PlayScreen: Component = () => {
     setSSO(response);
   });
 
-  if (!sso) {
-    return null;
-  }
-
   return (
     <GuardUser>
       <SiteTitle>Play</SiteTitle>
-      <iframe
-        style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
-        src={`${NITRO_URL}?sso=${sso()}`}
-      />
+      {sso() ? (
+        <iframe
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+          src={`${NITRO_URL}?sso=${sso()}`}
+        />
+      ) : (
+        <p>Signing in...</p>
+      )}
     </GuardUser>
   );
 };
