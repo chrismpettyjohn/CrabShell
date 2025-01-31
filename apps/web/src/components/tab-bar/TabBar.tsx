@@ -4,26 +4,24 @@ export interface Tab {
   label: string;
   view: () => JSX.Element;
 }
+
 export interface TabBarProps {
-  activeTab: () => Tab;
-  setTab: (newTab: Tab) => void;
+  activeTab: () => number; // Getter function for current tab index
+  setTab: (newTabIndex: number) => void; // Setter function to change tab index
   tabs: Tab[];
 }
 
 export function TabBar({ activeTab, setTab, tabs }: TabBarProps) {
   return (
-    <>
-      <div class="tabs-container">
-        {tabs.map((tab) => (
-          <span
-            class={tab === activeTab() ? "active" : ""}
-            onClick={() => setTab(tab)}
-          >
-            {tab.label}
-          </span>
-        ))}
-      </div>
-      {activeTab().view()}
-    </>
+    <div class="tabs-container">
+      {tabs.map((tab, index) => (
+        <span
+          class={index === activeTab() ? "active" : ""}
+          onClick={() => setTab(index)}
+        >
+          {tab.label}
+        </span>
+      ))}
+    </div>
   );
 }
