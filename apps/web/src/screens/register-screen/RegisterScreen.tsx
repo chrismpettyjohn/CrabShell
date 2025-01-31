@@ -1,9 +1,12 @@
 import { createSignal, type Component } from "solid-js";
 import { GuardGuest } from "../../components/guard-guest/GuardGuest";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
-import { A } from "@solidjs/router";
+import { A, redirect } from "@solidjs/router";
+import { authService } from "@crabshell/client";
+import { useAuth } from "../../context/AuthContext";
 
 const RegisterScreen: Component = () => {
+  const { setUser } = useAuth();
   const [username, setUsername] = createSignal("");
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
@@ -11,7 +14,14 @@ const RegisterScreen: Component = () => {
 
   async function onRegister(e: Event) {
     e.preventDefault();
-    console.log({ username: username(), password: password() });
+    const user = await authService.register(
+      email(),
+      username(),
+      password(),
+      passwordAgain()
+    );
+    setUser(user);
+    return redirect("/me");
   }
   return (
     <GuardGuest>
@@ -81,10 +91,7 @@ const RegisterScreen: Component = () => {
           </div>
           <br />
           <footer>
-            Powered by{" "}
-            <A href="/about">
-              <b>CrabShell</b>
-            </A>
+            Powered by <b>CrabShell</b>
           </footer>
         </div>
       </div>

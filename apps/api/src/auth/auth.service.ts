@@ -73,6 +73,8 @@ export class AuthService {
 
     const now = Math.floor(Date.now() / 1000);
 
+    const gameSSO: string = 'crabshell_' + generate(50) + '_' + 'new';
+
     const user = await this.userRepository.create({
       username: registerDto.username,
       password: hashedPassword,
@@ -90,8 +92,8 @@ export class AuthService {
       look: USER_DEFAULT_LOOK,
       motto: USER_DEFAULT_MOTTO,
       homeRoomID: USER_DEFAULT_HOME_ROOM,
-      gameSSO: null,
-      machineAddress: null,
+      gameSSO,
+      machineAddress: generate(10),
     });
 
     return this.login(

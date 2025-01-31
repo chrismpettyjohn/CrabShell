@@ -63,25 +63,20 @@ const LoginScreen: Component = () => {
                 required
               />
 
-              <button type="submit" class="success-btn">
+              <button type="submit" class="success-btn" disabled={!canSubmit()}>
                 Log In
               </button>
             </form>
             <br />
             <A href="/register">
-              <button class="info-btn" disabled={!canSubmit()}>
+              <button class="info-btn" type="button">
                 Join today for free
               </button>
             </A>
-            <div class="actions">
-              <A href="/forgot-password">Forgot Password?</A>
-            </div>
           </div>
           <br />
           <footer>
-            <A href="/about">
-              <b>CrabShell</b>
-            </A>
+            <b>CrabShell</b>
           </footer>
         </div>
       </div>
