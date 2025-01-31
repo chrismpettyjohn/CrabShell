@@ -1013,7 +1013,6 @@ button:hover {
     display: flex;
     gap: 24px;
     margin-bottom: 20px;
-    overflow-x: auto;
 }
 
 .high-scores-page .tabs-container span {
