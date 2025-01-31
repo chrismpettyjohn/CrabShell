@@ -1,44 +1,14 @@
-import { createSignal, onMount } from "solid-js";
 import { useAuth } from "../../../context/AuthContext";
-import {
-  achievementsService,
-  badgesService,
-  usersService,
-} from "@crabshell/client";
 import { IMAGER_BASE_URL } from "../../../App.const";
-
-interface UserAreaState {
-  friendCount: number;
-  badgeCount: number;
-  achievementCount: number;
-}
+import { useSidebar } from "../../../context/SidebarContext";
 
 export function UserArea() {
   const { user } = useAuth();
-  const [state, setState] = createSignal<UserAreaState>({
-    friendCount: 0,
-    badgeCount: 0,
-    achievementCount: 0,
-  });
+  const { achievementCount, badgeCount, friendCount } = useSidebar();
 
-  const userID = user()?.id;
-
-  if (!userID) {
+  if (!user()?.id) {
     return null;
   }
-
-  onMount(async () => {
-    const [friends, badges, achievements] = await Promise.all([
-      usersService.getFriends(userID),
-      badgesService.getBadgesByUserId(userID),
-      achievementsService.getAchievementsByUserId(userID),
-    ]);
-    setState({
-      friendCount: friends.length,
-      badgeCount: badges.length,
-      achievementCount: achievements.length,
-    });
-  });
 
   return (
     <div class="user-area">
@@ -51,15 +21,15 @@ export function UserArea() {
       <h2>{user()?.username}</h2>
       <div class="quick-stats">
         <div class="stat-block">
-          <h3>{state().badgeCount}</h3>
+          <h3>{badgeCount()}</h3>
           <p>Badges</p>
         </div>
         <div class="stat-block">
-          <h3>{state().friendCount}</h3>
+          <h3>{friendCount()}</h3>
           <p>Friends</p>
         </div>
         <div class="stat-block">
-          <h3>{state().achievementCount}</h3>
+          <h3>{achievementCount()}</h3>
           <p>Achievements</p>
         </div>
       </div>

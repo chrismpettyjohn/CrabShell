@@ -1,11 +1,12 @@
 import { A } from "@solidjs/router";
-import { UserCount } from "../../user-count/UserCount";
+import { useOnlineUsers } from "../../../context/OnlineUsersContext";
 
 export function EnterHotelButton() {
+  const { onlineUsers } = useOnlineUsers();
   return (
     <A href="/play">
       <button class="enter-hotel-btn">
-        <UserCount /> users online
+        {onlineUsers().length} users online
       </button>
     </A>
   );
