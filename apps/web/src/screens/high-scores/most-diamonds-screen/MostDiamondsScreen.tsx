@@ -1,6 +1,7 @@
 import { Component, createSignal, onMount } from "solid-js";
 import { HighScoresLayout } from "../HighScoresLayout";
 import { HighScoresByDiamondsRow, highScoresService } from "@crabshell/client";
+import { IMAGER_BASE_URL } from "../../../App.const";
 
 const MostDiamondsScreen: Component = () => {
   const [rows, setRows] = createSignal<HighScoresByDiamondsRow[]>([]);
@@ -29,7 +30,7 @@ const MostDiamondsScreen: Component = () => {
                 <td>
                   <img
                     class="avatar"
-                    src="{{imageURL}}?user=Chris&headonly=1"
+                    src={`${IMAGER_BASE_URL}?figure=${_.look}&headonly=1`}
                     style="object-fit: contain"
                   />
                 </td>

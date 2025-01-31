@@ -4,6 +4,7 @@ import {
   HighScoresByOnlineTimeRow,
   highScoresService,
 } from "@crabshell/client";
+import { IMAGER_BASE_URL } from "../../../App.const";
 
 const MostOnlineTimesScreen: Component = () => {
   const [rows, setRows] = createSignal<HighScoresByOnlineTimeRow[]>([]);
@@ -32,7 +33,7 @@ const MostOnlineTimesScreen: Component = () => {
                 <td>
                   <img
                     class="avatar"
-                    src="{{imageURL}}?user=Chris&headonly=1"
+                    src={`${IMAGER_BASE_URL}?figure=${_.look}&headonly=1`}
                     style="object-fit: contain"
                   />
                 </td>
