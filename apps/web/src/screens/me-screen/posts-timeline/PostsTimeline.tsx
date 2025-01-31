@@ -1,5 +1,3 @@
-import { IMAGER_BASE_URL } from "../../../App.const";
-
 export function PostsTimeline() {
   return (
     <>
