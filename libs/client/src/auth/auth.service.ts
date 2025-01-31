@@ -36,6 +36,10 @@ export class AuthService {
     return fetchFromApi("auth/profile");
   }
 
+  public generateSSO(): Promise<string> {
+    return fetchFromApi("auth/sso");
+  }
+
   public async logout(): Promise<void> {
     await postToApi("auth/logout", {});
   }

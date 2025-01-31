@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
       "process.env.IMAGER_BASE_URL": JSON.stringify(
         env.VITE_IMAGER_BASE_URL || ""
       ),
+      "process.env.NITRO_URL": JSON.stringify(env.VITE_NITRO_URL || ""),
       "process.env.SITE_NAME": JSON.stringify(env.VITE_SITE_NAME || "HabCrab"),
       "process.env.USER_OF_THE_WEEK_ID": JSON.stringify(
         env.VITE_USER_OF_THE_WEEK_ID || "-1"

@@ -46,6 +46,19 @@ export class AuthController {
     return reply.send(result);
   }
 
+  @Get('sso')
+  @UseGuards(SessionGuard)
+  async generateSSO(
+    @Req() request: FastifyRequest,
+    @Res() reply: FastifyReply,
+  ): Promise<string> {
+    const user: UserEntity = await this.authService.getProfile(
+      Number(request.cookies['sessionId']),
+    );
+
+    return this.authService.generateSSO(user.id!);
+  }
+
   @Get('profile')
   @UseGuards(SessionGuard)
   async getProfile(

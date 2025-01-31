@@ -6,6 +6,8 @@ import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
 import { FastifyReply } from 'fastify';
 import { cookieConfig } from './auth.config';
+import { generate } from 'randomstring';
+
 import {
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
@@ -96,6 +98,12 @@ export class AuthService {
       { username: user.username, password: registerDto.password },
       reply,
     );
+  }
+
+  async generateSSO(userId: number): Promise<string> {
+    const gameSSO: string = 'crabshell_' + generate(50) + '_' + userId;
+    await this.userRepository.update({ id: userId }, { gameSSO });
+    return gameSSO;
   }
 
   async logout(sessionId: number, reply: FastifyReply) {
