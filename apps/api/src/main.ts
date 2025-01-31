@@ -4,7 +4,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { HTTP_PORT } from './app.const';
+import { CORS_HOSTS, HTTP_PORT } from './app.const';
 import fastifyCookie from '@fastify/cookie';
 
 async function bootstrap() {
@@ -23,7 +23,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.enableCors({
-    origin: 'http://localhost:3000', // Allow requests from frontend
+    origin: CORS_HOSTS,
     credentials: true, // Enable cookies
   });
 
