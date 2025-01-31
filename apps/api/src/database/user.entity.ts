@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import {
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
@@ -7,6 +13,7 @@ import {
   USER_DEFAULT_MOTTO,
   USER_DEFAULT_POINTS,
 } from '../app.const';
+import { RankEntity } from './rank.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -66,4 +73,8 @@ export class UserEntity {
 
   @Column({ name: 'home_room' })
   homeRoomID: number = USER_DEFAULT_HOME_ROOM;
+
+  @ManyToOne(() => RankEntity, (rank) => rank.members)
+  @JoinColumn({ name: 'rank' })
+  rank?: RankEntity;
 }

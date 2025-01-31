@@ -22,6 +22,10 @@ export * from "./group/group.types";
 export * from "./high-scores/high-scores.service";
 export * from "./high-scores/high-scores.types";
 
+// Ranks
+export * from "./ranks/ranks.service";
+export * from "./ranks/ranks.types";
+
 // User
 export * from "./user/user.service";
 export * from "./user/user.types";

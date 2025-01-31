@@ -3,6 +3,7 @@ export interface UserWire {
   username: string;
   look: string;
   motto: string;
+  online: boolean;
 }
 
 export type UsersOnlineResponse = UserWire[];
