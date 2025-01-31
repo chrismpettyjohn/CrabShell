@@ -1,8 +1,7 @@
-import { IMAGER_BASE_URL, SITE_NAME } from "../../App.const";
-import { useAuth } from "../../context/AuthContext";
+import { SITE_NAME } from "../../App.const";
 import { A, useLocation } from "@solidjs/router";
 import { EnterHotelButton } from "./enter-hotel-button/EnterHotelButton";
-import { onMount } from "solid-js";
+import { UserArea } from "./user-area/UserArea";
 
 const SIDEBAR_LINKS = [
   { path: "/me", icon: "fa-home", label: "Dashboard" },
@@ -14,9 +13,7 @@ const SIDEBAR_LINKS = [
 ];
 
 export function SiteSidebar() {
-  const { user } = useAuth();
   const location = useLocation();
-
   return (
     <>
       <header>
@@ -35,29 +32,7 @@ export function SiteSidebar() {
         </div>
       </header>
       <div id="sidebar">
-        <div class="user-area">
-          <div class="avatar-container">
-            <img
-              class="avatar"
-              src={`${IMAGER_BASE_URL}?figure=${user()?.look}&direction=3&head_direction=3&gesture=sml&action=sit,crr=6&size=l&format=.gif`}
-            />
-          </div>
-          <h2>{user()?.username}</h2>
-          <div class="quick-stats">
-            <div class="stat-block">
-              <h3>-1</h3>
-              <p>Badges</p>
-            </div>
-            <div class="stat-block">
-              <h3>-1</h3>
-              <p>Friends</p>
-            </div>
-            <div class="stat-block">
-              <h3>-1</h3>
-              <p>Achievements</p>
-            </div>
-          </div>
-        </div>
+        <UserArea />
         <div class="navigation">
           {SIDEBAR_LINKS.map(({ path, icon, label }) => (
             <A href={path} class={location.pathname === path ? "active" : ""}>

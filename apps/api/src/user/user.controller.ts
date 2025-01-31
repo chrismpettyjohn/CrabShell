@@ -5,6 +5,9 @@ import { UserEntity } from '../database/user.entity';
 import { UserPipe } from './user.pipe';
 import { GroupDTO } from '../group/group.dto';
 import { GroupEntity } from '../database/group.entity';
+import { BadgeDTO } from '../badge/badge.dto';
+import { UserBadgeEntity } from '../database/user-badge.entity';
+import { AchievementDTO } from '../achievement/achievement.dto';
 
 @Controller('users')
 export class UserController {
@@ -20,6 +23,23 @@ export class UserController {
   async newest(): Promise<UserDTO[]> {
     const onlineUsers: UserEntity[] = await this.userService.getOnline();
     return onlineUsers.map(UserDTO.fromEntity);
+  }
+
+  @Get('/:userID/achievements')
+  achievements(
+    @Param('userID', UserPipe) user: UserEntity,
+  ): Promise<AchievementDTO[]> {
+    return this.userService.getAchievements(user.id!);
+  }
+
+  @Get('/:userID/badges')
+  async badges(
+    @Param('userID', UserPipe) user: UserEntity,
+  ): Promise<BadgeDTO[]> {
+    const badges: UserBadgeEntity[] = await this.userService.getBadges(
+      user.id!,
+    );
+    return badges.map((_) => BadgeDTO.fromCode(_.badgeCode));
   }
 
   @Get('/:userID/friends')

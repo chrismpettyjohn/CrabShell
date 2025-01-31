@@ -8,12 +8,18 @@ import { GroupEntity } from '../database/group.entity';
 import { GroupMembershipEntity } from '../database/group-membership.entity';
 import { GroupMembershipRepository } from '../database/group-membership.repository';
 import { GroupRepository } from '../database/group.repository';
+import { UserBadgeEntity } from '../database/user-badge.entity';
+import { UserBadgeRepository } from '../database/user-badge.repository';
+import { AchievementDTO } from '../achievement/achievement.dto';
+import { UserAchievementRepository } from '../database/user-achievement.repository';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepo: UserRepository,
+    private readonly userBadgeRepo: UserBadgeRepository,
     private readonly userFriendshipRepo: UserFriendshipRepository,
+    private readonly userAchievementRepo: UserAchievementRepository,
     private readonly groupRepo: GroupRepository,
     private readonly groupMembershipRepo: GroupMembershipRepository,
   ) {}
@@ -23,13 +29,31 @@ export class UserService {
       where: {
         onlineStatus: '1',
       },
-      take: 5,
     });
   }
+
+  async getAchievements(userId: number): Promise<AchievementDTO[]> {
+    return this.userAchievementRepo.getInstance().query(
+      `
+        SELECT users_achievements.achievement_name AS name
+        FROM users_achievements
+        JOIN achievements ON achievements.name = users_achievements.achievement_name
+        WHERE user_id = ?
+        AND achievements.progress_needed <= users_achievements.progress
+      `,
+      [userId],
+    );
+  }
+
+  async getBadges(userId: number): Promise<UserBadgeEntity[]> {
+    return this.userBadgeRepo.find({
+      where: { userID: userId },
+    });
+  }
+
   async getFriends(userId: number): Promise<UserEntity[]> {
     const friends: UserFriendshipEntity[] = await this.userFriendshipRepo.find({
       where: { userOneID: userId },
-      take: 5,
     });
 
     if (friends.length === 0) {
@@ -66,7 +90,6 @@ export class UserService {
       order: {
         id: 'DESC',
       },
-      take: 5,
     });
   }
 }

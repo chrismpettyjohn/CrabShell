@@ -14,6 +14,8 @@ import { GroupMembershipEntity } from './group-membership.entity';
 import { GroupMembershipRepository } from './group-membership.repository';
 import { UserFriendshipEntity } from './user-friendship.entity';
 import { UserFriendshipRepository } from './user-friendship.repository';
+import { UserAchievementEntity } from './user-achievement.entity';
+import { UserAchievementRepository } from './user-achievement.repository';
 export const databaseEntities = [
   ArticleEntity,
   RankEntity,
@@ -23,6 +25,7 @@ export const databaseEntities = [
   GroupMembershipEntity,
   UserBadgeEntity,
   UserFriendshipEntity,
+  UserAchievementEntity,
 ];
 
 export const databaseRepositories = [
@@ -34,4 +37,5 @@ export const databaseRepositories = [
   GroupMembershipRepository,
   UserBadgeRepository,
   UserFriendshipRepository,
+  UserAchievementRepository,
 ];
