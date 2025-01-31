@@ -6,7 +6,7 @@ import { UserArea } from "./user-area/UserArea";
 const SIDEBAR_LINKS = [
   { path: "/me", icon: "fa-home", label: "Dashboard" },
   { path: "/articles", icon: "fa-newspaper", label: "News Articles" },
-  { path: "/high-scores", icon: "fa-trophy", label: "High Scores" },
+  { path: "/high-scores/credits", icon: "fa-trophy", label: "High Scores" },
   { path: "/staff", icon: "fa-users", label: "Staff Team" },
   { path: "/play", icon: "fa-gamepad", label: "Play Game" },
   { path: "/logout", icon: "fa-sign-out", label: "Logout" },
