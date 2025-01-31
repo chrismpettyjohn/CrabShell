@@ -483,7 +483,7 @@ button:hover {
     background: var(--bg-four);
     border: 1px solid transparent;
     border-radius: var(--radius-two);
-    color: var(--color-one);
+    color: var(--color-brand);
     cursor: pointer;
     padding: 5px 10px;
     font-size: 12px;
@@ -942,9 +942,9 @@ button:hover {
     padding: 10px 15px;
     border-radius: 25px;
     font-size: 14px;
-    background-color: var(--bg-four);
+    background-color: var(--bg-three);
     border: 1px solid transparent;
-    color: var(--color-one);
+    color: var(--color-brand);
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
@@ -954,8 +954,8 @@ button:hover {
 }
 
 .news-article-page .chip.active {
-    background-color: var(--color-four);
-    color: var(--color-one);
+    background-color: var(--bg-brand);
+    color: var(--color-brand);
 }
 
 .news-article-page .news-articles {
@@ -998,7 +998,6 @@ button:hover {
     padding: 20px;
     color: var(--color-one);
 }
-
 
 .high-scores-page a {
     text-decoration: none;;
@@ -1048,7 +1047,7 @@ button:hover {
 
 .high-scores-page thead th {
     background: var(--bg-brand);
-    color: var(--color-one);
+    color: var(--color-brand);
     text-align: left;
     padding: 10px;
 }
@@ -1317,3 +1316,5 @@ button:hover {
 .login-page footer a:hover {
   border-color: white;
 }
+
+
