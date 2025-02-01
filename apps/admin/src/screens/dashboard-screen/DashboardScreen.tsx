@@ -6,11 +6,7 @@ const MeScreen: Component = () => {
   return (
     <UserLayout>
       <SiteTitle>Dashboard</SiteTitle>
-      <main>
-        <div class="main-content">
-          <p>hello and goodbye</p>
-        </div>
-      </main>
+      <p>hello and goodbye</p>
     </UserLayout>
   );
 };
