@@ -8,8 +8,14 @@ const DashboardScreen = lazy(
   () => import("./dashboard-screen/DashboardScreen")
 );
 const LogoutScreen = lazy(() => import("./logout-screen/LogoutScreen"));
-const ArticlesListScreen = lazy(
-  () => import("./articles/articles-list-screen/ArticlesListScreen")
+const ArticleListScreen = lazy(
+  () => import("./articles/article-list-screen/ArticleListScreen")
+);
+const ArticlesCreateScreen = lazy(
+  () => import("./articles/article-list-screen/ArticleListScreen")
+);
+const ArticleEditScreen = lazy(
+  () => import("./articles/article-list-screen/ArticleListScreen")
 );
 
 export const Router: Component = () => {
@@ -20,7 +26,9 @@ export const Router: Component = () => {
       <Route path="/logout" component={LogoutScreen} />
       <Route path="/dashboard" component={DashboardScreen} />
       <Route path="/about" component={AboutScreen} />
-      <Route path="/articles" component={ArticlesListScreen} />
+      <Route path="/articles" component={ArticleListScreen} />
+      <Route path="/articles/create" component={ArticlesCreateScreen} />
+      <Route path="/articles/edit/:articleId" component={ArticleEditScreen} />
     </BaseRouter>
   );
 };

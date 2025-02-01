@@ -25,8 +25,7 @@ export function UserLayout({ children }: UserLayoutProps) {
             <img class="logo" src="/img/logo.png" style="height: 60px;" />
           </div>
         </div>
-        <div class="text-logo">ExoSkeleton</div>
-        <div class="actions">Call Daddy</div>
+        <div class="text-logo">CrabShell</div>
       </header>
       <div id="sidebar">
         <div class="user-area">
@@ -59,7 +58,7 @@ export function UserLayout({ children }: UserLayoutProps) {
         </div>
         <footer>
           <A href="/about">
-            <b>ExoSkeleton</b>
+            <b>CrabShell</b>
           </A>
         </footer>
       </div>

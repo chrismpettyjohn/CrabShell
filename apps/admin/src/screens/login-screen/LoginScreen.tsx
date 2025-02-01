@@ -36,7 +36,7 @@ const LoginScreen: Component = () => {
           </div>
           <br />
           <div class="login-box">
-            <h2>ExoSkeleton</h2>
+            <h2>CrabShell</h2>
             <p>This area is only intended for staff members.</p>
             <form onSubmit={onLogin}>
               <label for="username">Username</label>
@@ -69,7 +69,7 @@ const LoginScreen: Component = () => {
           <br />
           <footer>
             <A href="/about">
-              <b>ExoSkeleton</b>
+              <b>CrabShell</b>
             </A>
           </footer>
         </div>

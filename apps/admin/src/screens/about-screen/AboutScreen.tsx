@@ -1,4 +1,3 @@
-import { UserGuard } from "../../components/user-guard/UserGuard";
 import { UserLayout } from "../../components/user-layout/UserLayout";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
 
@@ -18,7 +17,7 @@ export function AboutScreen() {
         Built by <b>LeChris</b>
       </h2>
       <p style="margin:0;">
-        ExoSkeleton is designed and developed by <b>LeChris</b>
+        CrabShell is designed and developed by <b>LeChris</b>
       </p>
       <br />
       <br />

@@ -698,7 +698,7 @@ button:hover {
 .user-week-container .podium-container {
     position: relative;
     height: 180px;
-    background: url(/assets/img/rave.gif) no-repeat center center;
+    background: url(/img/rave.gif) no-repeat center center;
     background-size: cover;
     border-radius: 12px;
     border: 2px solid black;

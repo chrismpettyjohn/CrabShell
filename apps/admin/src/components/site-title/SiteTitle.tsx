@@ -6,7 +6,7 @@ export interface SiteTitleProps {
 
 export function SiteTitle({ children }: SiteTitleProps) {
   onMount(() => {
-    document.title = `ExoSkeleton - ${children}`;
+    document.title = `CrabShell - ${children}`;
   });
 
   return null;

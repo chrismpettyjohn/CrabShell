@@ -5,7 +5,7 @@ export function PostsTimeline() {
         <div class="post-header">
           <div class="avatar-container">
             <img
-              src="http://localhost:3000/assets/img/logo.png"
+              src="http://localhost:3000/img/logo.png"
               alt="User Avatar"
               class="avatar"
               style="object-fit:contain;"
