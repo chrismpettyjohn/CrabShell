@@ -161,6 +161,7 @@ header .text-logo  {
 #sidebar .user-area {
     align-items: center;
     background: var(--bg-three);
+    background-image: url('/img/bg.png');
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -21,7 +21,7 @@ const SIDEBAR_LINKS = [
 ];
 
 export function UserLayout({ children }: UserLayoutProps) {
-  const { user } = useAuth();
+  const { user, rank } = useAuth();
   const location = useLocation();
   return (
     <UserGuard>
@@ -43,7 +43,7 @@ export function UserLayout({ children }: UserLayoutProps) {
           </div>
           <br />
           <h2 style="margin:0;">{user()?.username}</h2>
-          <p style="margin:0;">Big Daddy</p>
+          <p style="margin:0;">{rank()?.name}</p>
         </div>
         <div class="navigation">
           {SIDEBAR_LINKS.map(({ path, icon, label }) => {
