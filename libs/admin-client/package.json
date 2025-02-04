@@ -10,13 +10,17 @@
   "scripts": {
     "build": "bun run scripts/build.ts"
   },
+  "dependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+  },
   "devDependencies": {
     "@types/node": "20.6.2",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.2.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "@crabshell/public-client": "workspace:*"
   },
-  "dependencies": {
-    "@rollup/plugin-json": "^6.1.0"
+  "peerDependencies": {
+    "@crabshell/public-client": "workspace:*"
   }
 }

@@ -40,5 +40,3 @@ export class ArticleDTO implements ArticleWire {
     return dto;
   }
 }
-
-export class CreateArticleDTO 

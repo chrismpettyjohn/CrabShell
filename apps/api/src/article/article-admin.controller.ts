@@ -12,6 +12,12 @@ import { ArticleEntity } from '../database/article.entity';
 import { ArticleDTO } from './article.dto';
 import { HasScope } from '../auth/has-scope.decorator';
 import { ArticleRepository } from '../database/article.repository';
+import {
+  AdminArticleCreateResponse,
+  AdminArticleDeleteByIdResponse,
+  AdminArticleUpdateByIdResponse,
+} from '@crabshell/admin-client';
+import { ArticleGetByIdResponse } from '@crabshell/public-client';
 
 @Controller('admin/articles')
 @HasScope('manageArticles')
@@ -19,7 +25,9 @@ export class ArticleAdminController {
   constructor(private readonly articleRepo: ArticleRepository) {}
 
   @Post('')
-  create(@Param('articleID', ArticlePipe) article: ArticleEntity): ArticleDTO {
+  create(
+    @Param('articleID', ArticlePipe) article: ArticleEntity,
+  ): AdminArticleCreateResponse {
     return ArticleDTO.fromEntity(article);
   }
 
@@ -34,7 +42,9 @@ export class ArticleAdminController {
   }
 
   @Get(':articleID')
-  getById(@Param('articleID', ArticlePipe) article: ArticleEntity): ArticleDTO {
+  getById(
+    @Param('articleID', ArticlePipe) article: ArticleEntity,
+  ): ArticleGetByIdResponse {
     return ArticleDTO.fromEntity(article);
   }
 
@@ -42,7 +52,7 @@ export class ArticleAdminController {
   async updateById(
     @Param('articleID', ArticlePipe) article: ArticleEntity,
     @Body() articleDto: ArticleDTO,
-  ): Promise<boolean> {
+  ): Promise<AdminArticleUpdateByIdResponse> {
     await this.articleRepo.update({ id: article.id }, article);
     return true;
   }
@@ -50,7 +60,7 @@ export class ArticleAdminController {
   @Delete(':articleID')
   async deleteById(
     @Param('articleID', ArticlePipe) article: ArticleEntity,
-  ): Promise<boolean> {
+  ): Promise<AdminArticleDeleteByIdResponse> {
     await this.articleRepo.delete({
       id: article.id,
     });

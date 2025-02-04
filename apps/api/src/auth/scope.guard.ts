@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Reflector } from '@nestjs/core';
-import { HAS_SCOPE_KEY, SitePermissionScope } from './has-scope.decorator';
+import { HAS_SCOPE_KEY, PermissionScope } from './has-scope.decorator';
 @Injectable()
 export class ScopeGuard implements CanActivate {
   constructor(
@@ -26,7 +26,7 @@ export class ScopeGuard implements CanActivate {
       const user = await this.authService.validateSession(Number(sessionId));
       request.user = user;
 
-      const requiredScope = this.reflector.get<SitePermissionScope>(
+      const requiredScope = this.reflector.get<PermissionScope>(
         HAS_SCOPE_KEY,
         context.getHandler(),
       );

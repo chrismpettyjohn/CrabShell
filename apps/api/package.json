@@ -27,6 +27,7 @@
     "bcryptjs": "2.4.3",
     "mysql2": "3.12.0",
     "dotenv": "16.4.7", 
+    "@crabshell/admin-client": "workspace:*",
     "@crabshell/public-client": "workspace:*"
   },
   "devDependencies": {
