@@ -2,6 +2,7 @@ import { SetMetadata } from '@nestjs/common';
 
 export enum AVAILABLE_SCOPES {
   MANAGE_ARTICLES = 'manageArticles',
+  MANAGE_BADGES = 'manageBadges',
   MANAGE_USERS = 'manageUsers',
   MANAGE_RANKS = 'manageRanks',
   MANAGE_EMU = 'manageEmu',

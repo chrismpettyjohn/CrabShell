@@ -2,6 +2,10 @@
 export * from "./article/article.service";
 export * from "./article/article.types";
 
+// Badge
+export * from "./badge/badge.service";
+export * from "./badge/badge.types";
+
 // Emu Settings
 export * from "./emu-settings/emu-settings.service";
 export * from "./emu-settings/emu-settings.types";

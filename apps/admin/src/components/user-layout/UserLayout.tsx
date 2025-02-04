@@ -13,9 +13,10 @@ const SIDEBAR_LINKS = [
   { path: "/users", icon: "fa-users", label: "Users" },
   { path: "/ranks", icon: "fa-shield", label: "Ranks" },
   { path: "/articles", icon: "fa-newspaper", label: "Articles" },
-  { path: "/emulator/settings", icon: "fa-wrench", label: "Settings" },
+  { path: "/badges", icon: "fa-id-badge", label: "Badges" },
   { path: "/furniture", icon: "fa-chair", label: "Furniture" },
-  { path: "/logout", icon: "fa-sign-out", label: "Logout" },
+  { path: "/emulator/settings", icon: "fa-wrench", label: "Settings" },
+  { path: "/logout", icon: "fa-sign-out", label: "Sign Out" },
 ];
 
 export function UserLayout({ children }: UserLayoutProps) {

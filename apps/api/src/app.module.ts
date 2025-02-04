@@ -12,6 +12,7 @@ import { RankModule } from './rank/rank.module';
 import { EmuSettingsModule } from './emu-settings/emu-settings.module';
 import { EmuTextsModule } from './emu-texts/emu-texts.module';
 import { ItemsBaseModule } from './items-base/items-base.module';
+import { BadgeModule } from './badge/badge.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ItemsBaseModule } from './items-base/items-base.module';
     }),
     ArticleModule,
     AuthModule,
+    BadgeModule,
     DatabaseModule,
     UserModule,
     GroupModule,

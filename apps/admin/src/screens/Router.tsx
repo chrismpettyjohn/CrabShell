@@ -50,6 +50,15 @@ const FurnitureCreateScreen = lazy(
 const FurnitureEditScreen = lazy(
   () => import("./furniture/furniture-edit-screen/FurnitureEditScreen")
 );
+const BadgesListScreen = lazy(
+  () => import("./badges/badges-list-screen/BadgesListScreen")
+);
+const BadgesCreateScreen = lazy(
+  () => import("./badges/badges-create-screen/BadgesCreateScreen")
+);
+const BadgesEditScreen = lazy(
+  () => import("./badges/badges-edit-screen/BadgesEditScreen")
+);
 export const Router: Component = () => {
   return (
     <BaseRouter>
@@ -72,6 +81,9 @@ export const Router: Component = () => {
       <Route path="/furniture" component={FurnitureListScreen} />
       <Route path="/furniture/create" component={FurnitureCreateScreen} />
       <Route path="/furniture/:baseItemId" component={FurnitureEditScreen} />
+      <Route path="/badges/" component={BadgesListScreen} />
+      <Route path="/badges/create" component={BadgesCreateScreen} />
+      <Route path="/badges/:badgeCode" component={BadgesEditScreen} />
     </BaseRouter>
   );
 };
