@@ -6,7 +6,7 @@ import {
   HighScoresByDiamondsRow,
   HighScoresByOnlineTimeRow,
   HighScoresByRespectsReceivedRow,
-} from '../../../../libs/public-client/src';
+} from '@crabshell/public-client';
 import { UserEntity } from '../database/user.entity';
 
 @Injectable()

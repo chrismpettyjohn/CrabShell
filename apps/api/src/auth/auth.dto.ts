@@ -1,7 +1,4 @@
-import {
-  AuthLoginParams,
-  AuthRegisterParams,
-} from '../../../../libs/public-client/src';
+import { AuthLoginParams, AuthRegisterParams } from '@crabshell/public-client';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class AuthLoginDTO implements AuthLoginParams {

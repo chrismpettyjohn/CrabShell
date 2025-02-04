@@ -1,4 +1,4 @@
-import { ArticleWire } from '../../../../libs/public-client/src';
+import { ArticleWire } from '@crabshell/public-client';
 import { IsISO8601, IsNumber, IsString } from 'class-validator';
 import { ArticleEntity } from '../database/article.entity';
 

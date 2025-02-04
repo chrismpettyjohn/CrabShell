@@ -1,4 +1,4 @@
-import { BadgeWire } from '../../../../libs/public-client/src';
+import { BadgeWire } from '@crabshell/public-client';
 import { IsString } from 'class-validator';
 
 export class BadgeDTO implements BadgeWire {

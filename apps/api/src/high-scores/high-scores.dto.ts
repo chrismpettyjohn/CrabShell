@@ -9,7 +9,7 @@ import {
   HighScoresByOnlineTimeRow,
   HighScoresByRespectsReceivedResponse,
   HighScoresByRespectsReceivedRow,
-} from '../../../../libs/public-client/src';
+} from '@crabshell/public-client';
 import { IsArray, IsNumber, IsString } from 'class-validator';
 
 export class HighScoresByCreditsRowDTO implements HighScoresByCreditsRow {

@@ -1,4 +1,4 @@
-import { UserWire } from '../../../../libs/public-client/src';
+import { UserWire } from '@crabshell/public-client';
 import { IsBoolean, IsInt, IsString } from 'class-validator';
 import { UserEntity } from '../database/user.entity';
 
