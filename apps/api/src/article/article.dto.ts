@@ -1,4 +1,4 @@
-import { ArticleWire } from '@crabshell/client';
+import { ArticleWire } from '../../../../libs/public-client/src';
 import { IsISO8601, IsNumber, IsString } from 'class-validator';
 import { ArticleEntity } from '../database/article.entity';
 
@@ -40,3 +40,5 @@ export class ArticleDTO implements ArticleWire {
     return dto;
   }
 }
+
+export class CreateArticleDTO 

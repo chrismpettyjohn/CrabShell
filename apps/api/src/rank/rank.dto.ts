@@ -1,4 +1,4 @@
-import { RankWire } from '@crabshell/client';
+import { RankWire } from '../../../../libs/public-client/src';
 import { IsArray, IsNumber, IsString } from 'class-validator';
 import { UserDTO } from '../user/user.dto';
 

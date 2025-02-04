@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "ESNext",
+    "target": "ESNext",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "strict": true,
+    "removeComments": true,
+    "declarationMap": false,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

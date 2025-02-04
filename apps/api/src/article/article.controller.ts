@@ -2,15 +2,19 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { ArticlePipe } from './article.pipe';
 import { ArticleEntity } from '../database/article.entity';
 import { ArticleDTO } from './article.dto';
-import { ArticleService } from './article.service';
+import { ArticleRepository } from '../database/article.repository';
 
 @Controller('articles')
 export class ArticleController {
-  constructor(private readonly articleService: ArticleService) {}
+  constructor(private readonly articleRepo: ArticleRepository) {}
 
   @Get('')
   async getAll(): Promise<ArticleDTO[]> {
-    const articles: ArticleEntity[] = await this.articleService.getAll();
+    const articles: ArticleEntity[] = await this.articleRepo.find({
+      order: {
+        id: 'DESC',
+      },
+    });
     return articles.map(ArticleDTO.fromEntity);
   }
 

@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import { TabBar } from "../../../components/tab-bar/TabBar";
-import { groupsService } from "@crabshell/client";
+import { groupsService } from "@crabshell/public-client";
 import { MyGroupsCard } from "./MyGroupsCard";
 import { GroupsListCard } from "./GroupsListCard";
 

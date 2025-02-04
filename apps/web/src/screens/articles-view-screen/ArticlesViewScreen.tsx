@@ -2,7 +2,7 @@ import { createSignal, onMount, type Component } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { GuardUser } from "../../components/guard-user/GuardUser";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
-import { articleService, ArticleWire } from "@crabshell/client";
+import { articleService, ArticleWire } from "@crabshell/public-client";
 import { useParams } from "@solidjs/router";
 
 const ArticlesViewScreen: Component = () => {

@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js";
 import { useAuth } from "../../../context/AuthContext";
-import { usersService } from "@crabshell/client";
+import { usersService } from "@crabshell/public-client";
 import { UsersListCard } from "./UserListCard";
 
 export function MyFriendsCard() {

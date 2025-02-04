@@ -3,7 +3,7 @@ import { HighScoresLayout } from "../HighScoresLayout";
 import {
   HighScoresByAchievementsRow,
   highScoresService,
-} from "@crabshell/client";
+} from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../../App.const";
 
 const MostAchievementsScreen: Component = () => {

@@ -1,4 +1,4 @@
-import { usersService, UserWire } from "@crabshell/client";
+import { usersService, UserWire } from "@crabshell/public-client";
 import { createSignal, onMount } from "solid-js";
 import {
   IMAGER_BASE_URL,

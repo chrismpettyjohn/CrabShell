@@ -1,4 +1,4 @@
-import { articleService, ArticleWire } from "@crabshell/client";
+import { articleService, ArticleWire } from "@crabshell/public-client";
 import { A } from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
 

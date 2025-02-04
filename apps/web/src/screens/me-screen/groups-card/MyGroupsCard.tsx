@@ -1,6 +1,6 @@
 import { createMemo } from "solid-js";
 import { useAuth } from "../../../context/AuthContext";
-import { groupsService } from "@crabshell/client";
+import { groupsService } from "@crabshell/public-client";
 import { GroupsListCard } from "./GroupsListCard";
 
 export function MyGroupsCard() {

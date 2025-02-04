@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import { TabBar } from "../../../components/tab-bar/TabBar";
-import { usersService } from "@crabshell/client";
+import { usersService } from "@crabshell/public-client";
 import { UsersListCard } from "./UserListCard";
 import { MyFriendsCard } from "./MyFriendsCard";
 

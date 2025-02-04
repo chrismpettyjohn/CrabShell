@@ -1,4 +1,4 @@
-import { GroupWire } from "@crabshell/client";
+import { GroupWire } from "@crabshell/public-client";
 import { createSignal, onMount } from "solid-js";
 
 interface GroupsListCardProps {

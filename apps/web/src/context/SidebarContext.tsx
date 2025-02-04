@@ -2,7 +2,7 @@ import {
   achievementsService,
   badgesService,
   usersService,
-} from "@crabshell/client";
+} from "@crabshell/public-client";
 import {
   createContext,
   useContext,

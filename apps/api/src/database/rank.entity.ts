@@ -17,6 +17,9 @@ export class RankEntity {
   @Column({ name: 'cms_show_staff' })
   showStaff!: RankBoolean;
 
+  @Column({ name: 'cms_manage_articles' })
+  manageArticles: RankBoolean;
+
   @OneToMany(() => UserEntity, (user) => user.rank)
   members?: UserEntity[];
 }

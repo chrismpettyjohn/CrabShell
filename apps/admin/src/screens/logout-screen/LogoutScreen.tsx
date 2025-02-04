@@ -1,7 +1,7 @@
 import { onMount, type Component } from "solid-js";
 import { UserGuard } from "../../components/user-guard/UserGuard";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
-import { authService } from "@crabshell/client";
+import { authService } from "@crabshell/public-client";
 import { redirect } from "@solidjs/router";
 import { useAuth } from "../../context/AuthContext";
 

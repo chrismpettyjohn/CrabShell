@@ -1,4 +1,4 @@
-import { GroupWire } from '@crabshell/client';
+import { GroupWire } from '../../../../libs/public-client/src';
 import { IsInt, IsString } from 'class-validator';
 import { GroupEntity } from '../database/group.entity';
 

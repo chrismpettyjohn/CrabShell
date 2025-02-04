@@ -1,6 +1,9 @@
 import { Component, createSignal, onMount } from "solid-js";
 import { HighScoresLayout } from "../HighScoresLayout";
-import { HighScoresByDiamondsRow, highScoresService } from "@crabshell/client";
+import {
+  HighScoresByDiamondsRow,
+  highScoresService,
+} from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../../App.const";
 
 const MostDiamondsScreen: Component = () => {

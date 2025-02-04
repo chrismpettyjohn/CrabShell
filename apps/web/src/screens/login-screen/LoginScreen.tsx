@@ -1,7 +1,7 @@
 import { createSignal, type Component } from "solid-js";
 import { GuardGuest } from "../../components/guard-guest/GuardGuest";
 import { SITE_NAME } from "../../App.const";
-import { authService } from "@crabshell/client";
+import { authService } from "@crabshell/public-client";
 import { useAuth } from "../../context/AuthContext";
 import { A, redirect } from "@solidjs/router";
 import { SiteTitle } from "../../components/site-title/SiteTitle";

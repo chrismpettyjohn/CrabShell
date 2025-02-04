@@ -1,0 +1,22 @@
+{
+  "name": "@crabshell/admin-client",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun run scripts/build.ts"
+  },
+  "devDependencies": {
+    "@types/node": "20.6.2",
+    "ts-node": "10.9.1",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "~5.2.2"
+  },
+  "dependencies": {
+    "@rollup/plugin-json": "^6.1.0"
+  }
+}

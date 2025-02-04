@@ -3,7 +3,7 @@ import { HighScoresLayout } from "../HighScoresLayout";
 import {
   HighScoresByOnlineTimeRow,
   highScoresService,
-} from "@crabshell/client";
+} from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../../App.const";
 
 const MostOnlineTimesScreen: Component = () => {

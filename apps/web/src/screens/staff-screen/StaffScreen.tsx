@@ -2,7 +2,7 @@ import { createSignal, onMount, type Component } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { GuardUser } from "../../components/guard-user/GuardUser";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
-import { ranksService, RankWire } from "@crabshell/client";
+import { ranksService, RankWire } from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../App.const";
 
 const StaffScreen: Component = () => {

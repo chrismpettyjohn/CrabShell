@@ -1,4 +1,4 @@
-import { AchievementWire } from '@crabshell/client';
+import { AchievementWire } from '../../../../libs/public-client/src';
 import { IsString } from 'class-validator';
 
 export class AchievementDTO implements AchievementWire {

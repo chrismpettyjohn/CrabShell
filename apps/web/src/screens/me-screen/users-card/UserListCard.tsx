@@ -1,4 +1,4 @@
-import { UserWire } from "@crabshell/client";
+import { UserWire } from "@crabshell/public-client";
 import { createSignal, onMount } from "solid-js";
 import { IMAGER_BASE_URL } from "../../../App.const";
 

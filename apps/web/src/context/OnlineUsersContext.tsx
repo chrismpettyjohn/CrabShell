@@ -1,4 +1,4 @@
-import { usersService, UserWire } from "@crabshell/client";
+import { usersService, UserWire } from "@crabshell/public-client";
 import {
   createContext,
   useContext,

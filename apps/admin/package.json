@@ -19,6 +19,6 @@
   "dependencies": {
     "solid-js": "^1.9.4",
     "@solidjs/router": "0.15.3",
-    "@crabshell/client": "workspace:*"
+    "@crabshell/public-client": "workspace:*"
   }
 }
