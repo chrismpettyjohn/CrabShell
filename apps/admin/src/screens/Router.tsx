@@ -56,6 +56,24 @@ const BadgesCreateScreen = lazy(
 const BadgesEditScreen = lazy(
   () => import("./badges/badges-edit-screen/BadgesEditScreen")
 );
+const CommandLogsScreen = lazy(
+  () => import("./logging/command-logs-screen/CommandLogsScreen")
+);
+const NamechangeLogsScreen = lazy(
+  () => import("./logging/namechange-logs-screen/NamechangeLogsScreen")
+);
+const PrivateChatLogsScreen = lazy(
+  () => import("./logging/private-chat-logs-screen/PrivateChatLogsScreen")
+);
+const RoomChatlogsScreen = lazy(
+  () => import("./logging/room-chat-logs-screen/RoomChatLogsScreen")
+);
+const RoomEnterLogsScreen = lazy(
+  () => import("./logging/room-enter-logs-screen/RoomEnterLogsScreen")
+);
+const RoomTradeLogsScreen = lazy(
+  () => import("./logging/room-trade-logs-screen/RoomTradeLogsScreen")
+);
 export const Router: Component = () => {
   return (
     <BaseRouter>
@@ -80,6 +98,13 @@ export const Router: Component = () => {
       <Route path="/badges/" component={BadgesListScreen} />
       <Route path="/badges/create" component={BadgesCreateScreen} />
       <Route path="/badges/:badgeCode" component={BadgesEditScreen} />
+
+      <Route path="/logs/commands" component={CommandLogsScreen} />
+      <Route path="/logs/namechange" component={NamechangeLogsScreen} />
+      <Route path="/logs/private-chat" component={PrivateChatLogsScreen} />
+      <Route path="/logs/public-chat" component={RoomChatlogsScreen} />
+      <Route path="/logs/room-enters" component={RoomEnterLogsScreen} />
+      <Route path="/logs/room-trades" component={RoomTradeLogsScreen} />
     </BaseRouter>
   );
 };

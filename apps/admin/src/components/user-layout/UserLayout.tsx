@@ -16,6 +16,7 @@ const SIDEBAR_LINKS = [
   { path: "/badges", icon: "fa-id-badge", label: "Badges" },
   { path: "/furniture", icon: "fa-chair", label: "Furniture" },
   { path: "/emulator/settings", icon: "fa-wrench", label: "Settings" },
+  { path: "/logs/public-chat", icon: "fa-magnifying-glass", label: "Logging" },
   { path: "/logout", icon: "fa-sign-out", label: "Sign Out" },
 ];
 
