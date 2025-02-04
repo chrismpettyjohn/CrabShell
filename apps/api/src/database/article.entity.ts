@@ -24,7 +24,7 @@ export class ArticleEntity {
   content!: string;
 
   @Column({ name: 'image_url' })
-  imageURL!: string;
+  imageUrl!: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: string;

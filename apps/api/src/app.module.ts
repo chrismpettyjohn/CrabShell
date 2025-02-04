@@ -9,6 +9,8 @@ import { GroupModule } from './group/group.module';
 import { ArticleModule } from './article/article.module';
 import { HighScoresModule } from './high-scores/high-scores.module';
 import { RankModule } from './rank/rank.module';
+import { EmuSettingsModule } from './emu-settings/emu-settings.module';
+import { EmuTextsModule } from './emu-texts/emu-texts.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { RankModule } from './rank/rank.module';
     GroupModule,
     HighScoresModule,
     RankModule,
+    EmuSettingsModule,
+    EmuTextsModule,
   ],
 })
 export class AppModule {}

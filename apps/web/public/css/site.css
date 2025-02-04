@@ -71,7 +71,8 @@ html, body, p {
 }
 
 html, body {
-    background: var(--bg-one);
+    background-image: url('/img/bg.png');
+    background-color: var(--bg-one);
     color:  var(--color-one);
     font-family: 'Quicksand', sans-serif;
     margin: 0;

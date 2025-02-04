@@ -19,6 +19,9 @@ import {
   AdminArticleGetByIdResponse,
   AdminArticleUpdateByIdResponse,
 } from '@crabshell/admin-client';
+import { CreateArticleDTO } from './article-admin.dto';
+import { GetSession } from '../auth/get-session.decorator';
+import { UserEntity } from '../database/user.entity';
 
 @Controller('admin/articles')
 @HasScope('manageArticles')
@@ -26,10 +29,15 @@ export class ArticleAdminController {
   constructor(private readonly articleRepo: ArticleRepository) {}
 
   @Post('')
-  create(
-    @Param('articleID', ArticlePipe) article: ArticleEntity,
-  ): AdminArticleCreateResponse {
-    return ArticleDTO.fromEntity(article);
+  async create(
+    @Body() dto: CreateArticleDTO,
+    @GetSession() user: UserEntity,
+  ): Promise<AdminArticleCreateResponse> {
+    const newArticle = await this.articleRepo.create({
+      ...dto,
+      userId: user.id!,
+    });
+    return ArticleDTO.fromEntity(newArticle);
   }
 
   @Get('')

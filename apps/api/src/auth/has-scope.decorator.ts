@@ -4,6 +4,7 @@ export enum AVAILABLE_SCOPES {
   MANAGE_ARTICLES = 'manageArticles',
   MANAGE_USERS = 'manageUsers',
   MANAGE_RANKS = 'manageRanks',
+  MANAGE_EMU = 'manageEmu',
 }
 export type PermissionScope = `${AVAILABLE_SCOPES}`;
 

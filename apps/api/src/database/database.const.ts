@@ -16,6 +16,10 @@ import { UserFriendshipEntity } from './user-friendship.entity';
 import { UserFriendshipRepository } from './user-friendship.repository';
 import { UserAchievementEntity } from './user-achievement.entity';
 import { UserAchievementRepository } from './user-achievement.repository';
+import { EmuTextsEntity } from './emu-texts.entity';
+import { EmuSettingsRepository } from './emu-settings.repository';
+import { EmuTextsRepository } from './emu-texts.repository';
+import { EmuSettingsEntity } from './emu-settings.entity';
 export const databaseEntities = [
   ArticleEntity,
   RankEntity,
@@ -26,6 +30,8 @@ export const databaseEntities = [
   UserBadgeEntity,
   UserFriendshipEntity,
   UserAchievementEntity,
+  EmuSettingsEntity,
+  EmuTextsEntity,
 ];
 
 export const databaseRepositories = [
@@ -38,4 +44,6 @@ export const databaseRepositories = [
   UserBadgeRepository,
   UserFriendshipRepository,
   UserAchievementRepository,
+  EmuSettingsRepository,
+  EmuTextsRepository,
 ];

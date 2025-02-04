@@ -36,7 +36,7 @@ export class AdminArticleDTO extends ArticleDTO implements AdminArticleWire {
     const dto = new ArticleDTO();
     dto.id = entity.id!;
     dto.name = entity.name;
-    dto.imageUrl = entity.imageURL;
+    dto.imageUrl = entity.imageUrl;
     dto.description = entity.description;
     dto.content = entity.content;
     dto.userId = entity.userId;
