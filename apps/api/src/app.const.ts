@@ -23,3 +23,6 @@ export const USER_DEFAULT_HOME_ROOM = Number(
 
 export const USER_DEFAULT_LOOK = process.env.USER_DEFAULT_LOOK;
 export const USER_DEFAULT_MOTTO = process.env.USER_DEFAULT_MOTTO;
+
+// Badges
+export const BADGES_FOLDER: string = process.env.BADGES_FOLDER!;

@@ -8,6 +8,7 @@ import {
 import { RanksEditor } from "../ranks-editor/RanksEditor";
 import toast from "solid-toast";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function RanksEditScreen() {
   const { rankId } = useParams();
@@ -41,6 +42,7 @@ export function RanksEditScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Edit Rank</SiteTitle>
       <h1>Edit Rank</h1>
       <div class="card">
         <Show when={rank()} fallback={<i class="fa fa-spinner fa-spin" />}>

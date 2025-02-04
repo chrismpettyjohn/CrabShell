@@ -6,6 +6,7 @@ import {
   AdminItemsBaseWire,
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function FurnitureListScreen() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export function FurnitureListScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Furniture</SiteTitle>
       <h2>Furniture</h2>
       <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
         <A href="/furniture/create">

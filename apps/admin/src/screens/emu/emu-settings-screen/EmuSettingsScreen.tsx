@@ -6,6 +6,7 @@ import {
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
 import { A } from "@solidjs/router";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function EmuSettingsScreen() {
   const [settings, setSettings] = createSignal<AdminEmuSettingsWire[]>([]);
@@ -22,6 +23,7 @@ export function EmuSettingsScreen() {
 
   return (
     <EmuLayout>
+      <SiteTitle>EMU Settings</SiteTitle>
       <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
         <A href="/emu-settings/create">
           <button>

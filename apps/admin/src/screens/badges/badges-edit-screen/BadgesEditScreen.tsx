@@ -8,6 +8,7 @@ import {
   AdminBadgeWire,
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function BadgesEditScreen() {
   const { badgeCode } = useParams();
@@ -29,6 +30,7 @@ export function BadgesEditScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Edit Badge</SiteTitle>
       <h1>Edit Badge</h1>
       <div class="card">
         <Show when={badge()} fallback={<i class="fa fa-spinner fa-spin" />}>

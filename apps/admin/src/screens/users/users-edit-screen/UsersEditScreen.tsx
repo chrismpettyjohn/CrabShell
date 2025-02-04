@@ -8,6 +8,7 @@ import {
 } from "@crabshell/admin-client";
 import { UsersEditor } from "../users-editor/UsersEditor";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function UsersEditScreen() {
   const { userId } = useParams();
@@ -41,6 +42,7 @@ export function UsersEditScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Edit User</SiteTitle>
       <h1>Edit User</h1>
       <div class="card">
         <Show when={user()} fallback={<i class="fa fa-spinner fa-spin" />}>

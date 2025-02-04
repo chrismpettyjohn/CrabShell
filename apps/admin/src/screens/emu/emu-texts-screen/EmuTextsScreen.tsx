@@ -6,6 +6,7 @@ import { EmuLayout } from "../EmuLayout";
 import { createSignal, onMount } from "solid-js";
 import toast from "solid-toast";
 import { A } from "@solidjs/router";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function EmuTextsScreen() {
   const [texts, setTexts] = createSignal<AdminEmuTextsWire[]>([]);
@@ -21,6 +22,7 @@ export function EmuTextsScreen() {
   });
   return (
     <EmuLayout>
+      <SiteTitle>EMU Texts</SiteTitle>
       <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
         <A href="/emu-texts/create">
           <button>

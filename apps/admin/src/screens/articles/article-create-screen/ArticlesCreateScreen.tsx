@@ -7,6 +7,7 @@ import { useNavigate } from "@solidjs/router";
 import { createSignal } from "solid-js";
 import { ArticleEditor } from "../article-editor/ArticleEditor";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function ArticlesCreateScreen() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export function ArticlesCreateScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Create Article</SiteTitle>
       <h2>Create Article</h2>
       <div class="card">
         <ArticleEditor onSave={onCreate} />

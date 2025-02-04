@@ -4,6 +4,7 @@ import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { createSignal, onMount } from "solid-js";
 import { adminBadgeService, AdminBadgeWire } from "@crabshell/admin-client";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function BadgesListScreen() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export function BadgesListScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Badges</SiteTitle>
       <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
         <A href="/badges/create">
           <button>

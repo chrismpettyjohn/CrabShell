@@ -6,6 +6,7 @@ import {
   adminBadgeService,
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function BadgesCreateScreen() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export function BadgesCreateScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Create Badge</SiteTitle>
       <h1>Create Badge</h1>
       <div class="card">
         <BadgesEditor onSave={onCreate} />

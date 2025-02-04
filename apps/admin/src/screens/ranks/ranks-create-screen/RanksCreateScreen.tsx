@@ -7,6 +7,7 @@ import { createSignal } from "solid-js";
 import { RanksEditor } from "../ranks-editor/RanksEditor";
 import toast from "solid-toast";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function RanksCreateScreen() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export function RanksCreateScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Create Rank</SiteTitle>
       <h2>Create Rank</h2>
       <div class="card">
         <RanksEditor onSave={onCreate} />

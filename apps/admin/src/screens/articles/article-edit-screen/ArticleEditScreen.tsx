@@ -8,6 +8,7 @@ import {
 } from "@crabshell/admin-client";
 import { ArticleEditor } from "../article-editor/ArticleEditor";
 import toast from "solid-toast";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function ArticleEditScreen() {
   const { articleId } = useParams();
@@ -41,6 +42,7 @@ export function ArticleEditScreen() {
 
   return (
     <UserLayout>
+      <SiteTitle>Edit Article</SiteTitle>
       <h1>Edit Article</h1>
       <div class="card">
         <Show when={article()} fallback={<i class="fa fa-spinner fa-spin" />}>
