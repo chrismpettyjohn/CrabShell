@@ -15,9 +15,10 @@ import { ArticleRepository } from '../database/article.repository';
 import {
   AdminArticleCreateResponse,
   AdminArticleDeleteByIdResponse,
+  AdminArticleGetAllResponse,
+  AdminArticleGetByIdResponse,
   AdminArticleUpdateByIdResponse,
 } from '@crabshell/admin-client';
-import { ArticleGetByIdResponse } from '@crabshell/public-client';
 
 @Controller('admin/articles')
 @HasScope('manageArticles')
@@ -32,7 +33,7 @@ export class ArticleAdminController {
   }
 
   @Get('')
-  async getAll(): Promise<ArticleDTO[]> {
+  async getAll(): Promise<AdminArticleGetAllResponse> {
     const articles: ArticleEntity[] = await this.articleRepo.find({
       order: {
         id: 'DESC',
@@ -44,7 +45,7 @@ export class ArticleAdminController {
   @Get(':articleID')
   getById(
     @Param('articleID', ArticlePipe) article: ArticleEntity,
-  ): ArticleGetByIdResponse {
+  ): AdminArticleGetByIdResponse {
     return ArticleDTO.fromEntity(article);
   }
 
@@ -53,7 +54,7 @@ export class ArticleAdminController {
     @Param('articleID', ArticlePipe) article: ArticleEntity,
     @Body() articleDto: ArticleDTO,
   ): Promise<AdminArticleUpdateByIdResponse> {
-    await this.articleRepo.update({ id: article.id }, article);
+    await this.articleRepo.update({ id: article.id }, articleDto);
     return true;
   }
 

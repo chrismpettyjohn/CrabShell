@@ -20,6 +20,9 @@ export class RankEntity {
   @Column({ name: 'cms_manage_articles' })
   manageArticles: RankBoolean;
 
+  @Column({ name: 'cms_manage_ranks' })
+  manageRanks: RankBoolean;
+
   @OneToMany(() => UserEntity, (user) => user.rank)
   members?: UserEntity[];
 }

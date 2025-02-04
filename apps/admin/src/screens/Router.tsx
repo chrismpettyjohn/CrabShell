@@ -26,6 +26,15 @@ const UsersCreateScreen = lazy(
 const UsersEditScreen = lazy(
   () => import("./users/users-edit-screen/UsersEditScreen")
 );
+const RanksListScreen = lazy(
+  () => import("./ranks/ranks-list-screen/RanksListScreen")
+);
+const RanksCreateScreen = lazy(
+  () => import("./ranks/ranks-create-screen/RanksCreateScreen")
+);
+const RanksEditScreen = lazy(
+  () => import("./ranks/ranks-edit-screen/RanksEditScreen")
+);
 
 export const Router: Component = () => {
   return (
@@ -41,6 +50,9 @@ export const Router: Component = () => {
       <Route path="/users" component={UserListScreen} />
       <Route path="/users/create" component={UsersCreateScreen} />
       <Route path="/users/:userId" component={UsersEditScreen} />
+      <Route path="/ranks" component={RanksListScreen} />
+      <Route path="/ranks/create" component={RanksCreateScreen} />
+      <Route path="/ranks/:rankId" component={RanksEditScreen} />
     </BaseRouter>
   );
 };

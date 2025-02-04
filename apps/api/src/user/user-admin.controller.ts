@@ -1,19 +1,10 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { UserPipe } from './user.pipe';
 import { UserEntity } from '../database/user.entity';
 import { UserDTO } from './user.dto';
 import { HasScope } from '../auth/has-scope.decorator';
 import { UserRepository } from '../database/user.repository';
 import {
-  AdminUserCreateResponse,
   AdminUserDeleteByIdResponse,
   AdminUserGetByIdResponse,
   AdminUserUpdateByIdResponse,
@@ -23,11 +14,6 @@ import {
 @HasScope('manageUsers')
 export class UserAdminController {
   constructor(private readonly userRepo: UserRepository) {}
-
-  @Post('')
-  create(@Param('userID', UserPipe) user: UserEntity): AdminUserCreateResponse {
-    return UserDTO.fromEntity(user);
-  }
 
   @Get('')
   async getAll(): Promise<UserDTO[]> {
@@ -51,7 +37,7 @@ export class UserAdminController {
     @Param('userID', UserPipe) user: UserEntity,
     @Body() userDto: UserDTO,
   ): Promise<AdminUserUpdateByIdResponse> {
-    await this.userRepo.update({ id: user.id }, user);
+    await this.userRepo.update({ id: user.id }, userDto);
     return true;
   }
 

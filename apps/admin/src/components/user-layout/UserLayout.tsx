@@ -11,6 +11,7 @@ export interface UserLayoutProps {
 const SIDEBAR_LINKS = [
   { path: "/dashboard", icon: "fa-home", label: "Dashboard" },
   { path: "/users", icon: "fa-users", label: "Users" },
+  { path: "/ranks", icon: "fa-shield", label: "Ranks" },
   { path: "/articles", icon: "fa-newspaper", label: "Articles" },
   { path: "/logout", icon: "fa-sign-out", label: "Logout" },
 ];

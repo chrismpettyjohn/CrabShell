@@ -12,6 +12,10 @@ export default defineConfig(({ mode }) => {
       "process.env.IMAGER_BASE_URL": JSON.stringify(
         env.VITE_IMAGER_BASE_URL || ""
       ),
+      "process.env.BADGE_BASE_URL": JSON.stringify(
+        env.VITE_BADGE_BASE_URL || ""
+      ),
+      "process.env.BADGE_EXT": JSON.stringify(env.VITE_BADGE_EXT || ""),
     },
     plugins: [solidPlugin()],
     server: {
