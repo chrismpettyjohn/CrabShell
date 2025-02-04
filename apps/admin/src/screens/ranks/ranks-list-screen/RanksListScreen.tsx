@@ -1,23 +1,63 @@
-import { createSignal, onMount } from "solid-js";
+// RanksListScreen.tsx
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { adminRankService, AdminRankWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
 import toast from "solid-toast";
-import { BADGE_BASE_URL, BADGE_EXT, IMAGER_BASE_URL } from "../../../App.const";
+import { BADGE_BASE_URL, BADGE_EXT } from "../../../App.const";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function RanksListScreen() {
   const navigate = useNavigate();
-  const [ranks, setRanks] = createSignal<AdminRankWire[]>([]);
-  onMount(async () => {
+
+  const fetchRanks = async ({
+    page,
+    sort,
+    filter,
+  }: {
+    page: number;
+    sort?: string;
+    filter?: Record<number, any>;
+  }) => {
     try {
-      const response = await adminRankService.getAll();
-      setRanks(response);
-    } catch (e: any) {
+      return await adminRankService.getAll();
+    } catch (e) {
       toast.error("Failed to fetch ranks");
       throw e;
     }
-  });
+  };
+
+  const columns: ITableColumn<AdminRankWire>[] = [
+    {
+      header: "ID",
+      selector: (row) => row.id,
+      sortable: true,
+      filterable: true,
+      filterType: "number",
+      width: 20,
+    },
+    {
+      header: "Badge",
+      selector: (row) => (
+        <img
+          src={`${BADGE_BASE_URL}/${row.badgeCode}${BADGE_EXT}`}
+          style="object-fit: contain; height: 45px;"
+        />
+      ),
+      width: 20,
+    },
+    {
+      header: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+      filterable: true,
+      filterType: "string",
+      width: 60,
+    },
+  ];
 
   return (
     <UserLayout>
@@ -30,29 +70,11 @@ export function RanksListScreen() {
           </button>
         </A>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Badge</th>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ranks().map((_, i) => (
-            <tr onClick={() => navigate(`/ranks/${_.id}`)}>
-              <td>{_.id}</td>
-              <td>
-                <img
-                  src={`${BADGE_BASE_URL}/${_.badgeCode}${BADGE_EXT}`}
-                  style="object-fit: contain; height: 45px;"
-                />
-              </td>
-              <td>{_.name}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable
+        columns={columns}
+        fetchData={fetchRanks}
+        onRowClick={(row) => navigate(`/ranks/${row.id}`)}
+      />
     </UserLayout>
   );
 }
