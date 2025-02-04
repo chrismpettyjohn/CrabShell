@@ -42,7 +42,7 @@
 }
 @media (min-width: 1920px) {
     :root {
-        --main-max-width: 1600px;
+        --main-max-width: 1800px;
     }
 }
 
@@ -418,13 +418,13 @@ h1 {
     margin-bottom: 20px;
 }
 
-.tabs-container {
+.links-container {
     display: flex;
     gap: 24px;
     margin-bottom: 20px;
 }
 
-.tabs-container span {
+.links-container span {
     cursor: pointer;
     padding: 10px 15px;
     border-radius: var(--radius-one);
@@ -433,7 +433,7 @@ h1 {
     white-space: nowrap;
 }
 
-.tabs-container span.active {
+.links-container span.active {
     background: var(--bg-brand);
     color: black;
 }

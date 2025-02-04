@@ -23,6 +23,21 @@ const UserListScreen = lazy(
 const UsersEditScreen = lazy(
   () => import("./users/users-edit-screen/UsersEditScreen")
 );
+const UsersBansScreen = lazy(
+  () => import("./users/users-bans-screen/UsersBansScreen")
+);
+const UsersFurnitureScreen = lazy(
+  () => import("./users/users-furniture-screen/UsersFurnitureScreen")
+);
+const UsersMessagesScreen = lazy(
+  () => import("./users/users-messages-screen/UsersMessagesScreen")
+);
+const UsersRoomsScreen = lazy(
+  () => import("./users/users-rooms-screen/UsersRoomsScreen")
+);
+const UsersSessionsScreen = lazy(
+  () => import("./users/users-sessions-screen/UsersSessionsScreen")
+);
 const RanksListScreen = lazy(
   () => import("./ranks/ranks-list-screen/RanksListScreen")
 );
@@ -87,6 +102,11 @@ export const Router: Component = () => {
       <Route path="/articles/:articleId" component={ArticleEditScreen} />
       <Route path="/users" component={UserListScreen} />
       <Route path="/users/:userId" component={UsersEditScreen} />
+      <Route path="/users/bans/:userId" component={UsersBansScreen} />
+      <Route path="/users/furniture/:userId" component={UsersFurnitureScreen} />
+      <Route path="/users/messages/:userId" component={UsersMessagesScreen} />
+      <Route path="/users/rooms/:userId" component={UsersRoomsScreen} />
+      <Route path="/users/sessions/:userId" component={UsersSessionsScreen} />
       <Route path="/ranks" component={RanksListScreen} />
       <Route path="/ranks/create" component={RanksCreateScreen} />
       <Route path="/ranks/:rankId" component={RanksEditScreen} />

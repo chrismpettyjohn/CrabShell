@@ -1,13 +1,16 @@
-import { AdminUserCreateParams, AdminUserWire } from "@crabshell/admin-client";
+import {
+  AdminUserUpdateByIdParams,
+  AdminUserWire,
+} from "@crabshell/admin-client";
 import { createSignal } from "solid-js";
 
 export interface UserEditorProps {
   defaultUser?(): AdminUserWire;
-  onSave(dto: AdminUserCreateParams): void;
+  onSave(dto: AdminUserUpdateByIdParams): void;
 }
 
 export function UsersEditor({ defaultUser, onSave }: UserEditorProps) {
-  const [dto, setDTO] = createSignal<AdminUserCreateParams>({
+  const [dto, setDTO] = createSignal<AdminUserUpdateByIdParams>({
     username: defaultUser?.()?.username ?? "",
     look: defaultUser?.()?.look ?? "",
   });

@@ -1,14 +1,14 @@
 import { useParams } from "@solidjs/router";
-import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { createEffect, createSignal, onMount, Show } from "solid-js";
 import {
-  AdminUserCreateParams,
   adminUserService,
+  AdminUserUpdateByIdParams,
   AdminUserWire,
 } from "@crabshell/admin-client";
 import { UsersEditor } from "../users-editor/UsersEditor";
 import toast from "solid-toast";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { UsersLayout } from "../UsersLayout";
 
 export function UsersEditScreen() {
   const { userId } = useParams();
@@ -27,7 +27,7 @@ export function UsersEditScreen() {
 
   createEffect(() => console.log("user: ", user()));
 
-  async function onEdit(dto: AdminUserCreateParams) {
+  async function onEdit(dto: AdminUserUpdateByIdParams) {
     try {
       setLoading(true);
       await adminUserService.updateById(Number(userId), dto);
@@ -41,7 +41,7 @@ export function UsersEditScreen() {
   }
 
   return (
-    <UserLayout>
+    <UsersLayout userId={Number(userId)}>
       <SiteTitle>Edit User</SiteTitle>
       <h1>Edit User</h1>
       <div class="card">
@@ -49,7 +49,7 @@ export function UsersEditScreen() {
           <UsersEditor defaultUser={() => user()!} onSave={onEdit} />
         </Show>
       </div>
-    </UserLayout>
+    </UsersLayout>
   );
 }
 

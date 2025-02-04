@@ -1,22 +1,45 @@
 import { JSX } from "solid-js";
 import { UserLayout } from "../../components/user-layout/UserLayout";
-import { A } from "@solidjs/router";
+import { Link, LinkBar } from "../../components/links-bar/LinksBar";
+
+const LOGGING_LINKS: Link[] = [
+  {
+    label: "Commands",
+    href: "/logs/commands",
+  },
+  {
+    label: "Name Changes",
+    href: "/logs/namechange",
+  },
+  {
+    label: "Public Messages",
+    href: "/logs/public-chat",
+  },
+  {
+    label: "Private Messages",
+    href: "/logs/private-chat",
+  },
+  {
+    label: "Room Enters",
+    href: "/logs/room-enters",
+  },
+  {
+    label: "Room Trades",
+    href: "/logs/room-trades",
+  },
+];
 
 export interface LoggingLayoutProps {
   children: JSX.Element;
 }
-
 export function LoggingLayout({ children }: LoggingLayoutProps) {
   return (
     <UserLayout>
-      <div style="display:flex;justify-content:center;align-items:center;gap:14px;width:100%;margin-bottom:14px;">
-        <A href="/logs/commands">Commands</A>
-        <A href="/logs/namechange">Name Changes</A>
-        <A href="/logs/private-chat">Private Messages</A>
-        <A href="/logs/room-enters">Room Enters</A>
-        <A href="/logs/room-trades">Room Trades</A>
+      <div class="card">
+        <LinkBar links={LOGGING_LINKS} />
+        <br />
+        {children}
       </div>
-      {children}
     </UserLayout>
   );
 }
