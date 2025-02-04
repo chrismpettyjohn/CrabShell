@@ -14,6 +14,14 @@ export function ArticleListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Articles</SiteTitle>
+      <div style="display:flex;justify-content:flex-end;width:100%;margin-bottom:14px;">
+        <A href="/articles/create">
+          <button>
+            <i class="fa fa-plus-circle" style="margin-right: 8px;" />
+            Create
+          </button>
+        </A>
+      </div>
       <table>
         <thead>
           <tr>
