@@ -6,6 +6,8 @@ import {
   type Component,
   type JSX,
   onMount,
+  createEffect,
+  Show,
 } from "solid-js";
 
 interface AuthContextValue {
@@ -16,17 +18,24 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue>();
 
 export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
+  const [loading, setLoading] = createSignal(true);
   const [user, setUser] = createSignal<UserWire | null>(null);
 
   onMount(async () => {
-    const currUser = await authService.viewAuthenticatedUser();
-    setUser(currUser);
+    try {
+      const currUser = await authService.viewAuthenticatedUser();
+      setUser(currUser);
+    } finally {
+      setLoading(false);
+    }
   });
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      {props.children}
-    </AuthContext.Provider>
+    <Show when={!loading()} fallback={<i class="fa fa-spin fa-spinner" />}>
+      <AuthContext.Provider value={{ user, setUser }}>
+        {props.children}
+      </AuthContext.Provider>
+    </Show>
   );
 };
 
