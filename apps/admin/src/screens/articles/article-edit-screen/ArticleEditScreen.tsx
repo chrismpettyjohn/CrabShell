@@ -39,9 +39,12 @@ export function ArticleEditScreen() {
 
   return (
     <UserLayout>
-      <Show when={article()} fallback={<i class="fa fa-spinner fa-spin" />}>
-        <ArticleEditor defaultArticle={() => article()!} onSave={onEdit} />
-      </Show>
+      <h1>Edit Article</h1>
+      <div class="card">
+        <Show when={article()} fallback={<i class="fa fa-spinner fa-spin" />}>
+          <ArticleEditor defaultArticle={() => article()!} onSave={onEdit} />
+        </Show>
+      </div>
     </UserLayout>
   );
 }

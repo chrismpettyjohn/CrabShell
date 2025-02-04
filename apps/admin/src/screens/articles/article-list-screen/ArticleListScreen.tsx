@@ -2,9 +2,10 @@ import { createSignal, onMount } from "solid-js";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { adminArticleService, AdminArticleWire } from "@crabshell/admin-client";
-import { A } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 
 export function ArticleListScreen() {
+  const navigate = useNavigate();
   const [articles, setArticles] = createSignal<AdminArticleWire[]>([]);
   onMount(async () => {
     const response = await adminArticleService.getAll();
@@ -14,7 +15,7 @@ export function ArticleListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Articles</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;width:100%;margin-bottom:14px;">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
         <A href="/articles/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />
@@ -22,7 +23,7 @@ export function ArticleListScreen() {
           </button>
         </A>
       </div>
-      <table>
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Cover</th>
@@ -35,20 +36,16 @@ export function ArticleListScreen() {
         </thead>
         <tbody>
           {articles().map((_, i) => (
-            <tr>
+            <tr onClick={() => navigate(`/articles/${_.id}`)}>
               <td>#{i + 1}</td>
               <td>
-                <A href={`/articles/${_.id}`}>
-                  <img
-                    src={_.imageUrl}
-                    style="object-fit: contain"
-                    height={100}
-                  />
-                </A>
+                <img
+                  src={_.imageUrl}
+                  class="img-fluid"
+                  style="object-fit: contain; height: 100px"
+                />
               </td>
-              <td>
-                <A href={`/articles/${_.id}`}>{_.name}</A>
-              </td>
+              <td>{_.name}</td>
               <td>{_.description}</td>
               <td>{_.updatedAt}</td>
               <td>{_.createdAt}</td>

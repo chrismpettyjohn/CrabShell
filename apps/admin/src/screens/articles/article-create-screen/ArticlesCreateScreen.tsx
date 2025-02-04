@@ -29,7 +29,10 @@ export function ArticlesCreateScreen() {
 
   return (
     <UserLayout>
-      <ArticleEditor onSave={onCreate} />
+      <h2>Create Article</h2>
+      <div class="card">
+        <ArticleEditor onSave={onCreate} />
+      </div>
     </UserLayout>
   );
 }

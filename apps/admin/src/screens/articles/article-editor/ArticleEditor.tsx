@@ -33,11 +33,11 @@ export function ArticleEditor({ defaultArticle, onSave }: ArticleEditorProps) {
       <input name="name" value={dto().name} onInput={onChange} type="text" />
 
       <label>Description</label>
-      <input
+      <textarea
         name="description"
         value={dto().description}
         onInput={onChange}
-        type="text"
+        rows={5}
       />
 
       <label>Image</label>
@@ -45,12 +45,20 @@ export function ArticleEditor({ defaultArticle, onSave }: ArticleEditorProps) {
         name="imageUrl"
         value={dto().imageUrl}
         onInput={onChange}
+        placeholder="https://www.habboon.pw/web-gallery/web_promos/GTF2020.png"
         type="text"
       />
 
       <label>Content</label>
-      <textarea name="content" value={dto().content} onInput={onChange} />
-      <button type="submit">Save</button>
+      <textarea
+        name="content"
+        value={dto().content}
+        onInput={onChange}
+        rows={10}
+      />
+      <div style="display:flex;justify-content:flex-end;width:100%;margin-top:auto;">
+        <button type="submit">Save</button>
+      </div>
     </form>
   );
 }
