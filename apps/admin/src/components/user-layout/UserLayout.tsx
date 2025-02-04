@@ -14,6 +14,7 @@ const SIDEBAR_LINKS = [
   { path: "/ranks", icon: "fa-shield", label: "Ranks" },
   { path: "/articles", icon: "fa-newspaper", label: "Articles" },
   { path: "/emulator/settings", icon: "fa-wrench", label: "Settings" },
+  { path: "/furniture", icon: "fa-chair", label: "Furniture" },
   { path: "/logout", icon: "fa-sign-out", label: "Logout" },
 ];
 

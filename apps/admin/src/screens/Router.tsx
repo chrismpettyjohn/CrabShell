@@ -41,7 +41,15 @@ const EmuSettingsScreen = lazy(
 const EmuTextsScreen = lazy(
   () => import("./emu/emu-texts-screen/EmuTextsScreen")
 );
-
+const FurnitureListScreen = lazy(
+  () => import("./furniture/furniture-list-screen/FurnitureListScreen")
+);
+const FurnitureCreateScreen = lazy(
+  () => import("./furniture/furniture-create-screen/FurnitureCreateScreen")
+);
+const FurnitureEditScreen = lazy(
+  () => import("./furniture/furniture-edit-screen/FurnitureEditScreen")
+);
 export const Router: Component = () => {
   return (
     <BaseRouter>
@@ -61,6 +69,9 @@ export const Router: Component = () => {
       <Route path="/ranks/:rankId" component={RanksEditScreen} />
       <Route path="/emulator/settings" component={EmuSettingsScreen} />
       <Route path="/emulator/texts" component={EmuTextsScreen} />
+      <Route path="/furniture" component={FurnitureListScreen} />
+      <Route path="/furniture/create" component={FurnitureCreateScreen} />
+      <Route path="/furniture/:baseItemId" component={FurnitureEditScreen} />
     </BaseRouter>
   );
 };
