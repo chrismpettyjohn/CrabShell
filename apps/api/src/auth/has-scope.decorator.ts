@@ -2,6 +2,7 @@ import { SetMetadata } from '@nestjs/common';
 
 export enum AVAILABLE_SCOPES {
   MANAGE_ARTICLES = 'manageArticles',
+  MANAGE_USERS = 'manageUsers',
 }
 export type PermissionScope = `${AVAILABLE_SCOPES}`;
 

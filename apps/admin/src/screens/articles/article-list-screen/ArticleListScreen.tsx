@@ -13,7 +13,7 @@ export function ArticleListScreen() {
       const response = await adminArticleService.getAll();
       setArticles(response);
     } catch (e: any) {
-      toast.error("Faield to fetch articles");
+      toast.error("Failed to fetch articles");
       throw e;
     }
   });
