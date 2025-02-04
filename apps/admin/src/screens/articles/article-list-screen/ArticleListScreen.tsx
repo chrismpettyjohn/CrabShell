@@ -3,13 +3,19 @@ import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { adminArticleService, AdminArticleWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
+import toast from "solid-toast";
 
 export function ArticleListScreen() {
   const navigate = useNavigate();
   const [articles, setArticles] = createSignal<AdminArticleWire[]>([]);
   onMount(async () => {
-    const response = await adminArticleService.getAll();
-    setArticles(response);
+    try {
+      const response = await adminArticleService.getAll();
+      setArticles(response);
+    } catch (e: any) {
+      toast.error("Faield to fetch articles");
+      throw e;
+    }
   });
 
   return (

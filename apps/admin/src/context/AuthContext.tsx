@@ -6,9 +6,9 @@ import {
   type Component,
   type JSX,
   onMount,
-  createEffect,
   Show,
 } from "solid-js";
+import toast from "solid-toast";
 
 interface AuthContextValue {
   user: () => UserWire | null;
@@ -25,6 +25,7 @@ export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
     try {
       const currUser = await authService.viewAuthenticatedUser();
       setUser(currUser);
+      toast.success(`Welcome back, ${currUser.username}`);
     } finally {
       setLoading(false);
     }

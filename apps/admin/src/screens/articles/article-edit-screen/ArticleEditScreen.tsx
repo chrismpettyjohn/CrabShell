@@ -7,6 +7,7 @@ import {
   AdminArticleWire,
 } from "@crabshell/admin-client";
 import { ArticleEditor } from "../article-editor/ArticleEditor";
+import toast from "solid-toast";
 
 export function ArticleEditScreen() {
   const { articleId } = useParams();
@@ -18,7 +19,7 @@ export function ArticleEditScreen() {
       const response = await adminArticleService.getById(Number(articleId));
       setArticle({ ...response });
     } catch (error) {
-      alert("Failed to fetch article.");
+      toast.error("Failed to fetch article");
       console.error(error);
     }
   });
@@ -29,8 +30,9 @@ export function ArticleEditScreen() {
     try {
       setLoading(true);
       await adminArticleService.updateById(Number(articleId), dto);
+      toast.success("Article successfully updated");
     } catch (error) {
-      alert(`Failed to save: ${error}`);
+      toast.error("Failed to update article");
       console.error(error);
     } finally {
       setLoading(false);

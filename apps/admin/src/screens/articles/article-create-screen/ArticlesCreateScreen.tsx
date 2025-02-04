@@ -6,6 +6,7 @@ import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { useNavigate } from "@solidjs/router";
 import { createSignal } from "solid-js";
 import { ArticleEditor } from "../article-editor/ArticleEditor";
+import toast from "solid-toast";
 
 export function ArticlesCreateScreen() {
   const navigate = useNavigate();
@@ -19,9 +20,10 @@ export function ArticlesCreateScreen() {
       setLoading(true);
       const article = await adminArticleService.create(dto);
       setLoading(false);
+      toast.success("Article successfully created");
       return navigate(`/articles/${article.id}`);
     } catch (e: any) {
-      alert(`Failed to create ${e}`);
+      toast.error("Failed to create article");
       setLoading(false);
       throw e;
     }
