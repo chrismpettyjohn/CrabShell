@@ -10,6 +10,10 @@ export * from "./emu-settings/emu-settings.types";
 export * from "./emu-texts/emu-texts.service";
 export * from "./emu-texts/emu-texts.types";
 
+// Items Base
+export * from "./items-base/items-base.service";
+export * from "./items-base/items-base.types";
+
 // Rank
 export * from "./rank/rank.service";
 export * from "./rank/rank.types";

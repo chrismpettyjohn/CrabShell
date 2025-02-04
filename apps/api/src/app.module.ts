@@ -11,6 +11,7 @@ import { HighScoresModule } from './high-scores/high-scores.module';
 import { RankModule } from './rank/rank.module';
 import { EmuSettingsModule } from './emu-settings/emu-settings.module';
 import { EmuTextsModule } from './emu-texts/emu-texts.module';
+import { ItemsBaseModule } from './items-base/items-base.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { EmuTextsModule } from './emu-texts/emu-texts.module';
     RankModule,
     EmuSettingsModule,
     EmuTextsModule,
+    ItemsBaseModule,
   ],
 })
 export class AppModule {}

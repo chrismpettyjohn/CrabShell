@@ -1,8 +1,26 @@
 import { useNavigate } from "@solidjs/router";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
+import { createSignal, onMount } from "solid-js";
+import {
+  adminItemsBaseService,
+  AdminItemsBaseWire,
+} from "@crabshell/admin-client";
+import toast from "solid-toast";
 
 export function FurnitureListScreen() {
   const navigate = useNavigate();
+  const [items, setItems] = createSignal<AdminItemsBaseWire[]>([]);
+
+  onMount(async () => {
+    try {
+      const response = await adminItemsBaseService.getAll();
+      setItems(response);
+    } catch (e: any) {
+      toast.error("Failed to fetch furniture");
+      throw e;
+    }
+  });
+
   return (
     <UserLayout>
       <h2>Furniture</h2>
@@ -28,24 +46,24 @@ export function FurnitureListScreen() {
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: 10 }).map((_, index) => (
+          {items().map((_, index) => (
             <tr onClick={() => navigate(`/furniture/1`)}>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+              <td>{_.publicName}</td>
+              <td>{_.itemName}</td>
+              <td>{_.type}</td>
+              <td>{_.interactionType}</td>
+              <td>{_.interactionModesCount}</td>
+              <td>{_.width}</td>
+              <td>{_.length}</td>
+              <td>{_.stackHeight}</td>
+              <td>{_.allowStack}</td>
+              <td>{_.allowInventoryStack}</td>
+              <td>{_.allowSit}</td>
+              <td>{_.allowWalk}</td>
+              <td>{_.allowGift}</td>
+              <td>{_.allowTrade}</td>
+              <td>{_.allowRecycle}</td>
+              <td>{_.allowMarketplaceSell}</td>
             </tr>
           ))}
         </tbody>

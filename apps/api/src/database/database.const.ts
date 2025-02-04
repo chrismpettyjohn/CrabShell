@@ -20,6 +20,8 @@ import { EmuTextsEntity } from './emu-texts.entity';
 import { EmuSettingsRepository } from './emu-settings.repository';
 import { EmuTextsRepository } from './emu-texts.repository';
 import { EmuSettingsEntity } from './emu-settings.entity';
+import { ItemBaseEntity } from './items-base.entity';
+import { ItemBaseRepository } from './items-base.repository';
 export const databaseEntities = [
   ArticleEntity,
   RankEntity,
@@ -32,6 +34,7 @@ export const databaseEntities = [
   UserAchievementEntity,
   EmuSettingsEntity,
   EmuTextsEntity,
+  ItemBaseEntity,
 ];
 
 export const databaseRepositories = [
@@ -46,4 +49,5 @@ export const databaseRepositories = [
   UserAchievementRepository,
   EmuSettingsRepository,
   EmuTextsRepository,
+  ItemBaseRepository,
 ];
