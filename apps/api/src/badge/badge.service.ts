@@ -14,15 +14,19 @@ export class BadgeService {
   }
 
   private loadBadges() {
-    console.log(`Loading files from ${BADGES_FOLDER}`);
+    console.log(`Loading GIF files from ${BADGES_FOLDER}`);
+
     if (!fs.existsSync(BADGES_FOLDER)) {
       fs.mkdirSync(BADGES_FOLDER, { recursive: true });
     }
-    const files = fs.readdirSync(BADGES_FOLDER);
-    this.badges = files.map((file) => {
-      const filePath = path.join(BADGES_FOLDER, file);
-      return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as AdminBadgeWire;
-    });
+
+    this.badges = fs
+      .readdirSync(BADGES_FOLDER)
+      .filter((file) => file.toLowerCase().endsWith('.gif')) // Only include GIF files
+      .map((file) => ({
+        code: path.parse(file).name,
+        publicName: '',
+      }));
   }
 
   private saveBadge(badge: AdminBadgeWire) {
