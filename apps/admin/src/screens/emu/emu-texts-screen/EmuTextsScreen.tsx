@@ -23,7 +23,8 @@ export function EmuTextsScreen() {
   return (
     <EmuLayout>
       <SiteTitle>EMU Texts</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;width:100%;">
+        <h1>EMU Texts</h1>
         <A href="/emu-texts/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />

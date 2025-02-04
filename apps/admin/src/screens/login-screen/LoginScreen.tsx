@@ -36,7 +36,7 @@ const LoginScreen: Component = () => {
           </div>
           <br />
           <div class="login-box">
-            <h2>CrabShell</h2>
+            <h1>CrabShell</h1>
             <p>This area is only intended for staff members.</p>
             <form onSubmit={onLogin}>
               <label for="username">Username</label>

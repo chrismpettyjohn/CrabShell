@@ -33,7 +33,7 @@ export function RanksCreateScreen() {
   return (
     <UserLayout>
       <SiteTitle>Create Rank</SiteTitle>
-      <h2>Create Rank</h2>
+      <h1>Create Rank</h1>
       <div class="card">
         <RanksEditor onSave={onCreate} />
       </div>

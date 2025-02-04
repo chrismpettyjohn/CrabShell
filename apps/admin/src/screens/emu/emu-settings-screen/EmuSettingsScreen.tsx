@@ -24,7 +24,8 @@ export function EmuSettingsScreen() {
   return (
     <EmuLayout>
       <SiteTitle>EMU Settings</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;width:100%;">
+        <h1>EMU Settings</h1>
         <A href="/emu-settings/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />

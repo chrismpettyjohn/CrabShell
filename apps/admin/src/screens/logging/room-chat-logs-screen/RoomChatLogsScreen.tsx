@@ -5,7 +5,7 @@ export function RoomChatLogsScreen() {
   return (
     <LoggingLayout>
       <SiteTitle>Public Chat Logs</SiteTitle>
-      <h2>Public Chat Logs</h2>
+      <h1>Public Chat Logs</h1>
       <table class="table table-striped">
         <thead>
           <tr>

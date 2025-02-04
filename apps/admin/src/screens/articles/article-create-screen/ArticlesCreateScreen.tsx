@@ -33,7 +33,7 @@ export function ArticlesCreateScreen() {
   return (
     <UserLayout>
       <SiteTitle>Create Article</SiteTitle>
-      <h2>Create Article</h2>
+      <h1>Create Article</h1>
       <div class="card">
         <ArticleEditor onSave={onCreate} />
       </div>

@@ -9,7 +9,7 @@ const MeScreen: Component = () => {
       <div class="grid">
         <div class="col-5">
           <div class="card" style="height:500px;">
-            <h2>Development Build</h2>
+            <h1>Development Build</h1>
             <p>
               CrabShell is still in very early development and may be missing
               major features or have breaking changes suddenly.
@@ -19,7 +19,7 @@ const MeScreen: Component = () => {
         <div class="col-2" />
         <div class="col-5">
           <div class="card" style="height:500px;">
-            <h2>Video of the week</h2>
+            <h1>Video of the week</h1>
             <p>
               May the video below offer you peace of mind in these trying times.
             </p>

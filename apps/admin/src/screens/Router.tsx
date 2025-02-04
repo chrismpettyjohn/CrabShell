@@ -47,6 +47,9 @@ const RanksCreateScreen = lazy(
 const RanksEditScreen = lazy(
   () => import("./ranks/ranks-edit-screen/RanksEditScreen")
 );
+const RankMembersScreen = lazy(
+  () => import("./ranks/ranks-members-screen/RankMembersScreen")
+);
 const EmuSettingsScreen = lazy(
   () => import("./emu/emu-settings-screen/EmuSettingsScreen")
 );
@@ -110,6 +113,7 @@ export const Router: Component = () => {
       <Route path="/ranks" component={RanksListScreen} />
       <Route path="/ranks/create" component={RanksCreateScreen} />
       <Route path="/ranks/:rankId" component={RanksEditScreen} />
+      <Route path="/ranks/:rankId/members" component={RankMembersScreen} />
       <Route path="/emulator/settings" component={EmuSettingsScreen} />
       <Route path="/emulator/texts" component={EmuTextsScreen} />
       <Route path="/furniture" component={FurnitureListScreen} />
@@ -118,7 +122,6 @@ export const Router: Component = () => {
       <Route path="/badges/" component={BadgesListScreen} />
       <Route path="/badges/create" component={BadgesCreateScreen} />
       <Route path="/badges/:badgeCode" component={BadgesEditScreen} />
-
       <Route path="/logs/commands" component={CommandLogsScreen} />
       <Route path="/logs/namechange" component={NamechangeLogsScreen} />
       <Route path="/logs/private-chat" component={PrivateChatLogsScreen} />

@@ -5,7 +5,7 @@ export function CommandLogsScreen() {
   return (
     <LoggingLayout>
       <SiteTitle>Command Logs</SiteTitle>
-      <h2>Command Logs</h2>
+      <h1>Command Logs</h1>
       <table class="table table-striped">
         <thead>
           <tr>

@@ -5,7 +5,7 @@ export function RoomTradeLogsScreen() {
   return (
     <LoggingLayout>
       <SiteTitle>Room Trade Logs</SiteTitle>
-      <h2>Room Trade Logs</h2>
+      <h1>Room Trade Logs</h1>
       <table class="table table-striped">
         <thead>
           <tr>

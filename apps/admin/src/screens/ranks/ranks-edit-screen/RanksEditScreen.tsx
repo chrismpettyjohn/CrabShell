@@ -7,8 +7,8 @@ import {
 } from "@crabshell/admin-client";
 import { RanksEditor } from "../ranks-editor/RanksEditor";
 import toast from "solid-toast";
-import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { RankLayout } from "../RankLayout";
 
 export function RanksEditScreen() {
   const { rankId } = useParams();
@@ -41,7 +41,7 @@ export function RanksEditScreen() {
   }
 
   return (
-    <UserLayout>
+    <RankLayout rankId={Number(rankId)}>
       <SiteTitle>Edit Rank</SiteTitle>
       <h1>Edit Rank</h1>
       <div class="card">
@@ -49,7 +49,7 @@ export function RanksEditScreen() {
           <RanksEditor defaultRank={() => rank()!} onSave={onEdit} />
         </Show>
       </div>
-    </UserLayout>
+    </RankLayout>
   );
 }
 

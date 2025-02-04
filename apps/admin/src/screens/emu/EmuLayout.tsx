@@ -1,25 +1,38 @@
 import { JSX } from "solid-js";
 import { UserLayout } from "../../components/user-layout/UserLayout";
 import { A } from "@solidjs/router";
+import { Link, LinkBar } from "../../components/links-bar/LinksBar";
 
 export interface EmuLayoutProps {
   children: JSX.Element;
 }
 
+const EMU_LINKS: Link[] = [
+  {
+    label: (
+      <>
+        <i class="fa fa-wrench" style="margin-right: 8px;" />
+        Settings
+      </>
+    ),
+    href: "/emulator/settings",
+  },
+  {
+    label: (
+      <>
+        <i class="fa fa-font" style="margin-right: 8px;" />
+        Texts
+      </>
+    ),
+    href: "/emulator/texts",
+  },
+];
+
 export function EmuLayout({ children }: EmuLayoutProps) {
   return (
     <UserLayout>
-      <div style="display:flex;justify-content:center;align-items:center;gap:14px;width:100%;">
-        <A href="/emulator/settings">
-          <i class="fa fa-wrench" style="margin-right: 8px;" />
-          Settings
-        </A>
-        <A href="/emulator/texts">
-          <i class="fa fa-font" style="margin-right: 8px;" />
-          Texts
-        </A>
-      </div>
       <br />
+      <LinkBar links={EMU_LINKS} />
       {children}
     </UserLayout>
   );

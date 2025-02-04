@@ -25,7 +25,7 @@ export function FurnitureListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Furniture</SiteTitle>
-      <h2>Furniture</h2>
+      <h1>Furniture</h1>
       <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
         <A href="/furniture/create">
           <button>

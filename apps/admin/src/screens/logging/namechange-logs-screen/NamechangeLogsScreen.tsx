@@ -5,7 +5,7 @@ export function NamechangeLogsScreen() {
   return (
     <LoggingLayout>
       <SiteTitle>Name Change Logs</SiteTitle>
-      <h2>Name Change Logs</h2>
+      <h1>Name Change Logs</h1>
       <table class="table table-striped">
         <thead>
           <tr>

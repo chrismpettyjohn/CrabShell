@@ -5,7 +5,7 @@ export function RoomEnterLogsScreen() {
   return (
     <LoggingLayout>
       <SiteTitle>Room Visit Logs</SiteTitle>
-      <h2>Room Visit Logs</h2>
+      <h1>Room Visit Logs</h1>
       <table class="table table-striped">
         <thead>
           <tr>
