@@ -20,9 +20,6 @@ const ArticleEditScreen = lazy(
 const UserListScreen = lazy(
   () => import("./users/users-list-screen/UsersListScreen")
 );
-const UsersCreateScreen = lazy(
-  () => import("./users/users-create-screen/UsersCreateScreen")
-);
 const UsersEditScreen = lazy(
   () => import("./users/users-edit-screen/UsersEditScreen")
 );
@@ -71,7 +68,6 @@ export const Router: Component = () => {
       <Route path="/articles/create" component={ArticlesCreateScreen} />
       <Route path="/articles/:articleId" component={ArticleEditScreen} />
       <Route path="/users" component={UserListScreen} />
-      <Route path="/users/create" component={UsersCreateScreen} />
       <Route path="/users/:userId" component={UsersEditScreen} />
       <Route path="/ranks" component={RanksListScreen} />
       <Route path="/ranks/create" component={RanksCreateScreen} />

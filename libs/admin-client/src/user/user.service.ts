@@ -5,8 +5,6 @@ import {
   postToApi,
 } from "../client.const";
 import {
-  AdminUserCreateParams,
-  AdminUserCreateResponse,
   AdminUserDeleteByIdResponse,
   AdminUserGetAllResponse,
   AdminUserGetByIdResponse,
@@ -15,10 +13,6 @@ import {
 } from "./user.types";
 
 export class AdminUserService {
-  public create(dto: AdminUserCreateParams): Promise<AdminUserCreateResponse> {
-    return postToApi("users", dto);
-  }
-
   public getAll(): Promise<AdminUserGetAllResponse> {
     return fetchFromApi("users");
   }

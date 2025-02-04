@@ -5,6 +5,7 @@ import {
 import { EmuLayout } from "../EmuLayout";
 import { createSignal, onMount } from "solid-js";
 import toast from "solid-toast";
+import { A } from "@solidjs/router";
 
 export function EmuTextsScreen() {
   const [texts, setTexts] = createSignal<AdminEmuTextsWire[]>([]);
@@ -20,6 +21,14 @@ export function EmuTextsScreen() {
   });
   return (
     <EmuLayout>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+        <A href="/emu-texts/create">
+          <button>
+            <i class="fa fa-plus-circle" style="margin-right: 8px;" />
+            Create
+          </button>
+        </A>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>

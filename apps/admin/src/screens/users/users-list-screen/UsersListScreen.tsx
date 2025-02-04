@@ -22,14 +22,6 @@ export function UsersListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Users</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
-        <A href="/users/create">
-          <button>
-            <i class="fa fa-plus-circle" style="margin-right: 8px;" />
-            Create
-          </button>
-        </A>
-      </div>
       <table class="table table-striped">
         <thead>
           <tr>

@@ -1,4 +1,4 @@
-import { useNavigate } from "@solidjs/router";
+import { A, useNavigate } from "@solidjs/router";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { createSignal, onMount } from "solid-js";
 import {
@@ -24,6 +24,14 @@ export function FurnitureListScreen() {
   return (
     <UserLayout>
       <h2>Furniture</h2>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+        <A href="/furniture/create">
+          <button>
+            <i class="fa fa-plus-circle" style="margin-right: 8px;" />
+            Create
+          </button>
+        </A>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>

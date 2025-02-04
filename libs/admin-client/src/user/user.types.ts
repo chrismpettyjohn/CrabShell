@@ -6,14 +6,7 @@ export interface AdminUserWire extends UserWire {
   look: string;
 }
 
-export interface AdminUserCreateParams {
-  username: string;
-  look: string;
-}
-
-export type AdminUserCreateResponse = UserWire;
-
-export type AdminUserUpdateByIdParams = Partial<AdminUserCreateParams>;
+export type AdminUserUpdateByIdParams = Partial<AdminUserWire>;
 
 export type AdminUserUpdateByIdResponse = boolean;
 
