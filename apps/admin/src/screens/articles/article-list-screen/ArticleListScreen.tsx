@@ -1,8 +1,16 @@
-import { IMAGER_BASE_URL } from "../../../App.const";
+import { createSignal, onMount } from "solid-js";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
+import { adminArticleService, AdminArticleWire } from "@crabshell/admin-client";
+import { A } from "@solidjs/router";
 
 export function ArticleListScreen() {
+  const [articles, setArticles] = createSignal<AdminArticleWire[]>([]);
+  onMount(async () => {
+    const response = await adminArticleService.getAll();
+    setArticles(response);
+  });
+
   return (
     <UserLayout>
       <SiteTitle>Articles</SiteTitle>
@@ -18,18 +26,24 @@ export function ArticleListScreen() {
           </tr>
         </thead>
         <tbody>
-          {[].map((_, i) => (
+          {articles().map((_, i) => (
             <tr>
               <td>#{i + 1}</td>
               <td>
-                <img
-                  class="avatar"
-                  src={`${IMAGER_BASE_URL}?figure=${_.look}&headonly=1`}
-                  style="object-fit: contain"
-                />
+                <A href={`/articles/${_.id}`}>
+                  <img
+                    src={_.imageUrl}
+                    style="object-fit: contain"
+                    height={100}
+                  />
+                </A>
               </td>
-              <td>{_.username}</td>
-              <td>{_.respectsReceived}</td>
+              <td>
+                <A href={`/articles/${_.id}`}>{_.name}</A>
+              </td>
+              <td>{_.description}</td>
+              <td>{_.updatedAt}</td>
+              <td>{_.createdAt}</td>
             </tr>
           ))}
         </tbody>

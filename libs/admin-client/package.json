@@ -11,7 +11,7 @@
     "build": "bun run scripts/build.ts"
   },
   "dependencies": {
-    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-json": "^6.1.0"
   },
   "devDependencies": {
     "@types/node": "20.6.2",

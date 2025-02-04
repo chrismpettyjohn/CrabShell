@@ -12,10 +12,10 @@ const ArticleListScreen = lazy(
   () => import("./articles/article-list-screen/ArticleListScreen")
 );
 const ArticlesCreateScreen = lazy(
-  () => import("./articles/article-list-screen/ArticleListScreen")
+  () => import("./articles/article-create-screen/ArticlesCreateScreen")
 );
 const ArticleEditScreen = lazy(
-  () => import("./articles/article-list-screen/ArticleListScreen")
+  () => import("./articles/article-edit-screen/ArticleEditScreen")
 );
 
 export const Router: Component = () => {
@@ -28,7 +28,7 @@ export const Router: Component = () => {
       <Route path="/about" component={AboutScreen} />
       <Route path="/articles" component={ArticleListScreen} />
       <Route path="/articles/create" component={ArticlesCreateScreen} />
-      <Route path="/articles/edit/:articleId" component={ArticleEditScreen} />
+      <Route path="/articles/:articleId" component={ArticleEditScreen} />
     </BaseRouter>
   );
 };

@@ -1,7 +1,7 @@
-export const API_BASE_URL = process.env.API_BASE_URL ?? "";
+export const API_BASE_URL = `${process.env.API_BASE_URL ?? ""}/admin`;
 
 export async function fetchFromApi<T>(url: string): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}/admin/${url}`, {
+  const response = await fetch(`${API_BASE_URL}/${url}`, {
     headers: {
       "Content-Type": "application/json",
     },
