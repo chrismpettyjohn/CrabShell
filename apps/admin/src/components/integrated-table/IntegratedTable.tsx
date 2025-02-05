@@ -1,4 +1,4 @@
-import { onCleanup, onMount, For } from "solid-js";
+import { onCleanup, onMount, For, Show } from "solid-js";
 
 export interface ITableColumn<T> {
   header: string;
@@ -8,7 +8,7 @@ export interface ITableColumn<T> {
 
 export interface IntegratedTableProps<T> {
   columns: ITableColumn<T>[];
-  rows: T[];
+  rows(): T[] | undefined;
   onRowClick?: (row: T) => void;
   loadMoreRows?: () => Promise<void>;
   rowHeight?: number;
@@ -67,36 +67,47 @@ export function IntegratedTable<T>({
         ref={scrollableRef}
         style="flex: 1; overflow: auto; position: relative;"
       >
-        <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
-          <colgroup>
-            <For each={columns}>
-              {(col) => (
-                <col style={col.width ? `width: ${col.width}px;` : ""} />
-              )}
-            </For>
-          </colgroup>
-          <tbody>
-            <For each={rows}>
-              {(row) => (
-                <tr
-                  style={`height: ${rowHeight}px; cursor: pointer;`}
-                  onClick={() => onRowClick && onRowClick(row)}
-                >
-                  <For each={columns}>
-                    {(col) => (
-                      <td style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;">
-                        {col.selector(row)}
-                      </td>
-                    )}
-                  </For>
-                </tr>
-              )}
-            </For>
-            <tr ref={sentinelRef}>
-              <td colspan={columns.length} style="height: 1px;"></td>
-            </tr>
-          </tbody>
-        </table>
+        <Show
+          when={rows() && rows()!.length > 0}
+          fallback={
+            <div style="text-align: center; padding: 20px;">
+              <i class="fa fa-spin fa-spinner fa-2x" />
+              <br />
+              <span>Loading...</span>
+            </div>
+          }
+        >
+          <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
+            <colgroup>
+              <For each={columns}>
+                {(col) => (
+                  <col style={col.width ? `width: ${col.width}px;` : ""} />
+                )}
+              </For>
+            </colgroup>
+            <tbody>
+              <For each={rows() || []}>
+                {(row) => (
+                  <tr
+                    style={`height: ${rowHeight}px; cursor: pointer;`}
+                    onClick={() => onRowClick && onRowClick(row)}
+                  >
+                    <For each={columns}>
+                      {(col) => (
+                        <td style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;">
+                          {col.selector(row)}
+                        </td>
+                      )}
+                    </For>
+                  </tr>
+                )}
+              </For>
+              <tr ref={sentinelRef}>
+                <td colspan={columns.length} style="height: 1px;"></td>
+              </tr>
+            </tbody>
+          </table>
+        </Show>
       </div>
     </div>
   );

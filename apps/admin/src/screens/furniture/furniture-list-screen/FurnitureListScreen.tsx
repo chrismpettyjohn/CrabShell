@@ -78,7 +78,7 @@ export function FurnitureListScreen() {
       </div>
       <IntegratedTable
         columns={columns}
-        rows={items()}
+        rows={items}
         rowHeight={40}
         loadMoreRows={fetchData}
         onRowClick={(row) => navigate(`/furniture/${row.id}`)}
