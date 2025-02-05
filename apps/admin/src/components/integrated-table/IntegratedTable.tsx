@@ -1,53 +1,82 @@
-import { createSignal, createEffect, For } from "solid-js";
+import { createSignal, createMemo, createEffect, For } from "solid-js";
 
 export interface ITableColumn<T> {
   header: string;
   sortable?: boolean;
-  filterable?: boolean;
-  filterType?: "boolean" | "number" | "string";
   selector: (row: T) => any;
   width?: number;
 }
 
 export interface IntegratedTableProps<T> {
   columns: ITableColumn<T>[];
-  fetchData: (params: {
-    page: number;
-    sort?: string;
-    filter?: Record<number, any>;
-  }) => Promise<T[]>;
+  rows: () => T[]; // Accepts the signal function instead of raw array
   onRowClick?: (row: T) => void;
+  pageSize?: number;
 }
 
 export function IntegratedTable<T>({
   columns,
-  fetchData,
+  rows,
   onRowClick,
+  pageSize = 10,
 }: IntegratedTableProps<T>) {
-  const [rows, setRows] = createSignal<T[]>([]);
   const [page, setPage] = createSignal(1);
-  const [sort, setSort] = createSignal<
-    { column: string; direction: "Ascending" | "Descending" } | undefined
-  >(undefined);
-  const [filters, setFilters] = createSignal<Record<number, any>>({});
+  const [sort, setSort] = createSignal<{
+    column: string;
+    direction: "asc" | "desc";
+  } | null>(null);
+  const [search, setSearch] = createSignal("");
 
-  const loadData = async () => {
-    const data = await fetchData({
-      page: page(),
-      sort: sort() ? `${sort()!.column}:${sort()!.direction}` : undefined,
-      filter: filters(),
-    });
-    setRows(data);
-  };
+  const sortedAndFilteredRows = createMemo(() => {
+    let data = rows(); // Use rows() to ensure reactivity
 
-  createEffect(loadData);
+    // Global Search
+    if (search()) {
+      const lowerSearch = search().toLowerCase();
+      data = data.filter((row) =>
+        columns.some((col) =>
+          String(col.selector(row)).toLowerCase().includes(lowerSearch)
+        )
+      );
+    }
+
+    // Sorting
+    if (sort()) {
+      const { column, direction } = sort()!;
+      data = [...data].sort((a, b) => {
+        const colDef = columns.find((col) => col.header === column);
+        if (!colDef) return 0;
+
+        const valA = String(colDef.selector(a)).toLowerCase();
+        const valB = String(colDef.selector(b)).toLowerCase();
+
+        return direction === "asc"
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+    }
+
+    return data;
+  });
+
+  const paginatedRows = createMemo(() => {
+    const start = (page() - 1) * pageSize;
+    return sortedAndFilteredRows().slice(start, start + pageSize);
+  });
 
   return (
-    <div>
-      <table style="width:100%; table-layout:fixed;">
+    <div style="width: 100%; overflow-x: auto;">
+      <input
+        type="text"
+        placeholder="Search..."
+        onInput={(e) => setSearch(e.currentTarget.value)}
+        style="margin-bottom: 10px; padding: 5px; width: 100%;"
+      />
+
+      <table class="table table-striped">
         <colgroup>
           <For each={columns}>
-            {(col) => <col style={col.width ? `width:${col.width}%` : ""} />}
+            {(col) => <col style={col.width ? `width:${col.width}px` : ""} />}
           </For>
         </colgroup>
         <thead>
@@ -59,13 +88,12 @@ export function IntegratedTable<T>({
                   {col.sortable && (
                     <i
                       onClick={() => {
-                        const key = col.selector.toString();
                         const current = sort();
-                        if (!current || current.column !== key)
-                          setSort({ column: key, direction: "Ascending" });
-                        else if (current.direction === "Ascending")
-                          setSort({ column: key, direction: "Descending" });
-                        else setSort(undefined);
+                        if (!current || current.column !== col.header)
+                          setSort({ column: col.header, direction: "asc" });
+                        else if (current.direction === "asc")
+                          setSort({ column: col.header, direction: "desc" });
+                        else setSort(null);
                       }}
                       class="fa fa-caret-right"
                       style="cursor:pointer;margin-left:8px;"
@@ -75,42 +103,9 @@ export function IntegratedTable<T>({
               )}
             </For>
           </tr>
-          <tr>
-            <For each={columns}>
-              {(col, index) => (
-                <th style="white-space:nowrap;">
-                  {col.filterable &&
-                    (col.filterType === "boolean" ? (
-                      <input
-                        type="checkbox"
-                        checked={!!filters()[index()]}
-                        onChange={(e) =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            [index()]: e.currentTarget.checked,
-                          }))
-                        }
-                      />
-                    ) : (
-                      <input
-                        type={col.filterType === "number" ? "number" : "text"}
-                        value={filters()[index()] || ""}
-                        placeholder={`Filter by ${col.header}`}
-                        onInput={(e) =>
-                          setFilters((prev) => ({
-                            ...prev,
-                            [index()]: e.currentTarget.value,
-                          }))
-                        }
-                      />
-                    ))}
-                </th>
-              )}
-            </For>
-          </tr>
         </thead>
         <tbody>
-          <For each={rows()}>
+          <For each={paginatedRows()}>
             {(row) => (
               <tr onClick={() => onRowClick && onRowClick(row)}>
                 <For each={columns}>
@@ -123,14 +118,17 @@ export function IntegratedTable<T>({
           </For>
         </tbody>
       </table>
+
       <div style="display:flex;justify-content:flex-end;align-items:center;width:100%;margin-top:14px;gap:14px;">
-        <button onClick={() => setPage((p) => p - 1)}>
-          <i class="fa fa-caret-left" style="margin-right:8px;" />
-          Back
+        <button disabled={page() === 1} onClick={() => setPage((p) => p - 1)}>
+          <i class="fa fa-caret-left" style="margin-right:8px;" /> Back
         </button>
-        <button onClick={() => setPage((p) => p + 1)}>
-          Next
-          <i class="fa fa-caret-right" style="margin-left:8px;" />
+        <span>Page {page()}</span>
+        <button
+          disabled={paginatedRows().length < pageSize}
+          onClick={() => setPage((p) => p + 1)}
+        >
+          Next <i class="fa fa-caret-right" style="margin-left:8px;" />
         </button>
       </div>
     </div>

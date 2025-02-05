@@ -7,6 +7,10 @@ import {
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function FurnitureListScreen() {
   const navigate = useNavigate();
@@ -22,6 +26,53 @@ export function FurnitureListScreen() {
     }
   });
 
+  const columns: ITableColumn<AdminItemsBaseWire>[] = [
+    {
+      header: "Public Name",
+      sortable: true,
+      selector: (row) => row.publicName,
+    },
+    { header: "Item Name", sortable: true, selector: (row) => row.itemName },
+    { header: "Type", sortable: true, selector: (row) => row.type },
+    {
+      header: "Interaction",
+      sortable: true,
+      selector: (row) => row.interactionType,
+    },
+    {
+      header: "Interaction Modes",
+      sortable: true,
+      selector: (row) => row.interactionModesCount,
+    },
+    { header: "Width", sortable: true, selector: (row) => row.width },
+    { header: "Length", sortable: true, selector: (row) => row.length },
+    {
+      header: "Stack Height",
+      sortable: true,
+      selector: (row) => row.stackHeight,
+    },
+    { header: "Can Stack", sortable: true, selector: (row) => row.allowStack },
+    {
+      header: "Inventory Stacks",
+      sortable: true,
+      selector: (row) => row.allowInventoryStack,
+    },
+    { header: "Can Sit", sortable: true, selector: (row) => row.allowSit },
+    { header: "Can Walk", sortable: true, selector: (row) => row.allowWalk },
+    { header: "Can Gift", sortable: true, selector: (row) => row.allowGift },
+    { header: "Can Trade", sortable: true, selector: (row) => row.allowTrade },
+    {
+      header: "Can Recycle",
+      sortable: true,
+      selector: (row) => row.allowRecycle,
+    },
+    {
+      header: "Can Sell",
+      sortable: true,
+      selector: (row) => row.allowMarketplaceSell,
+    },
+  ];
+
   return (
     <UserLayout>
       <SiteTitle>Furniture</SiteTitle>
@@ -34,50 +85,16 @@ export function FurnitureListScreen() {
           </button>
         </A>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Public Name</th>
-            <th>Item Name</th>
-            <th>Type</th>
-            <th>Interaction</th>
-            <th>Interaction Modes</th>
-            <th>Width</th>
-            <th>Length</th>
-            <th>Stack Height</th>
-            <th>Can Stack</th>
-            <th>Inventory Stacks</th>
-            <th>Can Sit</th>
-            <th>Can Walk</th>
-            <th>Can Gift</th>
-            <th>Can Trade</th>
-            <th>Can Recycle</th>
-            <th>Can Sell</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items().map((_, index) => (
-            <tr onClick={() => navigate(`/furniture/1`)}>
-              <td>{_.publicName}</td>
-              <td>{_.itemName}</td>
-              <td>{_.type}</td>
-              <td>{_.interactionType}</td>
-              <td>{_.interactionModesCount}</td>
-              <td>{_.width}</td>
-              <td>{_.length}</td>
-              <td>{_.stackHeight}</td>
-              <td>{_.allowStack}</td>
-              <td>{_.allowInventoryStack}</td>
-              <td>{_.allowSit}</td>
-              <td>{_.allowWalk}</td>
-              <td>{_.allowGift}</td>
-              <td>{_.allowTrade}</td>
-              <td>{_.allowRecycle}</td>
-              <td>{_.allowMarketplaceSell}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      {/* Table Container for Horizontal Scrolling */}
+      <div style="overflow-x: auto; width: 100%;">
+        <IntegratedTable
+          columns={columns}
+          rows={items} // Pass the signal directly, not items()
+          onRowClick={(row) => navigate(`/furniture/${row.id}`)}
+          pageSize={10}
+        />
+      </div>
     </UserLayout>
   );
 }
