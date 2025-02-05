@@ -67,8 +67,8 @@ export function FurnitureListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Furniture</SiteTitle>
-      <h1>Furniture</h1>
-      <div style="display: flex; justify-content: flex-end; margin-bottom: 14px; width: 100%;">
+      <div style="display: flex; align-items: center;justify-content: space-between; margin-bottom: 14px; width: 100%;">
+        <h2>Furniture</h2>
         <A href="/furniture/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />
