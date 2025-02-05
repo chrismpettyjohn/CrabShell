@@ -39,6 +39,8 @@ export function IntegratedTable<T>({
   const [sortConfig, setSortConfig] = createSignal<
     { key: string; direction: "asc" | "desc" }[]
   >([]);
+  const [scrollTop, setScrollTop] = createSignal(0);
+  const [containerHeight, setContainerHeight] = createSignal(0);
 
   const handleSort = (col: ITableColumn<T>) => {
     if (!col.sortable) return;
@@ -88,6 +90,14 @@ export function IntegratedTable<T>({
     return data;
   });
 
+  const visibleRange = createMemo(() => {
+    const scroll = scrollTop();
+    const height = containerHeight();
+    const start = Math.floor(scroll / rowHeight);
+    const count = Math.ceil(height / rowHeight);
+    return { start, end: start + count };
+  });
+
   const getSortIcon = (col: ITableColumn<T>) => {
     const sorting = sortConfig().find((s) => s.key === col.header);
     if (!sorting) return "fa-caret-right";
@@ -106,6 +116,7 @@ export function IntegratedTable<T>({
   };
 
   onMount(() => {
+    if (scrollableRef) setContainerHeight(scrollableRef.clientHeight);
     createObserver();
   });
 
@@ -147,6 +158,7 @@ export function IntegratedTable<T>({
       </div>
       <div
         ref={scrollableRef}
+        onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
         style="flex: 1; overflow: auto; position: relative;"
       >
         <Show
@@ -173,7 +185,15 @@ export function IntegratedTable<T>({
               </For>
             </colgroup>
             <tbody>
-              <For each={sortedFilteredRows()}>
+              <tr style={{ height: `${visibleRange().start * rowHeight}px` }}>
+                <td colspan={columns.length} style="padding: 0; border: none" />
+              </tr>
+              <For
+                each={sortedFilteredRows().slice(
+                  visibleRange().start,
+                  visibleRange().end
+                )}
+              >
                 {(row) => (
                   <tr
                     style={`height: ${rowHeight}px; cursor: pointer;`}
@@ -191,8 +211,18 @@ export function IntegratedTable<T>({
                   </tr>
                 )}
               </For>
+              <tr
+                style={{
+                  height: `${
+                    (sortedFilteredRows().length - visibleRange().end) *
+                    rowHeight
+                  }px`,
+                }}
+              >
+                <td colspan={columns.length} style="padding: 0; border: none" />
+              </tr>
               <tr ref={sentinelRef}>
-                <td colspan={columns.length} style="height: 1px;"></td>
+                <td colspan={columns.length} style="height: 1px" />
               </tr>
             </tbody>
           </table>
