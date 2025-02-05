@@ -595,40 +595,36 @@ h1 {
 .login-page footer a:hover {
   border-color: white;
 }
-
 table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background-color: var(--bg-three);
-    border-radius: var(--radius-two);
-    border: 1px solid var(--bg-four);
-    backdrop-filter: blur(4px) brightness(1.2);
-    -webkit-backdrop-filter: blur(4px) brightness(1.2);
-    box-shadow: var(--shadow-one);
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
 thead th {
-    background: var(--bg-brand, #f8f9fa);
-    color: var(--color-brand, #343a40);
-    text-align: left;
-    padding: 12px 15px;
-    border-bottom: 2px solid var(--border-color, #dee2e6);
-}
-
-tbody tr {
-    transition: background 0.2s ease-in-out;
-    cursor: pointer;
-}
-
-tbody tr:hover {
-    background: var(--bg-four, #f1f3f5);
+  background: #f8f9fa;
+  color: #343a40;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #dee2e6;
 }
 
 tbody td {
-    padding: 12px 15px;
-    border-bottom: 1px solid var(--border-color, #dee2e6);
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+  text-align: left;
+  white-space: nowrap;
 }
+
+tbody tr {
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+tbody tr:hover {
+  background: #f1f3f5;
+}
+
 
 form {
     display: flex;
