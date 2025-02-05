@@ -5,6 +5,10 @@ import { createSignal, onMount } from "solid-js";
 import { adminBadgeService, AdminBadgeWire } from "@crabshell/admin-client";
 import toast from "solid-toast";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function BadgesListScreen() {
   const navigate = useNavigate();
@@ -20,6 +24,27 @@ export function BadgesListScreen() {
     }
   });
 
+  const columns: ITableColumn<AdminBadgeWire>[] = [
+    {
+      header: "Badge",
+      selector: (row) => row.code,
+      customRender: (code) => (
+        <img src={`${BADGE_BASE_URL}/${code}${BADGE_EXT}`} alt="Badge" />
+      ),
+      width: 100,
+    },
+    {
+      header: "Code",
+      selector: (row) => row.code,
+      sortable: true,
+    },
+    {
+      header: "Public Name",
+      selector: (row) => row.publicName,
+      sortable: true,
+    },
+  ];
+
   return (
     <UserLayout>
       <SiteTitle>Badges</SiteTitle>
@@ -31,26 +56,11 @@ export function BadgesListScreen() {
           </button>
         </A>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Badge</th>
-            <th>Code</th>
-            <th>Public Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {badges().map((_) => (
-            <tr onClick={() => navigate(`/badges/${_.code}`)}>
-              <td>
-                <img src={`${BADGE_BASE_URL}/${_.code}${BADGE_EXT}`} />
-              </td>
-              <td>{_.code}</td>
-              <td>{_.publicName}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable
+        columns={columns}
+        rows={badges}
+        onRowClick={(row) => navigate(`/badges/${row.code}`)}
+      />
     </UserLayout>
   );
 }
