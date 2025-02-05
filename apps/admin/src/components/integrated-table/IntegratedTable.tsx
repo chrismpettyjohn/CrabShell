@@ -87,6 +87,12 @@ export function IntegratedTable<T>({
         });
       }
     });
+
+    if (scrollableRef) {
+      scrollableRef.scrollTop = 0;
+      setScrollTop(0);
+    }
+
     return data;
   });
 

@@ -30,9 +30,19 @@ export function FurnitureListScreen() {
   });
 
   const columns: ITableColumn<AdminItemsBaseWire>[] = [
-    { header: "Public Name", selector: (row) => row.publicName, width: 150 },
-    { header: "Item Name", selector: (row) => row.itemName, width: 150 },
-    { header: "Type", selector: (row) => row.type, width: 100 },
+    {
+      header: "Public Name",
+      selector: (row) => row.publicName,
+      width: 225,
+      sortable: true,
+    },
+    {
+      header: "Item Name",
+      selector: (row) => row.itemName,
+      width: 225,
+      sortable: true,
+    },
+    { header: "Type", selector: (row) => row.type, width: 100, sortable: true },
     {
       header: "Interaction",
       selector: (row) => row.interactionType,
@@ -42,10 +52,26 @@ export function FurnitureListScreen() {
       header: "Interaction Modes",
       selector: (row) => row.interactionModesCount,
       width: 150,
+      sortable: true,
     },
-    { header: "Width", selector: (row) => row.width, width: 100 },
-    { header: "Length", selector: (row) => row.length, width: 100 },
-    { header: "Stack Height", selector: (row) => row.stackHeight, width: 150 },
+    {
+      header: "Width",
+      selector: (row) => row.width,
+      width: 100,
+      sortable: true,
+    },
+    {
+      header: "Length",
+      selector: (row) => row.length,
+      width: 100,
+      sortable: true,
+    },
+    {
+      header: "Stack Height",
+      selector: (row) => row.stackHeight,
+      width: 150,
+      sortable: true,
+    },
     { header: "Can Stack", selector: (row) => row.allowStack, width: 100 },
     {
       header: "Inventory Stacks",
