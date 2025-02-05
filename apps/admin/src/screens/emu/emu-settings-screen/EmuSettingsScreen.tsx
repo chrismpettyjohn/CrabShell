@@ -7,6 +7,10 @@ import {
 import toast from "solid-toast";
 import { A } from "@solidjs/router";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function EmuSettingsScreen() {
   const [settings, setSettings] = createSignal<AdminEmuSettingsWire[]>([]);
@@ -15,11 +19,23 @@ export function EmuSettingsScreen() {
     try {
       const response = await adminEmuSettingsService.getAll();
       setSettings(response);
-    } catch (e: any) {
+    } catch (e) {
       toast.error("Failed to load emu settings");
       throw e;
     }
   });
+
+  const columns: ITableColumn<AdminEmuSettingsWire>[] = [
+    {
+      header: "Key",
+      selector: (row) => row.key,
+      sortable: true,
+    },
+    {
+      header: "Value",
+      selector: (row) => row.value,
+    },
+  ];
 
   return (
     <EmuLayout>
@@ -33,22 +49,7 @@ export function EmuSettingsScreen() {
           </button>
         </A>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {settings().map((_, index) => (
-            <tr>
-              <td>{_.key}</td>
-              <td>{_.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable columns={columns} rows={settings} />
     </EmuLayout>
   );
 }

@@ -5,45 +5,53 @@ import { adminUserService, AdminUserWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
 import toast from "solid-toast";
 import { IMAGER_BASE_URL } from "../../../App.const";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function UsersListScreen() {
   const navigate = useNavigate();
   const [users, setUsers] = createSignal<AdminUserWire[]>([]);
+
   onMount(async () => {
     try {
       const response = await adminUserService.getAll();
       setUsers(response);
-    } catch (e: any) {
+    } catch (e) {
       toast.error("Failed to fetch users");
       throw e;
     }
   });
 
+  const columns: ITableColumn<AdminUserWire>[] = [
+    {
+      header: "Avatar",
+      selector: (row) => row.look,
+      customRender: (look) => (
+        <img
+          class="avatar"
+          src={`${IMAGER_BASE_URL}?figure=${look}&headonly=1`}
+          style="object-fit: contain; height: 65px"
+        />
+      ),
+      width: 80,
+    },
+    {
+      header: "Username",
+      selector: (row) => row.username,
+      sortable: true,
+    },
+  ];
+
   return (
     <UserLayout>
       <SiteTitle>Users</SiteTitle>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Avatar</th>
-            <th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users().map((_, i) => (
-            <tr onClick={() => navigate(`/users/${_.id}`)}>
-              <td>
-                <img
-                  class="avatar"
-                  src={`${IMAGER_BASE_URL}?figure=${_.look}&headonly=1`}
-                  style="object-fit: contain; height: 65px"
-                />
-              </td>
-              <td>{_.username}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable
+        columns={columns}
+        rows={users}
+        onRowClick={(row) => navigate(`/users/${row.id}`)}
+      />
     </UserLayout>
   );
 }

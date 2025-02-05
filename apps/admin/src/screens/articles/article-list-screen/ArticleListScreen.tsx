@@ -4,10 +4,15 @@ import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { adminArticleService, AdminArticleWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
 import toast from "solid-toast";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function ArticleListScreen() {
   const navigate = useNavigate();
   const [articles, setArticles] = createSignal<AdminArticleWire[]>([]);
+
   onMount(async () => {
     try {
       const response = await adminArticleService.getAll();
@@ -17,6 +22,45 @@ export function ArticleListScreen() {
       throw e;
     }
   });
+
+  const columns: ITableColumn<AdminArticleWire>[] = [
+    {
+      header: "#",
+      selector: (_, i) => i + 1,
+      width: 50,
+    },
+    {
+      header: "Cover",
+      selector: (row) => row.imageUrl,
+      customRender: (imageUrl) => (
+        <img
+          src={imageUrl}
+          class="img-fluid"
+          style="object-fit: contain; height: 100px"
+        />
+      ),
+      width: 120,
+    },
+    {
+      header: "Title",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      header: "Description",
+      selector: (row) => row.description,
+    },
+    {
+      header: "Edited At",
+      selector: (row) => row.updatedAt,
+      sortable: true,
+    },
+    {
+      header: "Posted At",
+      selector: (row) => row.createdAt,
+      sortable: true,
+    },
+  ];
 
   return (
     <UserLayout>
@@ -29,36 +73,11 @@ export function ArticleListScreen() {
           </button>
         </A>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Cover</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Author</th>
-            <th>Edited At</th>
-            <th>Posted At</th>
-          </tr>
-        </thead>
-        <tbody>
-          {articles().map((_, i) => (
-            <tr onClick={() => navigate(`/articles/${_.id}`)}>
-              <td>#{i + 1}</td>
-              <td>
-                <img
-                  src={_.imageUrl}
-                  class="img-fluid"
-                  style="object-fit: contain; height: 100px"
-                />
-              </td>
-              <td>{_.name}</td>
-              <td>{_.description}</td>
-              <td>{_.updatedAt}</td>
-              <td>{_.createdAt}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable
+        columns={columns}
+        rows={articles}
+        onRowClick={(row) => navigate(`/articles/${row.id}`)}
+      />
     </UserLayout>
   );
 }

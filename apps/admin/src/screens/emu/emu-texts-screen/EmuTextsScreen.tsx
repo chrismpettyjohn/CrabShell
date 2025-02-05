@@ -7,6 +7,10 @@ import { createSignal, onMount } from "solid-js";
 import toast from "solid-toast";
 import { A } from "@solidjs/router";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
 
 export function EmuTextsScreen() {
   const [texts, setTexts] = createSignal<AdminEmuTextsWire[]>([]);
@@ -15,11 +19,24 @@ export function EmuTextsScreen() {
     try {
       const response = await adminEmuTextsService.getAll();
       setTexts(response);
-    } catch (e: any) {
+    } catch (e) {
       toast.error("Failed to load emu texts");
       throw e;
     }
   });
+
+  const columns: ITableColumn<AdminEmuTextsWire>[] = [
+    {
+      header: "Key",
+      selector: (row) => row.key,
+      sortable: true,
+    },
+    {
+      header: "Value",
+      selector: (row) => row.value,
+    },
+  ];
+
   return (
     <EmuLayout>
       <SiteTitle>EMU Texts</SiteTitle>
@@ -32,22 +49,7 @@ export function EmuTextsScreen() {
           </button>
         </A>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {texts().map((_, index) => (
-            <tr>
-              <td>{_.key}</td>
-              <td>{_.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable columns={columns} rows={texts} />
     </EmuLayout>
   );
 }

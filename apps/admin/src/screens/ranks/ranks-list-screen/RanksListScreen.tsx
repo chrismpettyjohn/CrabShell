@@ -1,4 +1,4 @@
-// RanksListScreen.tsx
+import { createSignal, onMount } from "solid-js";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { adminRankService, AdminRankWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
@@ -12,50 +12,40 @@ import {
 
 export function RanksListScreen() {
   const navigate = useNavigate();
+  const [ranks, setRanks] = createSignal<AdminRankWire[]>([]);
 
-  const fetchRanks = async ({
-    page,
-    sort,
-    filter,
-  }: {
-    page: number;
-    sort?: string;
-    filter?: Record<number, any>;
-  }) => {
+  onMount(async () => {
     try {
-      return await adminRankService.getAll();
+      const response = await adminRankService.getAll();
+      setRanks(response);
     } catch (e) {
       toast.error("Failed to fetch ranks");
       throw e;
     }
-  };
+  });
 
   const columns: ITableColumn<AdminRankWire>[] = [
     {
       header: "ID",
       selector: (row) => row.id,
       sortable: true,
-      filterable: true,
-      filterType: "number",
-      width: 20,
+      width: 60,
     },
     {
       header: "Badge",
-      selector: (row) => (
+      selector: (row) => row.badgeCode,
+      customRender: (badgeCode) => (
         <img
-          src={`${BADGE_BASE_URL}/${row.badgeCode}${BADGE_EXT}`}
+          src={`${BADGE_BASE_URL}/${badgeCode}${BADGE_EXT}`}
           style="object-fit: contain; height: 45px;"
         />
       ),
-      width: 20,
+      width: 80,
     },
     {
       header: "Name",
       selector: (row) => row.name,
       sortable: true,
-      filterable: true,
-      filterType: "string",
-      width: 60,
     },
   ];
 
@@ -72,7 +62,7 @@ export function RanksListScreen() {
       </div>
       <IntegratedTable
         columns={columns}
-        fetchData={fetchRanks}
+        rows={ranks}
         onRowClick={(row) => navigate(`/ranks/${row.id}`)}
       />
     </UserLayout>
