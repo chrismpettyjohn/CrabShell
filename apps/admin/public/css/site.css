@@ -63,6 +63,7 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: 'MilkyNice', sans-serif;
     font-weight: 500;
+    margin: 0;
 }
 
 html, body, p {
@@ -643,4 +644,60 @@ input, textarea {
     border-radius: var(--radius-one);
     color: var(--color-one);
     padding: 8px;
+    margin: 0;
+    margin-top: -10px;
+}
+
+.ql-toolbar {
+  background: var(--bg-four);
+  border: none;
+  color: var(--color-one) !important;
+}
+
+.ql-toolbar button {
+  color: var(--color-one) !important;
+}
+
+.ql-container {
+  background: var(--bg-four);
+  color: var(--color-one) !important;
+  border: 1px solid #444;
+}
+
+.ql-editor {
+    min-height: 450px;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.ql-editor strong {
+    color: var(--bg-brand);
+}
+
+.ql-editor a {
+    color: var(--bg-brand) !important;
+}
+
+.ql-editor blockquote {
+    border-left: 4px solid var(--bg-brand);
+    padding-left: 10px;
+}
+
+.ql-editor pre {
+    background: var(--bg-three);
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.ql-toolbar button:hover {
+    background: var(--bg-three) !important;
+}
+
+.ql-snow .ql-stroke {
+    stroke: var(--bg-three) !important;
+}
+
+.ql-snow .ql-fill {
+    fill: var(--bg-three) !important;
 }

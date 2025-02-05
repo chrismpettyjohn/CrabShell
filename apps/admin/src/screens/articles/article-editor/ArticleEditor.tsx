@@ -3,6 +3,7 @@ import {
   AdminArticleWire,
 } from "@crabshell/admin-client";
 import { createSignal } from "solid-js";
+import { WYSIWYGEditor } from "../../../components/wysiwyg-editor/WysiwygEditor";
 
 export interface ArticleEditorProps {
   defaultArticle?(): AdminArticleWire;
@@ -22,6 +23,13 @@ export function ArticleEditor({ defaultArticle, onSave }: ArticleEditorProps) {
     setDTO((prev) => ({ ...prev, [name]: value }));
   }
 
+  function onChangeContent(content: string) {
+    setDTO((_) => ({
+      ..._,
+      content,
+    }));
+  }
+
   function onSubmit(event: Event) {
     event.preventDefault();
     onSave(dto());
@@ -29,10 +37,9 @@ export function ArticleEditor({ defaultArticle, onSave }: ArticleEditorProps) {
 
   return (
     <form onSubmit={onSubmit}>
-      <label>Name</label>
+      <h2>Name</h2>
       <input name="name" value={dto().name} onInput={onChange} type="text" />
-
-      <label>Description</label>
+      <h2>Description</h2>
       <textarea
         name="description"
         value={dto().description}
@@ -40,7 +47,7 @@ export function ArticleEditor({ defaultArticle, onSave }: ArticleEditorProps) {
         rows={5}
       />
 
-      <label>Image</label>
+      <h2>Image</h2>
       <input
         name="imageUrl"
         value={dto().imageUrl}
@@ -48,14 +55,8 @@ export function ArticleEditor({ defaultArticle, onSave }: ArticleEditorProps) {
         placeholder="https://www.habboon.pw/web-gallery/web_promos/GTF2020.png"
         type="text"
       />
-
-      <label>Content</label>
-      <textarea
-        name="content"
-        value={dto().content}
-        onInput={onChange}
-        rows={10}
-      />
+      <h2>Content</h2>
+      <WYSIWYGEditor content={dto().content} onChange={onChangeContent} />
       <div style="display:flex;justify-content:flex-end;width:100%;margin-top:auto;">
         <button type="submit">Save</button>
       </div>
