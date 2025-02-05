@@ -5,4 +5,16 @@ export interface RankWire {
   name: string;
   badgeCode: string;
   members: UserWire[];
+  scopes: Record<RankScope, boolean>;
+}
+
+export enum RankScope {
+  ADMIN_PANEL = "accessAdminPanel",
+  MANAGE_ARTICLES = "manageArticles",
+  MANAGE_BADGES = "manageBadges",
+  MANAGE_USERS = "manageUsers",
+  MANAGE_RANKS = "manageRanks",
+  MANAGE_EMU = "manageEmu",
+  MANAGE_FURNITURE = "manageFurniture",
+  MANAGE_LOGS = "manageLogs",
 }

@@ -1,11 +1,19 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { RankEntity } from '../database/rank.entity';
 import {
   AdminRankCreateParams,
   AdminRankUpdateByIdParams,
   AdminRankWire,
 } from '@crabshell/admin-client';
-import { RankDTO } from './rank.dto';
+import { RankDTO, RankScopesDTO } from './rank.dto';
+import { Type } from 'class-transformer';
+import { RankScope } from '@crabshell/public-client';
 
 export class AdminRankDTO extends RankDTO implements AdminRankWire {
   @IsNumber()
@@ -17,11 +25,16 @@ export class AdminRankDTO extends RankDTO implements AdminRankWire {
   @IsString()
   badgeCode!: string;
 
+  @IsObject()
+  @Type(() => RankScopesDTO)
+  scopes: RankScopesDTO;
+
   static fromEntity(entity: RankEntity) {
     const dto = new RankDTO();
     dto.id = entity.id!;
     dto.name = entity.name;
     dto.badgeCode = entity.badgeCode;
+    dto.scopes = RankScopesDTO.fromEntity(entity);
     return dto;
   }
 }

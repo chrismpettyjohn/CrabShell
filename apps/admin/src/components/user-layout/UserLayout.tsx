@@ -3,21 +3,68 @@ import { JSX } from "solid-js";
 import { UserGuard } from "../user-guard/UserGuard";
 import { IMAGER_BASE_URL } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
+import { RankScope } from "@crabshell/public-client";
+import { ScopeGuard } from "../scope-guard/ScopeGuard";
 
 export interface UserLayoutProps {
   children: JSX.Element;
 }
 
 const SIDEBAR_LINKS = [
-  { path: "/dashboard", icon: "fa-home", label: "Dashboard" },
-  { path: "/users", icon: "fa-users", label: "Users" },
-  { path: "/ranks", icon: "fa-shield", label: "Ranks" },
-  { path: "/articles", icon: "fa-newspaper", label: "Articles" },
-  { path: "/badges", icon: "fa-id-badge", label: "Badges" },
-  { path: "/furniture", icon: "fa-chair", label: "Furniture" },
-  { path: "/emulator/settings", icon: "fa-wrench", label: "Settings" },
-  { path: "/logs/public-chat", icon: "fa-magnifying-glass", label: "Logging" },
-  { path: "/logout", icon: "fa-sign-out", label: "Sign Out" },
+  {
+    path: "/dashboard",
+    icon: "fa-home",
+    label: "Dashboard",
+    scope: RankScope.ADMIN_PANEL,
+  },
+  {
+    path: "/users",
+    icon: "fa-users",
+    label: "Users",
+    scope: RankScope.MANAGE_USERS,
+  },
+  {
+    path: "/ranks",
+    icon: "fa-shield",
+    label: "Ranks",
+    scope: RankScope.MANAGE_RANKS,
+  },
+  {
+    path: "/articles",
+    icon: "fa-newspaper",
+    label: "Articles",
+    scope: RankScope.MANAGE_ARTICLES,
+  },
+  {
+    path: "/badges",
+    icon: "fa-id-badge",
+    label: "Badges",
+    scope: RankScope.MANAGE_BADGES,
+  },
+  {
+    path: "/furniture",
+    icon: "fa-chair",
+    label: "Furniture",
+    scope: RankScope.MANAGE_FURNITURE,
+  },
+  {
+    path: "/emulator/settings",
+    icon: "fa-wrench",
+    label: "Settings",
+    scope: RankScope.MANAGE_EMU,
+  },
+  {
+    path: "/logs/public-chat",
+    icon: "fa-magnifying-glass",
+    label: "Logging",
+    scope: RankScope.MANAGE_LOGS,
+  },
+  {
+    path: "/logout",
+    icon: "fa-sign-out",
+    label: "Sign Out",
+    scope: undefined,
+  },
 ];
 
 export function UserLayout({ children }: UserLayoutProps) {
@@ -46,7 +93,7 @@ export function UserLayout({ children }: UserLayoutProps) {
           <p style="margin:0;">{rank()?.name}</p>
         </div>
         <div class="navigation">
-          {SIDEBAR_LINKS.map(({ path, icon, label }) => {
+          {SIDEBAR_LINKS.map(({ path, icon, label, scope }) => {
             const currentBase = location.pathname
               .split("/")
               .slice(0, 2)
@@ -54,11 +101,19 @@ export function UserLayout({ children }: UserLayoutProps) {
             const linkBase = path.split("/").slice(0, 2).join("/"); // Extract first two segments from link
             const isActive = currentBase === linkBase;
 
-            return (
+            const child = (
               <A href={path} class={`${isActive ? "current" : ""}`.trim()}>
                 <i class={`fa ${icon}`} />
                 {label}
               </A>
+            );
+
+            if (!scope) return child;
+
+            return (
+              <ScopeGuard scope={scope} redirect={false}>
+                {child}
+              </ScopeGuard>
             );
           })}
         </div>

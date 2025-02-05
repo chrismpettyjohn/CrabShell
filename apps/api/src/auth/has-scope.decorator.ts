@@ -1,14 +1,11 @@
-import { SetMetadata } from '@nestjs/common';
+import { RankScope } from '@crabshell/public-client';
+import { SetMetadata, UseGuards } from '@nestjs/common';
+import { ScopeGuard } from './scope.guard';
 
-export enum AVAILABLE_SCOPES {
-  MANAGE_ARTICLES = 'manageArticles',
-  MANAGE_BADGES = 'manageBadges',
-  MANAGE_USERS = 'manageUsers',
-  MANAGE_RANKS = 'manageRanks',
-  MANAGE_EMU = 'manageEmu',
-}
-export type PermissionScope = `${AVAILABLE_SCOPES}`;
+export type PermissionScope = `${RankScope}`;
 
 export const HAS_SCOPE_KEY = 'has_scope';
-export const HasScope = (scope: PermissionScope) =>
+export const HasScope = (scope: PermissionScope) => {
   SetMetadata(HAS_SCOPE_KEY, scope);
+  return UseGuards(ScopeGuard);
+};
