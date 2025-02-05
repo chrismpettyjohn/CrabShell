@@ -9,13 +9,14 @@ import {
 } from '@nestjs/common';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { AuthService } from './auth.service';
-import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
+import { AuthLoginDTO } from './auth.dto';
 import { SessionGuard } from './session.guard';
 import { UserDTO } from '../user/user.dto';
 import { UserEntity } from '../database/user.entity';
+import { HasScope } from './has-scope.decorator';
 
-@Controller('auth')
-export class AuthController {
+@Controller('admin/auth')
+export class AuthAdminController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
@@ -31,21 +32,6 @@ export class AuthController {
     );
     return reply.send(UserDTO.fromEntity(result));
   }
-
-  @Post('register')
-  async register(
-    @Body() registerDto: AuthRegisterDTO,
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
-  ) {
-    const result: UserEntity = await this.authService.register(
-      registerDto,
-      request,
-      reply,
-    );
-    return reply.send(UserDTO.fromEntity(result));
-  }
-
   @Post('logout')
   @UseGuards(SessionGuard)
   async logout(@Req() request: FastifyRequest, @Res() reply: FastifyReply) {
@@ -56,22 +42,8 @@ export class AuthController {
     return reply.send(result);
   }
 
-  @Get('sso')
-  @UseGuards(SessionGuard)
-  async generateSSO(
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
-  ): Promise<string> {
-    const user: UserEntity = await this.authService.getProfile(
-      Number(request.cookies['sessionId']),
-    );
-
-    const sso = await this.authService.generateSSO(user.id!);
-    return reply.send({ sso });
-  }
-
   @Get('profile')
-  @UseGuards(SessionGuard)
+  @HasScope('accessAdminPanel')
   async getProfile(
     @Req() request: FastifyRequest,
     @Res() reply: FastifyReply,

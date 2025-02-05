@@ -1,5 +1,5 @@
 import { adminRankService, AdminRankWire } from "@crabshell/admin-client";
-import { authService, UserWire } from "@crabshell/public-client";
+import { authService, AdminUserWire } from "@crabshell/admin-client";
 import {
   createContext,
   useContext,
@@ -10,19 +10,18 @@ import {
   Show,
   createEffect,
 } from "solid-js";
-import toast from "solid-toast";
 
 interface AuthContextValue {
-  user: () => UserWire | null;
+  user: () => AdminUserWire | null;
   rank: () => AdminRankWire | null;
-  setUser: (user: UserWire | null) => void;
+  setUser: (user: AdminUserWire | null) => void;
 }
 
 const AuthContext = createContext<AuthContextValue>();
 
 export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
   const [loading, setLoading] = createSignal(true);
-  const [user, setUser] = createSignal<UserWire | null>(null);
+  const [user, setUser] = createSignal<AdminUserWire | null>(null);
   const [rank, setRank] = createSignal<AdminRankWire | null>(null);
 
   onMount(async () => {
@@ -31,7 +30,6 @@ export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
       const currRank = await adminRankService.getById(currUser.rankId);
       setUser(currUser);
       setRank(currRank);
-      toast.success(`Welcome back, ${currUser.username}`);
     } finally {
       setLoading(false);
     }

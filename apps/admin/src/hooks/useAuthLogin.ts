@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import { useAuth } from "../context/AuthContext";
-import { AuthLoginResponse, authService } from "@crabshell/public-client";
+import { AuthLoginResponse, authService } from "@crabshell/admin-client";
 
 export function createAuthLogin() {
   const { setUser } = useAuth();

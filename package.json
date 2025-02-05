@@ -6,7 +6,7 @@
     ],
     "scripts": {
         "fix": "gts fix",
-        "build": "bun run --cwd apps/web build && bun run --cwd apps/api build && bun run --cwd libs/client build",
+        "build": "bun run --cwd apps/web build && bun run --cwd apps/api build && bun run --cwd libs/admin-client build && bun run --cwd libs/public-client build",
         "build:admin": "bun run --cwd apps/admin build",
         "build:web": "bun run --cwd apps/web build",
         "build:api": "bun run --cwd apps/api build",

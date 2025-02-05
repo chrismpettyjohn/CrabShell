@@ -1,4 +1,5 @@
 import { RankWire } from "@crabshell/public-client";
+export { RankScope } from "@crabshell/public-client";
 
 export interface AdminRankWire extends RankWire {
   id: number;

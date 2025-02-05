@@ -1,9 +1,10 @@
 import { createSignal, type Component } from "solid-js";
 import { GuestGuard } from "../../components/guest-guard/GuestGuard";
-import { authService } from "@crabshell/public-client";
+import { authService } from "@crabshell/admin-client";
 import { useAuth } from "../../context/AuthContext";
 import { A, redirect } from "@solidjs/router";
 import { SiteTitle } from "../../components/site-title/SiteTitle";
+import toast from "solid-toast";
 
 const LoginScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -18,10 +19,10 @@ const LoginScreen: Component = () => {
       if (!canSubmit()) return;
       const user = await authService.login(username(), password());
       setUser(user);
+      toast.success(`Welcome back, ${user.username}`);
       return redirect("/dashboard");
     } catch (e: any) {
-      alert("Failed to login");
-      console.log(e);
+      toast.error("Invalid username or password");
       throw e;
     }
   }

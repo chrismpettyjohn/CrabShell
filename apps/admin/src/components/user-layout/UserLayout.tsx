@@ -3,7 +3,7 @@ import { JSX } from "solid-js";
 import { UserGuard } from "../user-guard/UserGuard";
 import { IMAGER_BASE_URL } from "../../App.const";
 import { useAuth } from "../../context/AuthContext";
-import { RankScope } from "@crabshell/public-client";
+import { RankScope } from "@crabshell/admin-client";
 import { ScopeGuard } from "../scope-guard/ScopeGuard";
 
 export interface UserLayoutProps {

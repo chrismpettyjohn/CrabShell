@@ -1,4 +1,4 @@
-import { RankScope } from "@crabshell/public-client";
+import { RankScope } from "@crabshell/admin-client";
 import { createEffect, JSX } from "solid-js";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "@solidjs/router";

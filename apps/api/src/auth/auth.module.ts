@@ -4,10 +4,11 @@ import { AuthService } from './auth.service';
 import { SessionGuard } from './session.guard';
 import { DatabaseModule } from '../database/database.module';
 import { ScopeGuard } from './scope.guard';
+import { AuthAdminController } from './auth-admin.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [AuthController],
+  controllers: [AuthController, AuthAdminController],
   providers: [AuthService, SessionGuard, ScopeGuard],
   exports: [AuthService, ScopeGuard],
 })

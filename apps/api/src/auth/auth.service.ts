@@ -4,7 +4,7 @@ import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
-import { FastifyReply } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { cookieConfig } from './auth.config';
 import { generate } from 'randomstring';
 
@@ -41,23 +41,23 @@ export class AuthService {
 
   async login(
     loginDto: AuthLoginDTO,
+    request: FastifyRequest,
     reply: FastifyReply,
   ): Promise<UserEntity> {
+    const sessionId = request.cookies['sessionId'];
+    if (sessionId) {
+      await this.sessionRepository.delete({ id: Number(sessionId) });
+      reply.clearCookie('sessionId');
+    }
     const user = await this.validateUser(loginDto.username, loginDto.password);
-
-    // Create session
-    const session = await this.sessionRepository.create({
-      userID: user.id,
-    });
-
-    // Set session cookie using the session ID
+    const session = await this.sessionRepository.create({ userID: user.id });
     reply.setCookie('sessionId', String(session.id), cookieConfig);
-
     return user;
   }
 
   async register(
     registerDto: AuthRegisterDTO,
+    request: FastifyRequest,
     reply: FastifyReply,
   ): Promise<UserEntity> {
     const existingUser = await this.userRepository.findOne({
@@ -98,6 +98,7 @@ export class AuthService {
 
     return this.login(
       { username: user.username, password: registerDto.password },
+      request,
       reply,
     );
   }

@@ -4,28 +4,17 @@ import {
   ExecutionContext,
   ForbiddenException,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { Reflector } from '@nestjs/core';
 import { HAS_SCOPE_KEY, PermissionScope } from './has-scope.decorator';
 @Injectable()
 export class ScopeGuard implements CanActivate {
-  constructor(
-    private authService: AuthService,
-    private reflector: Reflector,
-  ) {}
+  constructor(private reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const sessionId = request.cookies['sessionId'];
-
-    if (!sessionId) {
-      throw new ForbiddenException('Session ID is missing');
-    }
-
     try {
-      const user = await this.authService.validateSession(Number(sessionId));
-      request.user = user;
-
+      console.log('SCOPE WHY');
+      console.log(request.user);
       const requiredScope = this.reflector.get<PermissionScope>(
         HAS_SCOPE_KEY,
         context.getHandler(),
@@ -35,11 +24,11 @@ export class ScopeGuard implements CanActivate {
         return true; // No scope required, allow access
       }
 
-      if (user.rank[requiredScope] === undefined) {
+      if (request.user.rank[requiredScope] === undefined) {
         throw new Error(`${requiredScope} not on permissions table`);
       }
 
-      if (user.rank[requiredScope] === '1') {
+      if (request.user.rank[requiredScope] === '1') {
         return true;
       } else {
         throw new ForbiddenException(

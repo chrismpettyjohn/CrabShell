@@ -24,7 +24,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: CORS_HOSTS,
-    credentials: true, // Enable cookies
+    credentials: true,
   });
 
   await app.listen(HTTP_PORT, '0.0.0.0');
