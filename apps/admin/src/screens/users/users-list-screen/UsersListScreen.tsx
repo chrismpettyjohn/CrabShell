@@ -17,15 +17,17 @@ export function UsersListScreen() {
   onMount(async () => {
     try {
       const response = await adminUserService.getAll();
+      console.log("Loaded users:", response);
       setUsers(response);
     } catch (e) {
       toast.error("Failed to fetch users");
-      throw e;
+      console.error(e);
     }
   });
 
   const columns: ITableColumn<AdminUserWire>[] = [
     {
+      key: "look",
       header: "Avatar",
       selector: (row) => row.look,
       customRender: (look) => (
@@ -38,8 +40,10 @@ export function UsersListScreen() {
       width: 80,
     },
     {
+      key: "username",
       header: "Username",
       selector: (row) => row.username,
+      filterable: true,
       sortable: true,
     },
   ];
@@ -47,11 +51,17 @@ export function UsersListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Users</SiteTitle>
-      <IntegratedTable
-        columns={columns}
-        rows={users}
-        onRowClick={(row) => navigate(`/users/${row.id}`)}
-      />
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;width:100%;">
+        <h1>Users</h1>
+      </div>
+      <div class="card">
+        <IntegratedTable
+          columns={columns}
+          rows={users}
+          getRowId={(row) => `${row.id}`}
+          onRowClick={(row) => navigate(`/users/${row.id}`)}
+        />
+      </div>
     </UserLayout>
   );
 }

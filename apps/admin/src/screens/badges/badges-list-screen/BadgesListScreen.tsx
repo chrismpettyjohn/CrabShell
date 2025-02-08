@@ -17,30 +17,40 @@ export function BadgesListScreen() {
   onMount(async () => {
     try {
       const response = await adminBadgeService.getAll();
+      console.log("Loaded badges:", response);
       setBadges(response);
-    } catch (e: any) {
+    } catch (e) {
       toast.error("Failed to fetch badges");
-      throw e;
+      console.error(e);
     }
   });
 
   const columns: ITableColumn<AdminBadgeWire>[] = [
     {
+      key: "code",
       header: "Badge",
       selector: (row) => row.code,
       customRender: (code) => (
-        <img src={`${BADGE_BASE_URL}/${code}${BADGE_EXT}`} alt="Badge" />
+        <img
+          src={`${BADGE_BASE_URL}/${code}${BADGE_EXT}`}
+          alt="Badge"
+          style="object-fit: contain; height: 50px;"
+        />
       ),
       width: 100,
     },
     {
+      key: "code",
       header: "Code",
       selector: (row) => row.code,
+      filterable: true,
       sortable: true,
     },
     {
+      key: "publicName",
       header: "Public Name",
       selector: (row) => row.publicName,
+      filterable: true,
       sortable: true,
     },
   ];
@@ -48,7 +58,8 @@ export function BadgesListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Badges</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;width:100%;">
+        <h1>Badges</h1>
         <A href="/badges/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />
@@ -56,11 +67,14 @@ export function BadgesListScreen() {
           </button>
         </A>
       </div>
-      <IntegratedTable
-        columns={columns}
-        rows={badges}
-        onRowClick={(row) => navigate(`/badges/${row.code}`)}
-      />
+      <div class="card">
+        <IntegratedTable
+          columns={columns}
+          rows={badges}
+          getRowId={(row) => row.code}
+          onRowClick={(row) => navigate(`/badges/${row.code}`)}
+        />
+      </div>
     </UserLayout>
   );
 }

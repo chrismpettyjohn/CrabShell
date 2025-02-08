@@ -17,6 +17,7 @@ export function RanksListScreen() {
   onMount(async () => {
     try {
       const response = await adminRankService.getAll();
+      console.log("Loaded ranks:", response);
       setRanks(response);
     } catch (e) {
       toast.error("Failed to fetch ranks");
@@ -24,14 +25,34 @@ export function RanksListScreen() {
     }
   });
 
+  const handleRowEdit = async (
+    originalRow: AdminRankWire,
+    modifiedRow: AdminRankWire
+  ) => {
+    try {
+      await adminRankService.updateById(originalRow.id, modifiedRow);
+      setRanks((prevRanks) =>
+        prevRanks.map((rank) =>
+          rank.id === originalRow.id ? modifiedRow : rank
+        )
+      );
+      toast.success(`Updated rank: ${modifiedRow.name}`);
+    } catch (e) {
+      toast.error(`Failed to update rank: ${modifiedRow.name}`);
+      console.error(e);
+    }
+  };
+
   const columns: ITableColumn<AdminRankWire>[] = [
     {
+      key: "id",
       header: "ID",
       selector: (row) => row.id,
       sortable: true,
       width: 60,
     },
     {
+      key: "badgeCode",
       header: "Badge",
       selector: (row) => row.badgeCode,
       customRender: (badgeCode) => (
@@ -43,16 +64,20 @@ export function RanksListScreen() {
       width: 80,
     },
     {
+      key: "name",
       header: "Name",
       selector: (row) => row.name,
+      filterable: true,
       sortable: true,
+      editable: true,
     },
   ];
 
   return (
     <UserLayout>
       <SiteTitle>Ranks</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;width:100%;">
+        <h1>Ranks</h1>
         <A href="/ranks/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />
@@ -60,11 +85,15 @@ export function RanksListScreen() {
           </button>
         </A>
       </div>
-      <IntegratedTable
-        columns={columns}
-        rows={ranks}
-        onRowClick={(row) => navigate(`/ranks/${row.id}`)}
-      />
+      <div class="card">
+        <IntegratedTable
+          columns={columns}
+          rows={ranks}
+          getRowId={(row) => `${row.id}`}
+          onRowClick={(row) => navigate(`/ranks/${row.id}`)}
+          onRowEdit={handleRowEdit}
+        />
+      </div>
     </UserLayout>
   );
 }

@@ -16,21 +16,44 @@ export function ArticleListScreen() {
   onMount(async () => {
     try {
       const response = await adminArticleService.getAll();
+      console.log("Loaded articles:", response);
       setArticles(response);
-    } catch (e: any) {
+    } catch (e) {
       toast.error("Failed to fetch articles");
-      throw e;
+      console.error(e);
     }
   });
 
+  const handleRowEdit = async (
+    originalRow: AdminArticleWire,
+    modifiedRow: AdminArticleWire
+  ) => {
+    try {
+      await adminArticleService.updateById(originalRow.id, modifiedRow);
+      setArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article.id === originalRow.id ? modifiedRow : article
+        )
+      );
+      toast.success(`Updated article: ${modifiedRow.name}`);
+    } catch (e) {
+      toast.error(`Failed to update article: ${modifiedRow.name}`);
+      console.error(e);
+    }
+  };
+
   const columns: ITableColumn<AdminArticleWire>[] = [
     {
+      key: "id",
       header: "#",
-      selector: (_, i) => i + 1,
+      selector: (row) => row.id,
       width: 50,
     },
     {
+      key: "imageUrl",
       header: "Cover",
+      editable: true,
+      filterable: true,
       selector: (row) => row.imageUrl,
       customRender: (imageUrl) => (
         <img
@@ -42,20 +65,27 @@ export function ArticleListScreen() {
       width: 120,
     },
     {
+      key: "name",
       header: "Title",
       selector: (row) => row.name,
+      filterable: true,
       sortable: true,
+      editable: true,
     },
     {
+      key: "description",
       header: "Description",
       selector: (row) => row.description,
+      editable: true,
     },
     {
+      key: "updatedAt",
       header: "Edited At",
       selector: (row) => row.updatedAt,
       sortable: true,
     },
     {
+      key: "createdAt",
       header: "Posted At",
       selector: (row) => row.createdAt,
       sortable: true,
@@ -65,7 +95,8 @@ export function ArticleListScreen() {
   return (
     <UserLayout>
       <SiteTitle>Articles</SiteTitle>
-      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;width:100%;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:14px;width:100%;">
+        <h1>Articles</h1>
         <A href="/articles/create">
           <button>
             <i class="fa fa-plus-circle" style="margin-right: 8px;" />
@@ -73,11 +104,15 @@ export function ArticleListScreen() {
           </button>
         </A>
       </div>
-      <IntegratedTable
-        columns={columns}
-        rows={articles}
-        onRowClick={(row) => navigate(`/articles/${row.id}`)}
-      />
+      <div class="card">
+        <IntegratedTable
+          columns={columns}
+          rows={articles}
+          getRowId={(row) => `${row.id}`}
+          onRowClick={(row) => navigate(`/articles/${row.id}`)}
+          onRowEdit={handleRowEdit}
+        />
+      </div>
     </UserLayout>
   );
 }
