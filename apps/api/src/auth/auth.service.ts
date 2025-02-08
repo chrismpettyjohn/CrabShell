@@ -16,6 +16,7 @@ import {
   USER_DEFAULT_MOTTO,
   USER_DEFAULT_POINTS,
 } from '../app.const';
+import { SessionEntity } from '../database/session.entity';
 
 @Injectable()
 export class AuthService {
@@ -115,7 +116,9 @@ export class AuthService {
     return { message: 'Logged out successfully' };
   }
 
-  async validateSession(sessionId: number): Promise<UserEntity> {
+  async validateSession(
+    sessionId: number,
+  ): Promise<{ session: SessionEntity; user: UserEntity }> {
     const session = await this.sessionRepository.findOne({
       where: { id: sessionId },
     });
@@ -132,10 +135,11 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
-    return user;
+    return { session, user };
   }
 
   async getProfile(sessionId: number): Promise<UserEntity> {
-    return this.validateSession(sessionId);
+    const { user } = await this.validateSession(sessionId);
+    return user;
   }
 }

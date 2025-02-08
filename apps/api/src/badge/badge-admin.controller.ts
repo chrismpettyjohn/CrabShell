@@ -23,11 +23,11 @@ import { BadgeService } from './badge.service';
 import { BadgePipe } from './badge.pipe';
 
 @Controller('admin/badges')
-@HasScope('manageBadges')
 export class BadgeAdminController {
   constructor(private readonly badgeService: BadgeService) {}
 
   @Post('')
+  @HasScope('manageBadges')
   create(
     @Body() dto: AdminBadgeCreateDTO,
     @GetSession() user: UserEntity,
@@ -36,11 +36,13 @@ export class BadgeAdminController {
   }
 
   @Get('')
+  @HasScope('manageBadges')
   getAll(): Promise<AdminBadgeGetAllResponse> {
     return this.badgeService.getAll();
   }
 
   @Get(':badgeCode')
+  @HasScope('manageBadges')
   getByCode(
     @Param('badgeCode', BadgePipe) badge: AdminBadgeWire,
   ): AdminBadgeGetByCodeResponse {
@@ -48,6 +50,7 @@ export class BadgeAdminController {
   }
 
   @Patch(':badgeCode')
+  @HasScope('manageBadges')
   async updateByCode(
     @Param('badgeCode', BadgePipe) badge: AdminBadgeWire,
     @Body() badgeDto: AdminBadgeUpdateByCodeDTO,
@@ -57,6 +60,7 @@ export class BadgeAdminController {
   }
 
   @Delete(':badgeCode')
+  @HasScope('manageBadges')
   async deleteByCode(
     @Param('badgeCode', BadgePipe) badge: AdminBadgeWire,
   ): Promise<AdminBadgeDeleteByCodeResponse> {

@@ -10,7 +10,6 @@ import {
 import { ArticlePipe } from './article.pipe';
 import { ArticleEntity } from '../database/article.entity';
 import { ArticleDTO } from './article.dto';
-import { HasScope } from '../auth/has-scope.decorator';
 import { ArticleRepository } from '../database/article.repository';
 import {
   AdminArticleCreateResponse,
@@ -22,13 +21,14 @@ import {
 import { CreateArticleDTO } from './article-admin.dto';
 import { GetSession } from '../auth/get-session.decorator';
 import { UserEntity } from '../database/user.entity';
+import { HasScope } from '../auth/has-scope.decorator';
 
 @Controller('admin/articles')
-@HasScope('manageArticles')
 export class ArticleAdminController {
   constructor(private readonly articleRepo: ArticleRepository) {}
 
   @Post('')
+  @HasScope('manageArticles')
   async create(
     @Body() dto: CreateArticleDTO,
     @GetSession() user: UserEntity,
@@ -41,6 +41,7 @@ export class ArticleAdminController {
   }
 
   @Get('')
+  @HasScope('manageArticles')
   async getAll(): Promise<AdminArticleGetAllResponse> {
     const articles: ArticleEntity[] = await this.articleRepo.find({
       order: {
@@ -51,6 +52,7 @@ export class ArticleAdminController {
   }
 
   @Get(':articleID')
+  @HasScope('manageArticles')
   getById(
     @Param('articleID', ArticlePipe) article: ArticleEntity,
   ): AdminArticleGetByIdResponse {
@@ -58,6 +60,7 @@ export class ArticleAdminController {
   }
 
   @Patch(':articleID')
+  @HasScope('manageArticles')
   async updateById(
     @Param('articleID', ArticlePipe) article: ArticleEntity,
     @Body() articleDto: ArticleDTO,
@@ -67,6 +70,7 @@ export class ArticleAdminController {
   }
 
   @Delete(':articleID')
+  @HasScope('manageArticles')
   async deleteById(
     @Param('articleID', ArticlePipe) article: ArticleEntity,
   ): Promise<AdminArticleDeleteByIdResponse> {

@@ -21,11 +21,11 @@ import { EmuTextsPipe } from './emu-texts.pipe';
 import { AdminEmuTextsDTO } from './emu-texts.dto';
 
 @Controller('admin/emu-texts')
-@HasScope('manageEmu')
 export class EmuTextsAdminController {
   constructor(private readonly emuTextsRepo: EmuTextsRepository) {}
 
   @Post('')
+  @HasScope('manageEmu')
   create(
     @Param('key', EmuTextsPipe) emuText: EmuTextsEntity,
   ): AdminEmuTextsCreateResponse {
@@ -33,6 +33,7 @@ export class EmuTextsAdminController {
   }
 
   @Get('')
+  @HasScope('manageEmu')
   async getAll(): Promise<AdminEmuTextsGetAllResponse> {
     const emuTexts: EmuTextsEntity[] = await this.emuTextsRepo.find({
       order: {
@@ -43,6 +44,7 @@ export class EmuTextsAdminController {
   }
 
   @Get(':emuTextID')
+  @HasScope('manageEmu')
   getById(
     @Param('emuTextID', EmuTextsPipe) emuText: EmuTextsEntity,
   ): AdminEmuTextsGetByIdResponse {
@@ -50,6 +52,7 @@ export class EmuTextsAdminController {
   }
 
   @Patch(':emuTextID')
+  @HasScope('manageEmu')
   async updateById(
     @Param('emuTextID', EmuTextsPipe) emuText: EmuTextsEntity,
     @Body() emuTextDto: AdminEmuTextsDTO,
@@ -59,6 +62,7 @@ export class EmuTextsAdminController {
   }
 
   @Delete(':emuTextID')
+  @HasScope('manageEmu')
   async deleteById(
     @Param('emuTextID', EmuTextsPipe) emuText: EmuTextsEntity,
   ): Promise<AdminEmuTextsDeleteByIdResponse> {

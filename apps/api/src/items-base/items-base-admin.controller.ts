@@ -21,11 +21,11 @@ import { ItemsBasePipe } from './items-base.pipe';
 import { AdminCreateItemsBaseDTO, AdminItemsBaseDTO } from './items-base.dto';
 
 @Controller('admin/items-base')
-@HasScope('manageEmu')
 export class ItemsBaseAdminController {
   constructor(private readonly itemsBaseRepo: ItemBaseRepository) {}
 
   @Post('')
+  @HasScope('manageEmu')
   async create(
     @Body() dto: AdminCreateItemsBaseDTO,
   ): Promise<AdminItemsBaseCreateResponse> {
@@ -34,6 +34,7 @@ export class ItemsBaseAdminController {
   }
 
   @Get('')
+  @HasScope('manageEmu')
   async getAll(): Promise<AdminItemsBaseGetAllResponse> {
     const itemsBase: ItemBaseEntity[] = await this.itemsBaseRepo.find({
       order: {
@@ -44,6 +45,7 @@ export class ItemsBaseAdminController {
   }
 
   @Get(':itemBaseId')
+  @HasScope('manageEmu')
   getById(
     @Param('itemBaseId', ItemsBasePipe) itemBase: ItemBaseEntity,
   ): AdminItemsBaseGetByIdResponse {
@@ -51,6 +53,7 @@ export class ItemsBaseAdminController {
   }
 
   @Patch(':itemBaseId')
+  @HasScope('manageEmu')
   async updateById(
     @Param('itemBaseId', ItemsBasePipe) itemBase: ItemBaseEntity,
     @Body() itemBaseDto: AdminItemsBaseDTO,
@@ -60,6 +63,7 @@ export class ItemsBaseAdminController {
   }
 
   @Delete(':itemBaseId')
+  @HasScope('manageEmu')
   async deleteById(
     @Param('itemBaseId', ItemsBasePipe) itemBase: ItemBaseEntity,
   ): Promise<AdminItemsBaseDeleteByIdResponse> {

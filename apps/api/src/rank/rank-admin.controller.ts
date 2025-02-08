@@ -20,16 +20,17 @@ import {
 import { RankPipe } from './rank.pipe';
 
 @Controller('admin/ranks')
-@HasScope('manageRanks')
 export class RankAdminController {
   constructor(private readonly rankRepo: RankRepository) {}
 
   @Post('')
+  @HasScope('manageRanks')
   create(@Param('rankID', RankPipe) rank: RankEntity): AdminRankCreateResponse {
     return RankDTO.fromEntity(rank);
   }
 
   @Get('')
+  @HasScope('manageRanks')
   async getAll(): Promise<RankDTO[]> {
     const ranks: RankEntity[] = await this.rankRepo.find({
       order: {
@@ -40,6 +41,7 @@ export class RankAdminController {
   }
 
   @Get(':rankID')
+  @HasScope('manageRanks')
   getById(
     @Param('rankID', RankPipe) rank: RankEntity,
   ): AdminRankGetByIdResponse {
@@ -47,6 +49,7 @@ export class RankAdminController {
   }
 
   @Patch(':rankID')
+  @HasScope('manageRanks')
   async updateById(
     @Param('rankID', RankPipe) rank: RankEntity,
     @Body() rankDto: RankDTO,
@@ -59,6 +62,7 @@ export class RankAdminController {
   }
 
   @Delete(':rankID')
+  @HasScope('manageRanks')
   async deleteById(
     @Param('rankID', RankPipe) rank: RankEntity,
   ): Promise<AdminRankDeleteByIdResponse> {

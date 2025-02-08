@@ -8,7 +8,6 @@ import {
   Post,
 } from '@nestjs/common';
 import { EmuSettingsEntity } from '../database/emu-settings.entity';
-import { HasScope } from '../auth/has-scope.decorator';
 import {
   AdminEmuSettingsCreateResponse,
   AdminEmuSettingsDeleteByIdResponse,
@@ -19,13 +18,14 @@ import {
 import { EmuSettingsRepository } from '../database/emu-settings.repository';
 import { EmuSettingsPipe } from './emu-settings.pipe';
 import { AdminEmuSettingsDTO } from './emu-settings.dto';
+import { HasScope } from '../auth/has-scope.decorator';
 
 @Controller('admin/emu-settings')
-@HasScope('manageEmu')
 export class EmuSettingsAdminController {
   constructor(private readonly emuSettingsRepo: EmuSettingsRepository) {}
 
   @Post('')
+  @HasScope('manageEmu')
   create(
     @Param('key', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
   ): AdminEmuSettingsCreateResponse {
@@ -33,6 +33,7 @@ export class EmuSettingsAdminController {
   }
 
   @Get('')
+  @HasScope('manageEmu')
   async getAll(): Promise<AdminEmuSettingsGetAllResponse> {
     const emuSettings: EmuSettingsEntity[] = await this.emuSettingsRepo.find({
       order: {
@@ -43,6 +44,7 @@ export class EmuSettingsAdminController {
   }
 
   @Get(':emuSettingID')
+  @HasScope('manageEmu')
   getById(
     @Param('emuSettingID', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
   ): AdminEmuSettingsGetByIdResponse {
@@ -50,6 +52,7 @@ export class EmuSettingsAdminController {
   }
 
   @Patch(':emuSettingID')
+  @HasScope('manageEmu')
   async updateById(
     @Param('emuSettingID', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
     @Body() emuSettingDto: AdminEmuSettingsDTO,
@@ -59,6 +62,7 @@ export class EmuSettingsAdminController {
   }
 
   @Delete(':emuSettingID')
+  @HasScope('manageEmu')
   async deleteById(
     @Param('emuSettingID', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
   ): Promise<AdminEmuSettingsDeleteByIdResponse> {

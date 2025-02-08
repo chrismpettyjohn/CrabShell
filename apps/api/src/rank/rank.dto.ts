@@ -1,4 +1,4 @@
-import { RankScope, RankWire } from '@crabshell/public-client';
+import { RankScopes, RankWire } from '@crabshell/public-client';
 import {
   IsArray,
   IsBoolean,
@@ -10,7 +10,7 @@ import { UserDTO } from '../user/user.dto';
 import { RankEntity } from '../database/rank.entity';
 import { Type } from 'class-transformer';
 
-export class RankScopesDTO implements Record<RankScope, boolean> {
+export class RankScopesDTO {
   @IsBoolean()
   accessAdminPanel!: boolean;
 

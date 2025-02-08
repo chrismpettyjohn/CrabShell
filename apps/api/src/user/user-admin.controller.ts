@@ -11,11 +11,11 @@ import {
 } from '@crabshell/admin-client';
 
 @Controller('admin/users')
-@HasScope('manageUsers')
 export class UserAdminController {
   constructor(private readonly userRepo: UserRepository) {}
 
   @Get('')
+  @HasScope('manageUsers')
   async getAll(): Promise<UserDTO[]> {
     const users: UserEntity[] = await this.userRepo.find({
       order: {
@@ -26,6 +26,7 @@ export class UserAdminController {
   }
 
   @Get(':userID')
+  @HasScope('manageUsers')
   getById(
     @Param('userID', UserPipe) user: UserEntity,
   ): AdminUserGetByIdResponse {
@@ -33,6 +34,7 @@ export class UserAdminController {
   }
 
   @Patch(':userID')
+  @HasScope('manageUsers')
   async updateById(
     @Param('userID', UserPipe) user: UserEntity,
     @Body() userDto: UserDTO,
@@ -42,6 +44,7 @@ export class UserAdminController {
   }
 
   @Delete(':userID')
+  @HasScope('manageUsers')
   async deleteById(
     @Param('userID', UserPipe) user: UserEntity,
   ): Promise<AdminUserDeleteByIdResponse> {

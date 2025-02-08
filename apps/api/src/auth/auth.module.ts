@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { SessionGuard } from './session.guard';
@@ -9,7 +9,7 @@ import { AuthAdminController } from './auth-admin.controller';
 @Module({
   imports: [DatabaseModule],
   controllers: [AuthController, AuthAdminController],
-  providers: [AuthService, SessionGuard, ScopeGuard],
+  providers: [AuthService, SessionGuard, ScopeGuard, Logger],
   exports: [AuthService, ScopeGuard],
 })
 export class AuthModule {}

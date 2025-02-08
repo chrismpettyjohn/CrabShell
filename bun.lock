@@ -24,7 +24,6 @@
       "version": "0.0.1",
       "dependencies": {
         "@crabshell/admin-client": "workspace:*",
-        "@crabshell/public-client": "workspace:*",
         "@solidjs/router": "0.15.3",
         "quill": "2.0.3",
         "solid-js": "^1.9.4",

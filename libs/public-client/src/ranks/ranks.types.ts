@@ -18,3 +18,5 @@ export enum RankScope {
   MANAGE_FURNITURE = "manageFurniture",
   MANAGE_LOGS = "manageLogs",
 }
+
+export type RankScopes = `${RankScope}`;
