@@ -77,6 +77,15 @@ export function IntegratedTable<T>({
     });
     return data;
   });
+  const sortIcon = (col: ITableColumn<T>) => {
+    const state = sortConfig().find((s) => s.key === col.key);
+    if (!state) return <i class="fa fa-caret-right"></i>;
+    return state.direction === "asc" ? (
+      <i class="fa fa-caret-up"></i>
+    ) : (
+      <i class="fa fa-caret-down"></i>
+    );
+  };
   const startEditing = (rowId: string, columnKey: string) =>
     setEditingCell({ rowId, column: columnKey });
   const handleEdit = (rowId: string, columnKey: string, value: any) =>
@@ -101,6 +110,7 @@ export function IntegratedTable<T>({
   let startX = 0;
   let initialScrollLeft = 0;
   const mouseDownHandler = (e: MouseEvent) => {
+    if ((e.target as HTMLElement).tagName === "TH") return; // Ignore clicks on headers
     e.preventDefault();
     setDragging(true);
     startX = e.pageX;
@@ -109,6 +119,7 @@ export function IntegratedTable<T>({
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("mouseup", mouseUpHandler);
   };
+
   const mouseMoveHandler = (e: MouseEvent) => {
     if (!dragging() || !containerRef) return;
     e.preventDefault();
@@ -165,8 +176,9 @@ export function IntegratedTable<T>({
               <For each={columns}>
                 {(col) => (
                   <th
-                    style="padding: 12px; text-align: left; border-bottom: 2px solid #dee2e6; white-space: nowrap; cursor: pointer;"
-                    onClick={() => {
+                    style="cursor: pointer; user-select: none;"
+                    onClick={(e) => {
+                      e.stopPropagation();
                       if (!col.sortable) return;
                       setSortConfig((prev) => {
                         const existing = prev.find((s) => s.key === col.key);
@@ -184,8 +196,14 @@ export function IntegratedTable<T>({
                         ];
                       });
                     }}
+                    onMouseDown={(e) => e.stopPropagation()}
                   >
-                    {col.header}
+                    <div style="display: flex; align-items: center;">
+                      <span>{col.header}</span>
+                      <Show when={col.sortable}>
+                        <span style="margin-left: 8px;">{sortIcon(col)}</span>
+                      </Show>
+                    </div>
                   </th>
                 )}
               </For>
