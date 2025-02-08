@@ -1,7 +1,7 @@
 export interface UserWire {
   id: number;
   username: string;
-  rankId: number;
+  rankID: number;
   look: string;
   motto: string;
   online: boolean;

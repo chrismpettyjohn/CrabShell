@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RankDTO } from './rank.dto';
 import { RankRepository } from '../database/rank.repository';
 import { UserDTO } from '../user/user.dto';
+import { RankBoolean } from '../database/rank.entity';
 
 @Injectable()
 export class RankService {
@@ -10,11 +11,10 @@ export class RankService {
   async getStaff(): Promise<RankDTO[]> {
     const ranks = await this.rankRepo.find({
       where: {
-        showStaff: '1',
+        showStaff: RankBoolean.True,
       },
       relations: ['members'],
     });
-    console.log(ranks);
     return ranks as any;
   }
 }

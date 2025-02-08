@@ -1,6 +1,5 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { cookieConfig } from './auth.config';
 import { AuthenticatedUser } from '../app';
 import { RankRepository } from '../database/rank.repository';
 
@@ -31,10 +30,6 @@ export class SessionGuard implements CanActivate {
       };
 
       request.auth = authenticatedUser;
-      context
-        .switchToHttp()
-        .getResponse()
-        .setCookie('sessionId', sessionId, cookieConfig);
 
       return true;
     } catch {

@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import { createEffect, createSignal, onMount, Show } from "solid-js";
+import { createSignal, onMount, Show } from "solid-js";
 import {
   adminUserService,
   AdminUserUpdateByIdParams,
@@ -24,8 +24,6 @@ export function UsersEditScreen() {
       console.error(error);
     }
   });
-
-  createEffect(() => console.log("user: ", user()));
 
   async function onEdit(dto: AdminUserUpdateByIdParams) {
     try {

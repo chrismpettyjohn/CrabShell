@@ -10,7 +10,7 @@ export class UserDTO implements UserWire {
   username!: string;
 
   @IsNumber()
-  rankId!: number;
+  rankID!: number;
 
   @IsString()
   look: string;
@@ -25,7 +25,7 @@ export class UserDTO implements UserWire {
     const dto = new UserDTO();
     dto.id = entity.id;
     dto.username = entity.username;
-    dto.rankId = entity.rankID;
+    dto.rankID = entity.rankID;
     dto.look = entity.look;
     dto.motto = entity.motto;
     dto.online = entity.onlineStatus === '1';

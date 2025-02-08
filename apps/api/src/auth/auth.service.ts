@@ -1,10 +1,9 @@
-import { Injectable, UnauthorizedException, Request, Response} from '@nestjs/common';
-import * as bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
+import { Request, Response } from 'express';
 import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
-import { cookieConfig } from './auth.config';
 import { generate } from 'randomstring';
 
 import {
@@ -16,74 +15,67 @@ import {
   USER_DEFAULT_POINTS,
 } from '../app.const';
 import { SessionEntity } from '../database/session.entity';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly userRepository: UserRepository,
-    private readonly sessionRepository: SessionRepository,
-  ) {}
+  constructor(private readonly userRepo: UserRepository, private readonly sessionRepo: SessionRepository) {}
 
   async validateUser(username: string, password: string): Promise<UserEntity> {
-    const user = await this.userRepository.findOne({ where: { username } });
+    const user = await this.userRepo.findOne({ where: { username } });
 
     if (!user || !user.password) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new Error('Invalid credentials');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new Error('Invalid credentials');
     }
 
     return user;
   }
 
-  async login(
-    loginDto: AuthLoginDTO,
-    request: Request,
-    reply: Response,
-  ): Promise<UserEntity> {
-    const sessionId = request.cookies['sessionId'];
+  async login(loginDto: AuthLoginDTO, req: Request, res: Response): Promise<Response> {
+    const sessionId = req.cookies['sessionId'];
+
     if (sessionId) {
-      await this.sessionRepository.delete({ id: Number(sessionId) });
-      reply.clearCookie('sessionId');
+      await this.sessionRepo.delete({ id: Number(sessionId) });
+      res.clearCookie('sessionId');
     }
+
     const user = await this.validateUser(loginDto.username, loginDto.password);
-    const session = await this.sessionRepository.create({ userID: user.id });
-    reply.cookie('sessionId', String(session.id), cookieConfig);
-    return user;
+    const session = await this.sessionRepo.create({ userID: user.id });
+
+    res.cookie('sessionId', String(session.id), { sameSite: 'strict' });
+
+    return res.json(user)
   }
 
-  async register(
-    registerDto: AuthRegisterDTO,
-    request: Request,
-    reply: Response,
-  ): Promise<UserEntity> {
-    const existingUser = await this.userRepository.findOne({
+  async register(registerDto: AuthRegisterDTO, req: Request, res: Response): Promise<Response> {
+    const existingUser = await this.userRepo.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
     });
 
     if (existingUser) {
-      throw new UnauthorizedException('Username or email already exists');
+      throw new Error('Username or email already exists');
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(registerDto.password, salt);
-
     const now = Math.floor(Date.now() / 1000);
+    const gameSSO: string = 'crabshell_' + generate(50) + '_new';
 
-    const gameSSO: string = 'crabshell_' + generate(50) + '_' + 'new';
-
-    const user = await this.userRepository.create({
+    const user = await this.userRepo.create({
       username: registerDto.username,
       password: hashedPassword,
       email: registerDto.email,
       gender: 1,
       accountCreatedAt: now,
       lastOnlineAt: now,
-      ipLast: '127.0.0.1', // You should get this from request
-      ipRegistered: '127.0.0.1', // You should get this from request
+      ipLast: req.ip || '127.0.0.1',
+      ipRegistered: req.ip || '127.0.0.1',
       onlineStatus: '0',
       rankID: 1,
       credits: USER_DEFAULT_CREDITS,
@@ -96,48 +88,39 @@ export class AuthService {
       machineAddress: generate(10),
     });
 
-    return this.login(
-      { username: user.username, password: registerDto.password },
-      request,
-      reply,
-    );
+    return this.login({ username: user.username, password: registerDto.password }, req, res);
   }
 
   async generateSSO(userId: number): Promise<string> {
     const gameSSO: string = 'crabshell_' + generate(30) + '_' + userId;
-    await this.userRepository.update({ id: userId }, { gameSSO });
+    await this.userRepo.update({ id: userId }, { gameSSO });
     return gameSSO;
   }
 
-  async logout(sessionId: number, reply: Response) {
-    await this.sessionRepository.delete({ id: sessionId });
-    reply.clearCookie('sessionId');
+  async logout(req: Request, res: Response) {
+    const sessionId = Number(req.cookies['sessionId']);
+    await this.sessionRepo.delete({ id: sessionId });
+    res.clearCookie('sessionId');
     return { message: 'Logged out successfully' };
   }
 
-  async validateSession(
-    sessionId: number,
-  ): Promise<{ session: SessionEntity; user: UserEntity }> {
-    const session = await this.sessionRepository.findOne({
-      where: { id: sessionId },
-    });
-
+  async validateSession(sessionId: number): Promise<{ session: SessionEntity; user: UserEntity }> {
+    const session = await this.sessionRepo.findOne({ where: { id: sessionId } });
     if (!session) {
-      throw new UnauthorizedException('Invalid session');
+      throw new Error('Invalid session');
     }
 
-    const user = await this.userRepository.findOne({
-      where: { id: session.userID },
-    });
+    const user = await this.userRepo.findOne({ where: { id: session.userID } });
 
     if (!user) {
-      throw new UnauthorizedException('User not found');
+      throw new Error('User not found');
     }
 
     return { session, user };
   }
 
-  async getProfile(sessionId: number): Promise<UserEntity> {
+  async getProfile(req: Request): Promise<UserEntity> {
+    const sessionId = Number(req.cookies['sessionId']);
     const { user } = await this.validateSession(sessionId);
     return user;
   }

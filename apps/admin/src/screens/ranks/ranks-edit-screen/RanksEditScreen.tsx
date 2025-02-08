@@ -1,5 +1,5 @@
 import { useParams } from "@solidjs/router";
-import { createEffect, createSignal, onMount, Show } from "solid-js";
+import { createSignal, onMount, Show } from "solid-js";
 import {
   AdminRankCreateParams,
   adminRankService,
@@ -24,8 +24,6 @@ export function RanksEditScreen() {
       console.error(error);
     }
   });
-
-  createEffect(() => console.log("rank: ", rank()));
 
   async function onEdit(dto: AdminRankCreateParams) {
     try {

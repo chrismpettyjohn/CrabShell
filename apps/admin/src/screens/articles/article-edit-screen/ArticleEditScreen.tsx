@@ -1,6 +1,6 @@
 import { useParams } from "@solidjs/router";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
-import { createEffect, createSignal, onMount, Show } from "solid-js";
+import { createSignal, onMount, Show } from "solid-js";
 import {
   AdminArticleCreateParams,
   adminArticleService,
@@ -24,8 +24,6 @@ export function ArticleEditScreen() {
       console.error(error);
     }
   });
-
-  createEffect(() => console.log("article: ", article()));
 
   async function onEdit(dto: AdminArticleCreateParams) {
     try {

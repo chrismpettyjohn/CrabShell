@@ -24,7 +24,6 @@ const LoginScreen: Component = () => {
       return redirect("/me");
     } catch (e: any) {
       alert("Failed to login");
-      console.log(e);
       throw e;
     }
   }
