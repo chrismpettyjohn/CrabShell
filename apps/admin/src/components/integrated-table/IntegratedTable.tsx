@@ -44,6 +44,7 @@ export function IntegratedTable<T>({
     column: string;
   } | null>(null);
   const [editedValues, setEditedValues] = createSignal<Record<string, any>>({});
+  const [dragging, setDragging] = createSignal(false);
   const sortedFilteredRows = createMemo(() => {
     let data = rows() || [];
     if (searchTerm()) {
@@ -97,30 +98,25 @@ export function IntegratedTable<T>({
   let containerRef: HTMLDivElement | undefined;
   const [containerHeight, setContainerHeight] = createSignal(0);
   const [scrollTop, setScrollTop] = createSignal(0);
-  let isDragging = false;
   let startX = 0;
-  let startY = 0;
   let initialScrollLeft = 0;
-  let initialScrollTop = 0;
   const mouseDownHandler = (e: MouseEvent) => {
-    isDragging = true;
+    e.preventDefault();
+    setDragging(true);
     startX = e.pageX;
-    startY = e.pageY;
     initialScrollLeft = containerRef?.scrollLeft || 0;
-    initialScrollTop = containerRef?.scrollTop || 0;
     if (containerRef) containerRef.style.cursor = "grabbing";
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("mouseup", mouseUpHandler);
   };
   const mouseMoveHandler = (e: MouseEvent) => {
-    if (!isDragging || !containerRef) return;
+    if (!dragging() || !containerRef) return;
+    e.preventDefault();
     const dx = e.pageX - startX;
-    const dy = e.pageY - startY;
     containerRef.scrollLeft = initialScrollLeft - dx;
-    containerRef.scrollTop = initialScrollTop - dy;
   };
   const mouseUpHandler = () => {
-    isDragging = false;
+    setDragging(false);
     if (containerRef) containerRef.style.cursor = "grab";
     window.removeEventListener("mousemove", mouseMoveHandler);
     window.removeEventListener("mouseup", mouseUpHandler);
@@ -274,6 +270,9 @@ export function IntegratedTable<T>({
             </tr>
           </tbody>
         </table>
+        {dragging() && (
+          <div style="position: absolute; top:0; left:0; right:0; bottom:0; z-index: 10;" />
+        )}
       </div>
     </div>
   );
