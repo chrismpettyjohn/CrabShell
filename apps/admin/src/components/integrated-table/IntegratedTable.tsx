@@ -44,7 +44,6 @@ export function IntegratedTable<T>({
     column: string;
   } | null>(null);
   const [editedValues, setEditedValues] = createSignal<Record<string, any>>({});
-
   const sortedFilteredRows = createMemo(() => {
     let data = rows() || [];
     if (searchTerm()) {
@@ -77,18 +76,10 @@ export function IntegratedTable<T>({
     });
     return data;
   });
-
-  const startEditing = (rowId: string, columnKey: string) => {
+  const startEditing = (rowId: string, columnKey: string) =>
     setEditingCell({ rowId, column: columnKey });
-  };
-
-  const handleEdit = (rowId: string, columnKey: string, value: any) => {
-    setEditedValues((prev) => ({
-      ...prev,
-      [`${rowId}-${columnKey}`]: value,
-    }));
-  };
-
+  const handleEdit = (rowId: string, columnKey: string, value: any) =>
+    setEditedValues((prev) => ({ ...prev, [`${rowId}-${columnKey}`]: value }));
   const saveEdit = (row: T, columnKey: string) => {
     const rowId = getRowId(row);
     const rowKey = `${rowId}-${columnKey}`;
@@ -103,15 +94,40 @@ export function IntegratedTable<T>({
     });
     setEditingCell(null);
   };
-
   let containerRef: HTMLDivElement | undefined;
   const [containerHeight, setContainerHeight] = createSignal(0);
   const [scrollTop, setScrollTop] = createSignal(0);
-
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let initialScrollLeft = 0;
+  let initialScrollTop = 0;
+  const mouseDownHandler = (e: MouseEvent) => {
+    isDragging = true;
+    startX = e.pageX;
+    startY = e.pageY;
+    initialScrollLeft = containerRef?.scrollLeft || 0;
+    initialScrollTop = containerRef?.scrollTop || 0;
+    if (containerRef) containerRef.style.cursor = "grabbing";
+    window.addEventListener("mousemove", mouseMoveHandler);
+    window.addEventListener("mouseup", mouseUpHandler);
+  };
+  const mouseMoveHandler = (e: MouseEvent) => {
+    if (!isDragging || !containerRef) return;
+    const dx = e.pageX - startX;
+    const dy = e.pageY - startY;
+    containerRef.scrollLeft = initialScrollLeft - dx;
+    containerRef.scrollTop = initialScrollTop - dy;
+  };
+  const mouseUpHandler = () => {
+    isDragging = false;
+    if (containerRef) containerRef.style.cursor = "grab";
+    window.removeEventListener("mousemove", mouseMoveHandler);
+    window.removeEventListener("mouseup", mouseUpHandler);
+  };
   onMount(() => {
     if (containerRef) setContainerHeight(containerRef.clientHeight);
   });
-
   const visibleData = createMemo(() => {
     const data = sortedFilteredRows();
     const total = data.length;
@@ -126,28 +142,39 @@ export function IntegratedTable<T>({
       endIndex,
     };
   });
-
   return (
     <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
       <input
         type="text"
         placeholder="Search..."
         onInput={(e) => setSearchTerm(e.currentTarget.value)}
-        style="margin-bottom: 14px; margin-top: 4px; padding: 8px;"
+        style="margin: 4px 0 14px; padding: 8px;"
       />
-      <div style="overflow-x: auto;">
+      <div
+        ref={containerRef}
+        style="flex: 1; overflow: auto; position: relative; cursor: grab;"
+        onMouseDown={mouseDownHandler}
+        onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
+      >
         <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
-          <thead>
+          <colgroup>
+            <For each={columns}>
+              {(col) => (
+                <col style={col.width ? `width: ${col.width}px;` : ""} />
+              )}
+            </For>
+          </colgroup>
+          <thead style="position: sticky; top: 0; background: #f8f9fa;">
             <tr>
               <For each={columns}>
                 {(col) => (
                   <th
-                    style="padding: 12px; text-align: left; background: #f8f9fa; border-bottom: 2px solid #dee2e6; white-space: nowrap; cursor: pointer;"
+                    style="padding: 12px; text-align: left; border-bottom: 2px solid #dee2e6; white-space: nowrap; cursor: pointer;"
                     onClick={() => {
                       if (!col.sortable) return;
                       setSortConfig((prev) => {
                         const existing = prev.find((s) => s.key === col.key);
-                        if (existing) {
+                        if (existing)
                           return existing.direction === "asc"
                             ? prev.map((s) =>
                                 s.key === col.key
@@ -155,7 +182,6 @@ export function IntegratedTable<T>({
                                   : s
                               )
                             : prev.filter((s) => s.key !== col.key);
-                        }
                         return [
                           ...prev,
                           { key: col.key as string, direction: "asc" },
@@ -169,104 +195,85 @@ export function IntegratedTable<T>({
               </For>
             </tr>
           </thead>
-        </table>
-      </div>
-      <div
-        ref={containerRef}
-        style="flex: 1; overflow: auto; position: relative;"
-        onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
-      >
-        <Show when={sortedFilteredRows().length > 0}>
-          <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
-            <tbody>
-              <tr style={`height: ${visibleData().startIndex * rowHeight}px;`}>
-                <td
-                  colspan={columns.length}
-                  style="padding: 0; border: 0;"
-                ></td>
-              </tr>
-              <For each={visibleData().data}>
-                {(row) => {
-                  const rowId = getRowId(row);
-                  return (
-                    <tr style={`height: ${rowHeight}px; cursor: pointer;`}>
-                      <For each={columns}>
-                        {(col) => {
-                          const columnKey = col.key as string;
-                          const isEditing = () =>
-                            editingCell()?.rowId === rowId &&
-                            editingCell()?.column === columnKey;
-                          return (
-                            <td
-                              style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (col.editable) {
-                                  startEditing(rowId, columnKey);
-                                }
-                              }}
+          <tbody>
+            <tr style={`height: ${visibleData().startIndex * rowHeight}px;`}>
+              <td colspan={columns.length} style="padding: 0; border: 0;"></td>
+            </tr>
+            <For each={visibleData().data}>
+              {(row) => {
+                const rowId = getRowId(row);
+                return (
+                  <tr style={`height: ${rowHeight}px; cursor: pointer;`}>
+                    <For each={columns}>
+                      {(col) => {
+                        const columnKey = col.key as string;
+                        const isEditing = () =>
+                          editingCell()?.rowId === rowId &&
+                          editingCell()?.column === columnKey;
+                        return (
+                          <td
+                            style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (col.editable) startEditing(rowId, columnKey);
+                            }}
+                          >
+                            <Show
+                              when={isEditing()}
+                              fallback={
+                                col.customRender
+                                  ? col.customRender(col.selector(row), row)
+                                  : col.selector(row)
+                              }
                             >
                               <Show
-                                when={isEditing()}
+                                when={col.customEdit !== undefined}
                                 fallback={
-                                  col.customRender
-                                    ? col.customRender(col.selector(row), row)
-                                    : col.selector(row)
+                                  <input
+                                    type="text"
+                                    value={
+                                      editedValues()[`${rowId}-${columnKey}`] ??
+                                      col.selector(row)
+                                    }
+                                    onBlur={() => saveEdit(row, columnKey)}
+                                    onKeyDown={(e) =>
+                                      e.key === "Enter" &&
+                                      saveEdit(row, columnKey)
+                                    }
+                                    onInput={(e) =>
+                                      handleEdit(
+                                        rowId,
+                                        columnKey,
+                                        e.currentTarget.value
+                                      )
+                                    }
+                                    autofocus
+                                  />
                                 }
                               >
-                                <Show
-                                  when={col.customEdit !== undefined}
-                                  fallback={
-                                    <input
-                                      type="text"
-                                      value={
-                                        editedValues()[
-                                          `${rowId}-${columnKey}`
-                                        ] ?? col.selector(row)
-                                      }
-                                      onBlur={() => saveEdit(row, columnKey)}
-                                      onKeyDown={(e) =>
-                                        e.key === "Enter" &&
-                                        saveEdit(row, columnKey)
-                                      }
-                                      onInput={(e) =>
-                                        handleEdit(
-                                          rowId,
-                                          columnKey,
-                                          e.currentTarget.value
-                                        )
-                                      }
-                                      autofocus
-                                    />
-                                  }
-                                >
-                                  {col.customEdit
-                                    ? col.customEdit(row, (value, save) => {
-                                        handleEdit(rowId, columnKey, value);
-                                        save();
-                                      })
-                                    : null}
-                                </Show>
+                                {col.customEdit
+                                  ? col.customEdit(row, (value, save) => {
+                                      handleEdit(rowId, columnKey, value);
+                                      save();
+                                    })
+                                  : null}
                               </Show>
-                            </td>
-                          );
-                        }}
-                      </For>
-                    </tr>
-                  );
-                }}
-              </For>
-              <tr
-                style={`height: ${(visibleData().total - visibleData().endIndex) * rowHeight}px;`}
-              >
-                <td
-                  colspan={columns.length}
-                  style="padding: 0; border: 0;"
-                ></td>
-              </tr>
-            </tbody>
-          </table>
-        </Show>
+                            </Show>
+                          </td>
+                        );
+                      }}
+                    </For>
+                  </tr>
+                );
+              }}
+            </For>
+            <tr
+              style={`height: ${(visibleData().total - visibleData().endIndex) * rowHeight}px;`}
+            >
+              <td colspan={columns.length} style="padding: 0; border: 0;"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );

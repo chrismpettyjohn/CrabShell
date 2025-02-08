@@ -65,7 +65,7 @@ export function FurnitureListScreen() {
       key: "interactionModesCount",
       header: "Interaction Modes",
       selector: (row) => row.interactionModesCount,
-      width: 150,
+      width: 180,
       sortable: true,
     },
     {
