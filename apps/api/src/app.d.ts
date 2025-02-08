@@ -1,4 +1,3 @@
-import { FastifyRequest } from 'fastify';
 import { UserEntity } from './database/user.entity';
 import { RankEntity } from './database/rank.entity';
 import { SessionEntity } from './database/session.entity';
@@ -9,6 +8,6 @@ export interface AuthenticatedUser {
   rank: RankEntity?;
 }
 
-export interface Request extends FastifyRequest {
+export interface Request extends Request {
   auth?: AuthenticatedUser;
 }

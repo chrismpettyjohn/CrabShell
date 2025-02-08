@@ -7,20 +7,14 @@ import {
 import { UserDTO } from './user.dto';
 
 export class AdminUserDTO extends UserDTO implements AdminUserWire {
-  @IsNumber()
-  id!: number;
-
-  @IsString()
-  username!: string;
-
-  @IsString()
-  look!: string;
-
-  static fromEntity(entity: UserEntity) {
-    const dto = new UserDTO();
-    dto.id = entity.id!;
+  static fromEntity(entity: UserEntity): UserDTO {
+    const dto = new AdminUserDTO();
+    dto.id = entity.id;
     dto.username = entity.username;
+    dto.rankId = entity.rankID;
     dto.look = entity.look;
+    dto.motto = entity.motto;
+    dto.online = entity.onlineStatus === '1';
     return dto;
   }
 }

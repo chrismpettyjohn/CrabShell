@@ -8,15 +8,15 @@ import {
 
 @Entity('crab_sessions')
 export class SessionEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
   id!: number;
 
-  @Column({ name: 'user_id' })
+  @Column({ name: 'user_id', type: 'int' })
   userID!: number;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', type: 'int' })
   createdAt?: string;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'int' })
   updatedAt?: string;
 }

@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { HAS_SCOPE_KEY, PermissionScope } from './has-scope.decorator';
-import { Request } from '../fastify';
+import { Request } from '../app';
 import { RankScope } from '@crabshell/public-client';
 
 @Injectable()

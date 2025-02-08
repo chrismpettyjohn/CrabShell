@@ -11,10 +11,10 @@ import { EmuTextsEntity } from '../database/emu-texts.entity';
 import { HasScope } from '../auth/has-scope.decorator';
 import {
   AdminEmuTextsCreateResponse,
-  AdminEmuTextsDeleteByIdResponse,
+  AdminEmuTextsDeleteByKeyResponse,
   AdminEmuTextsGetAllResponse,
-  AdminEmuTextsGetByIdResponse,
-  AdminEmuTextsUpdateByIdResponse,
+  AdminEmuTextsGetByKeyResponse,
+  AdminEmuTextsUpdateByKeyResponse,
 } from '@crabshell/admin-client';
 import { EmuTextsRepository } from '../database/emu-texts.repository';
 import { EmuTextsPipe } from './emu-texts.pipe';
@@ -45,27 +45,27 @@ export class EmuTextsAdminController {
 
   @Get(':emuTextID')
   @HasScope('manageEmu')
-  getById(
+  getByKey(
     @Param('emuTextID', EmuTextsPipe) emuText: EmuTextsEntity,
-  ): AdminEmuTextsGetByIdResponse {
+  ): AdminEmuTextsGetByKeyResponse {
     return AdminEmuTextsDTO.fromEntity(emuText);
   }
 
   @Patch(':emuTextID')
   @HasScope('manageEmu')
-  async updateById(
+  async updateByKey(
     @Param('emuTextID', EmuTextsPipe) emuText: EmuTextsEntity,
     @Body() emuTextDto: AdminEmuTextsDTO,
-  ): Promise<AdminEmuTextsUpdateByIdResponse> {
+  ): Promise<AdminEmuTextsUpdateByKeyResponse> {
     await this.emuTextsRepo.update({ key: emuText.key }, emuTextDto);
     return true;
   }
 
   @Delete(':emuTextID')
   @HasScope('manageEmu')
-  async deleteById(
+  async deleteByKey(
     @Param('emuTextID', EmuTextsPipe) emuText: EmuTextsEntity,
-  ): Promise<AdminEmuTextsDeleteByIdResponse> {
+  ): Promise<AdminEmuTextsDeleteByKeyResponse> {
     await this.emuTextsRepo.delete({
       key: emuText.key,
     });

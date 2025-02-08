@@ -8,13 +8,13 @@ export class ItemBaseEntity {
   @Column({ name: 'sprite_id', type: 'int' })
   spriteId!: number;
 
-  @Column({ name: 'public_name', length: 56 })
+  @Column({ name: 'public_name', length: 56, type: 'varchar' })
   publicName!: string;
 
-  @Column({ name: 'item_name', length: 70 })
+  @Column({ name: 'item_name', length: 70, type: 'varchar' })
   itemName!: string;
 
-  @Column({ length: 3 })
+  @Column({ length: 3, type: 'varchar' })
   type!: string;
 
   @Column({ type: 'int' })
@@ -53,19 +53,19 @@ export class ItemBaseEntity {
   @Column({ name: 'allow_inventory_stack', type: 'tinyint' })
   allowInventoryStack!: boolean;
 
-  @Column({ name: 'interaction_type', length: 500 })
+  @Column({ name: 'interaction_type', length: 500, type: 'varchar' })
   interactionType!: string;
 
   @Column({ name: 'interaction_modes_count', type: 'int' })
   interactionModesCount!: number;
 
-  @Column({ name: 'vending_ids', length: 255 })
+  @Column({ name: 'vending_ids', length: 255, type: 'varchar' })
   vendingIds!: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, type: 'varchar' })
   multiheight!: string;
 
-  @Column({ name: 'customparams', length: 256 })
+  @Column({ name: 'customparams', length: 256, type: 'varchar' })
   customParams!: string;
 
   @Column({ name: 'effect_id_male', type: 'int' })
@@ -74,6 +74,6 @@ export class ItemBaseEntity {
   @Column({ name: 'effect_id_female', type: 'int' })
   effectIdFemale!: number;
 
-  @Column({ name: 'clothing_on_walk', length: 255 })
+  @Column({ name: 'clothing_on_walk', length: 255, type: 'varchar' })
   clothingOnWalk!: string;
 }

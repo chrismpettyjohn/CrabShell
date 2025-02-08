@@ -1,10 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, Request, Response} from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
-import { FastifyReply, FastifyRequest } from 'fastify';
 import { cookieConfig } from './auth.config';
 import { generate } from 'randomstring';
 
@@ -42,8 +41,8 @@ export class AuthService {
 
   async login(
     loginDto: AuthLoginDTO,
-    request: FastifyRequest,
-    reply: FastifyReply,
+    request: Request,
+    reply: Response,
   ): Promise<UserEntity> {
     const sessionId = request.cookies['sessionId'];
     if (sessionId) {
@@ -52,14 +51,14 @@ export class AuthService {
     }
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepository.create({ userID: user.id });
-    reply.setCookie('sessionId', String(session.id), cookieConfig);
+    reply.cookie('sessionId', String(session.id), cookieConfig);
     return user;
   }
 
   async register(
     registerDto: AuthRegisterDTO,
-    request: FastifyRequest,
-    reply: FastifyReply,
+    request: Request,
+    reply: Response,
   ): Promise<UserEntity> {
     const existingUser = await this.userRepository.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
@@ -110,7 +109,7 @@ export class AuthService {
     return gameSSO;
   }
 
-  async logout(sessionId: number, reply: FastifyReply) {
+  async logout(sessionId: number, reply: Response) {
     await this.sessionRepository.delete({ id: sessionId });
     reply.clearCookie('sessionId');
     return { message: 'Logged out successfully' };

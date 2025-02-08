@@ -6,8 +6,8 @@ import {
   Get,
   UseGuards,
   Req,
+  Request, Response
 } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
 import { AuthService } from './auth.service';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { SessionGuard } from './session.guard';
@@ -21,8 +21,8 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() loginDto: AuthLoginDTO,
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
+    @Req() request: Request,
+    @Res() reply: Response,
   ) {
     const result: UserEntity = await this.authService.login(
       loginDto,
@@ -35,8 +35,8 @@ export class AuthController {
   @Post('register')
   async register(
     @Body() registerDto: AuthRegisterDTO,
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
+    @Req() request: Request,
+    @Res() reply: Response,
   ) {
     const result: UserEntity = await this.authService.register(
       registerDto,
@@ -48,7 +48,7 @@ export class AuthController {
 
   @Post('logout')
   @UseGuards(SessionGuard)
-  async logout(@Req() request: FastifyRequest, @Res() reply: FastifyReply) {
+  async logout(@Req() request: Request, @Res() reply: Response) {
     const result = await this.authService.logout(
       Number(request.cookies['sessionId']),
       reply,
@@ -59,26 +59,24 @@ export class AuthController {
   @Get('sso')
   @UseGuards(SessionGuard)
   async generateSSO(
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
-  ): Promise<string> {
+    @Req() request: Request,
+  ): Promise<{sso: string}> {
     const user: UserEntity = await this.authService.getProfile(
       Number(request.cookies['sessionId']),
     );
 
     const sso = await this.authService.generateSSO(user.id!);
-    return reply.send({ sso });
+    return { sso }
   }
 
   @Get('profile')
   @UseGuards(SessionGuard)
   async getProfile(
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
+    @Req() request: Request,
   ): Promise<UserDTO> {
     const result: UserEntity = await this.authService.getProfile(
       Number(request.cookies['sessionId']),
     );
-    return reply.send(UserDTO.fromEntity(result));
+    return UserDTO.fromEntity(result)
   }
 }

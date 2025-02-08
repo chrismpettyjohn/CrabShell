@@ -5,12 +5,12 @@ export interface AdminEmuTextsWire {
 export type AdminEmuTextsCreateParams = AdminEmuTextsWire;
 export type AdminEmuTextsCreateResponse = AdminEmuTextsWire;
 
-export type AdminEmuTextsUpdateByIdParams = Partial<AdminEmuTextsWire>;
+export type AdminEmuTextsUpdateByKeyParams = Partial<AdminEmuTextsWire>;
 
-export type AdminEmuTextsUpdateByIdResponse = boolean;
+export type AdminEmuTextsUpdateByKeyResponse = boolean;
 
 export type AdminEmuTextsGetAllResponse = AdminEmuTextsWire[];
 
-export type AdminEmuTextsGetByIdResponse = AdminEmuTextsWire;
+export type AdminEmuTextsGetByKeyResponse = AdminEmuTextsWire;
 
-export type AdminEmuTextsDeleteByIdResponse = boolean;
+export type AdminEmuTextsDeleteByKeyResponse = boolean;

@@ -11,24 +11,24 @@ export class ArticleEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ name: 'user_id' })
+  @Column({ name: 'user_id', type: 'int' })
   userId!: number;
 
-  @Column()
+  @Column({ name: 'name', type: 'varchar' })
   name!: string;
 
-  @Column()
+  @Column({ name: 'description', type: 'varchar' })
   description!: string;
 
-  @Column()
+  @Column({ name: 'content', type: 'text' })
   content!: string;
 
-  @Column({ name: 'image_url' })
+  @Column({ name: 'image_url', type: 'varchar' })
   imageUrl!: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', type: 'int' })
   createdAt?: string;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'int' })
   updatedAt?: string;
 }

@@ -5,9 +5,9 @@ export class UserAchievementEntity {
   @PrimaryGeneratedColumn()
   id?: number;
 
-  @Column({ name: 'user_id' })
+  @Column({ name: 'user_id', type: 'int' })
   userID!: number;
 
-  @Column({ name: 'achievement_name' })
-  achievementName!: number;
+  @Column({ name: 'achievement_name', type: 'varchar' })
+  achievementName!: string;
 }

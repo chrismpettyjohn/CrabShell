@@ -25,15 +25,35 @@ export function EmuSettingsScreen() {
     }
   });
 
+  const handleRowEdit = async (
+    originalRow: AdminEmuSettingsWire,
+    modifiedRow: AdminEmuSettingsWire
+  ) => {
+    try {
+      await adminEmuSettingsService.updateByKey(modifiedRow.key, modifiedRow);
+      setSettings((prevSettings) =>
+        prevSettings.map((setting) =>
+          setting.key === originalRow.key ? modifiedRow : setting
+        )
+      );
+      toast.success(`Updated setting for key: ${modifiedRow.key}`);
+    } catch (e) {
+      toast.error(`Failed to update setting for key: ${modifiedRow.key}`);
+      console.error(e);
+    }
+  };
+
   const columns: ITableColumn<AdminEmuSettingsWire>[] = [
     {
       header: "Key",
       selector: (row) => row.key,
       sortable: true,
+      editable: true,
     },
     {
       header: "Value",
       selector: (row) => row.value,
+      editable: true,
     },
   ];
 
@@ -49,7 +69,11 @@ export function EmuSettingsScreen() {
           </button>
         </A>
       </div>
-      <IntegratedTable columns={columns} rows={settings} />
+      <IntegratedTable
+        columns={columns}
+        rows={settings}
+        onRowEdit={handleRowEdit}
+      />
     </EmuLayout>
   );
 }

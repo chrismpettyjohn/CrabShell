@@ -1,9 +1,11 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
-      "@crabshell/admin-client": ["libs/admin-client/src"],
-      "@crabshell/public-client": ["libs/public-client/src"]
+      "@crabshell/admin-client": [ "libs/admin-client/src" ],
+      "@crabshell/public-client": [ "libs/public-client/src" ],
     }
   }
 }

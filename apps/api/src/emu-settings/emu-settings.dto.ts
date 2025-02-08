@@ -2,7 +2,7 @@ import { IsOptional, IsString } from 'class-validator';
 import { EmuSettingsEntity } from '../database/emu-settings.entity';
 import {
   AdminEmuSettingsCreateParams,
-  AdminEmuSettingsUpdateByIdParams,
+  AdminEmuSettingsUpdateByKeyParams,
   AdminEmuSettingsWire,
 } from '@crabshell/admin-client';
 
@@ -30,7 +30,7 @@ export class AdminCreateEmuSettingsDTO implements AdminEmuSettingsCreateParams {
 }
 
 export class AdminUpdateEmuSettingsDTO
-  implements AdminEmuSettingsUpdateByIdParams
+  implements AdminEmuSettingsUpdateByKeyParams
 {
   @IsString()
   @IsOptional()

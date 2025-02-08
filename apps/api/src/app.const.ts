@@ -4,7 +4,7 @@ import 'dotenv/config';
 export const HTTP_PORT = Number(process.env.HTTP_PORT);
 
 // CORS HOST
-export const CORS_HOSTS: string[] = process.env.CORS_HOSTS.split(',');
+export const CORS_HOSTS: string[] = process.env.CORS_HOSTS!.split(',');
 
 // Database
 export const DB_HOST = process.env.DB_HOST;
@@ -21,8 +21,8 @@ export const USER_DEFAULT_HOME_ROOM = Number(
   process.env.USER_DEFAULT_HOME_ROOM,
 );
 
-export const USER_DEFAULT_LOOK = process.env.USER_DEFAULT_LOOK;
-export const USER_DEFAULT_MOTTO = process.env.USER_DEFAULT_MOTTO;
+export const USER_DEFAULT_LOOK = process.env.USER_DEFAULT_LOOK!;
+export const USER_DEFAULT_MOTTO = process.env.USER_DEFAULT_MOTTO!;
 
 // Badges
 export const BADGES_FOLDER: string = process.env.BADGES_FOLDER!;

@@ -5,12 +5,12 @@ export interface AdminEmuSettingsWire {
 export type AdminEmuSettingsCreateParams = AdminEmuSettingsWire;
 export type AdminEmuSettingsCreateResponse = AdminEmuSettingsWire;
 
-export type AdminEmuSettingsUpdateByIdParams = Partial<AdminEmuSettingsWire>;
+export type AdminEmuSettingsUpdateByKeyParams = Partial<AdminEmuSettingsWire>;
 
-export type AdminEmuSettingsUpdateByIdResponse = boolean;
+export type AdminEmuSettingsUpdateByKeyResponse = boolean;
 
 export type AdminEmuSettingsGetAllResponse = AdminEmuSettingsWire[];
 
-export type AdminEmuSettingsGetByIdResponse = AdminEmuSettingsWire;
+export type AdminEmuSettingsGetByKeyResponse = AdminEmuSettingsWire;
 
-export type AdminEmuSettingsDeleteByIdResponse = boolean;
+export type AdminEmuSettingsDeleteByKeyResponse = boolean;

@@ -2,7 +2,7 @@ import { IsOptional, IsString } from 'class-validator';
 import { EmuTextsEntity } from '../database/emu-texts.entity';
 import {
   AdminEmuTextsCreateParams,
-  AdminEmuTextsUpdateByIdParams,
+  AdminEmuTextsUpdateByKeyParams,
   AdminEmuTextsWire,
 } from '@crabshell/admin-client';
 
@@ -29,7 +29,7 @@ export class AdminCreateEmuTextsDTO implements AdminEmuTextsCreateParams {
   value!: string;
 }
 
-export class AdminUpdateEmuTextsDTO implements AdminEmuTextsUpdateByIdParams {
+export class AdminUpdateEmuTextsDTO implements AdminEmuTextsUpdateByKeyParams {
   @IsString()
   @IsOptional()
   key?: string;

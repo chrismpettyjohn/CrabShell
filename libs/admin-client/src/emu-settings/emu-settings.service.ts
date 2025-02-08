@@ -7,11 +7,11 @@ import {
 import {
   AdminEmuSettingsCreateParams,
   AdminEmuSettingsCreateResponse,
-  AdminEmuSettingsDeleteByIdResponse,
+  AdminEmuSettingsDeleteByKeyResponse,
   AdminEmuSettingsGetAllResponse,
-  AdminEmuSettingsGetByIdResponse,
-  AdminEmuSettingsUpdateByIdParams,
-  AdminEmuSettingsUpdateByIdResponse,
+  AdminEmuSettingsGetByKeyResponse,
+  AdminEmuSettingsUpdateByKeyParams,
+  AdminEmuSettingsUpdateByKeyResponse,
 } from "./emu-settings.types";
 
 export class AdminEmuSettingsService {
@@ -25,23 +25,23 @@ export class AdminEmuSettingsService {
     return fetchFromApi("emu-settings");
   }
 
-  public getById(
-    emuSettingsId: number
-  ): Promise<AdminEmuSettingsGetByIdResponse> {
-    return fetchFromApi(`emu-settings/${emuSettingsId}`);
+  public getByKey(
+    emuSettingsKey: string
+  ): Promise<AdminEmuSettingsGetByKeyResponse> {
+    return fetchFromApi(`emu-settings/${emuSettingsKey}`);
   }
 
-  public updateById(
-    emuSettingsId: number,
-    dto: AdminEmuSettingsUpdateByIdParams
-  ): Promise<AdminEmuSettingsUpdateByIdResponse> {
-    return patchToApi(`emu-settings/${emuSettingsId}`, dto);
+  public updateByKey(
+    emuSettingsKey: string,
+    dto: AdminEmuSettingsUpdateByKeyParams
+  ): Promise<AdminEmuSettingsUpdateByKeyResponse> {
+    return patchToApi(`emu-settings/${emuSettingsKey}`, dto);
   }
 
-  public deleteById(
-    emuSettingsId: number
-  ): Promise<AdminEmuSettingsDeleteByIdResponse> {
-    return deleteFromApi(`emu-settings/${emuSettingsId}`);
+  public deleteByKey(
+    emuSettingsKey: string
+  ): Promise<AdminEmuSettingsDeleteByKeyResponse> {
+    return deleteFromApi(`emu-settings/${emuSettingsKey}`);
   }
 }
 

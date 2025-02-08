@@ -10,10 +10,10 @@ import {
 import { EmuSettingsEntity } from '../database/emu-settings.entity';
 import {
   AdminEmuSettingsCreateResponse,
-  AdminEmuSettingsDeleteByIdResponse,
+  AdminEmuSettingsDeleteByKeyResponse,
   AdminEmuSettingsGetAllResponse,
-  AdminEmuSettingsGetByIdResponse,
-  AdminEmuSettingsUpdateByIdResponse,
+  AdminEmuSettingsGetByKeyResponse,
+  AdminEmuSettingsUpdateByKeyResponse,
 } from '@crabshell/admin-client';
 import { EmuSettingsRepository } from '../database/emu-settings.repository';
 import { EmuSettingsPipe } from './emu-settings.pipe';
@@ -45,27 +45,27 @@ export class EmuSettingsAdminController {
 
   @Get(':emuSettingID')
   @HasScope('manageEmu')
-  getById(
+  getByKey(
     @Param('emuSettingID', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
-  ): AdminEmuSettingsGetByIdResponse {
+  ): AdminEmuSettingsGetByKeyResponse {
     return AdminEmuSettingsDTO.fromEntity(emuSetting);
   }
 
   @Patch(':emuSettingID')
   @HasScope('manageEmu')
-  async updateById(
+  async updateByKey(
     @Param('emuSettingID', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
     @Body() emuSettingDto: AdminEmuSettingsDTO,
-  ): Promise<AdminEmuSettingsUpdateByIdResponse> {
+  ): Promise<AdminEmuSettingsUpdateByKeyResponse> {
     await this.emuSettingsRepo.update({ key: emuSetting.key }, emuSettingDto);
     return true;
   }
 
   @Delete(':emuSettingID')
   @HasScope('manageEmu')
-  async deleteById(
+  async deleteByKey(
     @Param('emuSettingID', EmuSettingsPipe) emuSetting: EmuSettingsEntity,
-  ): Promise<AdminEmuSettingsDeleteByIdResponse> {
+  ): Promise<AdminEmuSettingsDeleteByKeyResponse> {
     await this.emuSettingsRepo.delete({
       key: emuSetting.key,
     });

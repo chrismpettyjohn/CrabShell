@@ -5,6 +5,7 @@ import {
   onMount,
   For,
   Show,
+  JSX,
 } from "solid-js";
 
 export interface ITableColumn<T> {
@@ -15,12 +16,18 @@ export interface ITableColumn<T> {
   filterable?: boolean;
   customSort?: (a: T, b: T) => number;
   customRender?: (value: any, row: T) => any;
+  editor?: (
+    row: T,
+    setValue: (value: any, save: () => void) => void
+  ) => JSX.Element;
+  editable?: boolean;
 }
 
 export interface IntegratedTableProps<T> {
   columns: ITableColumn<T>[];
   rows(): T[] | undefined;
   onRowClick?: (row: T) => void;
+  onRowEdit?: (originalRow: T, modifiedRow: T) => void;
   loadMoreRows?: () => Promise<void>;
   rowHeight?: number;
 }
@@ -29,6 +36,7 @@ export function IntegratedTable<T>({
   columns,
   rows,
   onRowClick,
+  onRowEdit,
   loadMoreRows,
   rowHeight = 40,
 }: IntegratedTableProps<T>) {
@@ -41,6 +49,11 @@ export function IntegratedTable<T>({
   >([]);
   const [scrollTop, setScrollTop] = createSignal(0);
   const [containerHeight, setContainerHeight] = createSignal(0);
+  const [editingCell, setEditingCell] = createSignal<{
+    row: T;
+    column: string;
+  } | null>(null);
+  const [editedValues, setEditedValues] = createSignal<Record<string, any>>({});
 
   const handleSort = (col: ITableColumn<T>) => {
     if (!col.sortable) return;
@@ -104,10 +117,25 @@ export function IntegratedTable<T>({
     return { start, end: start + count };
   });
 
-  const getSortIcon = (col: ITableColumn<T>) => {
-    const sorting = sortConfig().find((s) => s.key === col.header);
-    if (!sorting) return "fa-caret-right";
-    return sorting.direction === "asc" ? "fa-caret-up" : "fa-caret-down";
+  const handleEdit = (row: T, key: string, value: any) => {
+    setEditedValues((prev) => ({
+      ...prev,
+      [`${JSON.stringify(row)}-${key}`]: value,
+    }));
+  };
+
+  const saveEdit = (row: T, key: string) => {
+    const rowKey = `${JSON.stringify(row)}-${key}`;
+    const updatedRow = { ...row, [key]: editedValues()[rowKey] };
+    onRowEdit?.(row, updatedRow);
+
+    setEditedValues((prev) => {
+      const newValues = { ...prev };
+      delete newValues[rowKey];
+      return newValues;
+    });
+
+    setEditingCell(null);
   };
 
   const createObserver = () => {
@@ -136,13 +164,6 @@ export function IntegratedTable<T>({
       />
       <div style="overflow-x: auto;">
         <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
-          <colgroup>
-            <For each={columns}>
-              {(col) => (
-                <col style={col.width ? `width: ${col.width}px;` : ""} />
-              )}
-            </For>
-          </colgroup>
           <thead>
             <tr>
               <For each={columns}>
@@ -153,7 +174,9 @@ export function IntegratedTable<T>({
                   >
                     {col.header}{" "}
                     <Show when={col.sortable}>
-                      <i class={`fa ${getSortIcon(col)}`} />
+                      <i
+                        class={`fa fa-caret-${sortConfig().find((s) => s.key === col.header)?.direction === "asc" ? "up" : "down"}`}
+                      />
                     </Show>
                   </th>
                 )}
@@ -167,33 +190,9 @@ export function IntegratedTable<T>({
         onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
         style="flex: 1; overflow: auto; position: relative;"
       >
-        <Show
-          when={sortedFilteredRows().length > 0}
-          fallback={
-            <div style="text-align: center; padding: 20px;">
-              <Show when={rows()?.length === 0}>
-                <i class="fa fa-spin fa-spinner fa-2x" />
-                <br />
-                <span>Loading...</span>
-              </Show>
-              <Show when={rows()?.length > 0}>
-                <span>No results found.</span>
-              </Show>
-            </div>
-          }
-        >
+        <Show when={sortedFilteredRows().length > 0}>
           <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
-            <colgroup>
-              <For each={columns}>
-                {(col) => (
-                  <col style={col.width ? `width: ${col.width}px;` : ""} />
-                )}
-              </For>
-            </colgroup>
             <tbody>
-              <tr style={{ height: `${visibleRange().start * rowHeight}px` }}>
-                <td colspan={columns.length} style="padding: 0; border: none" />
-              </tr>
               <For
                 each={sortedFilteredRows().slice(
                   visibleRange().start,
@@ -201,35 +200,52 @@ export function IntegratedTable<T>({
                 )}
               >
                 {(row) => (
-                  <tr
-                    style={`height: ${rowHeight}px; cursor: pointer;`}
-                    onClick={() => onRowClick && onRowClick(row)}
-                  >
+                  <tr style={`height: ${rowHeight}px; cursor: pointer;`}>
                     <For each={columns}>
-                      {(col) => (
-                        <td style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;">
-                          {col.customRender
-                            ? col.customRender(col.selector(row), row)
-                            : col.selector(row)}
-                        </td>
-                      )}
+                      {(col) => {
+                        const isEditing =
+                          editingCell()?.row === row &&
+                          editingCell()?.column === col.header;
+                        return (
+                          <td style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;">
+                            <Show
+                              when={isEditing}
+                              fallback={
+                                col.customRender
+                                  ? col.customRender(col.selector(row), row)
+                                  : col.selector(row)
+                              }
+                            >
+                              <input
+                                type="text"
+                                value={
+                                  editedValues()[
+                                    `${JSON.stringify(row)}-${col.header}`
+                                  ] ?? col.selector(row)
+                                }
+                                onBlur={() => saveEdit(row, col.header)}
+                                onKeyDown={(e) =>
+                                  e.key === "Enter" && saveEdit(row, col.header)
+                                }
+                                onFocus={() =>
+                                  setEditingCell({ row, column: col.header })
+                                }
+                                onInput={(e) =>
+                                  handleEdit(
+                                    row,
+                                    col.header,
+                                    e.currentTarget.value
+                                  )
+                                }
+                              />
+                            </Show>
+                          </td>
+                        );
+                      }}
                     </For>
                   </tr>
                 )}
               </For>
-              <tr
-                style={{
-                  height: `${
-                    (sortedFilteredRows().length - visibleRange().end) *
-                    rowHeight
-                  }px`,
-                }}
-              >
-                <td colspan={columns.length} style="padding: 0; border: none" />
-              </tr>
-              <tr ref={sentinelRef}>
-                <td colspan={columns.length} style="height: 1px" />
-              </tr>
             </tbody>
           </table>
         </Show>

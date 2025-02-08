@@ -1,23 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {
-  FastifyAdapter,
-  NestFastifyApplication,
-} from '@nestjs/platform-fastify';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express';
+import cookieParser from 'cookie-parser';
 import { CORS_HOSTS, HTTP_PORT } from './app.const';
-import fastifyCookie from '@fastify/cookie';
 
 async function bootstrap() {
-  const fastifyAdapter = new FastifyAdapter();
+  const expressApp = express();
+  expressApp.use(cookieParser('my-secret'));
 
-  await fastifyAdapter.register(fastifyCookie, {
-    secret: 'my-secret', // Change this to a secure secret
-    parseOptions: { httpOnly: true, secure: true, sameSite: 'lax' },
-  });
-
-  const app = await NestFactory.create<NestFastifyApplication>(
+  const app = await NestFactory.create(
     AppModule,
-    fastifyAdapter,
+    new ExpressAdapter(expressApp),
   );
 
   app.setGlobalPrefix('api');
@@ -28,6 +22,6 @@ async function bootstrap() {
   });
 
   await app.listen(HTTP_PORT, '0.0.0.0');
-  console.log(`@crabshell/api is running on: ${await app.getUrl()}`);
+  console.log(`@crabshell/api is running on: http://0.0.0.0:${HTTP_PORT}`);
 }
 bootstrap();

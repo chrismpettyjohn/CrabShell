@@ -6,8 +6,8 @@ import {
   Get,
   UseGuards,
   Req,
+  Request, Response
 } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
 import { AuthService } from './auth.service';
 import { AuthLoginDTO } from './auth.dto';
 import { SessionGuard } from './session.guard';
@@ -22,8 +22,8 @@ export class AuthAdminController {
   @Post('login')
   async login(
     @Body() loginDto: AuthLoginDTO,
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
+    @Req() request: Request,
+    @Res() reply: Response,
   ) {
     const result: UserEntity = await this.authService.login(
       loginDto,
@@ -34,7 +34,7 @@ export class AuthAdminController {
   }
   @Post('logout')
   @UseGuards(SessionGuard)
-  async logout(@Req() request: FastifyRequest, @Res() reply: FastifyReply) {
+  async logout(@Req() request: Request, @Res() reply: Response) {
     const result = await this.authService.logout(
       Number(request.cookies['sessionId']),
       reply,
@@ -45,12 +45,12 @@ export class AuthAdminController {
   @Get('profile')
   @HasScope('accessAdminPanel')
   async getProfile(
-    @Req() request: FastifyRequest,
-    @Res() reply: FastifyReply,
+    @Req() request: Request,
+    @Res() reply: Response,
   ): Promise<UserDTO> {
     const result: UserEntity = await this.authService.getProfile(
       Number(request.cookies['sessionId']),
     );
-    return reply.send(UserDTO.fromEntity(result));
+    return UserDTO.fromEntity(result)
   }
 }

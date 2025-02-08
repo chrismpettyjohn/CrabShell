@@ -7,11 +7,11 @@ import {
 import {
   AdminEmuTextsCreateParams,
   AdminEmuTextsCreateResponse,
-  AdminEmuTextsDeleteByIdResponse,
+  AdminEmuTextsDeleteByKeyResponse,
   AdminEmuTextsGetAllResponse,
-  AdminEmuTextsGetByIdResponse,
-  AdminEmuTextsUpdateByIdParams,
-  AdminEmuTextsUpdateByIdResponse,
+  AdminEmuTextsGetByKeyResponse,
+  AdminEmuTextsUpdateByKeyParams,
+  AdminEmuTextsUpdateByKeyResponse,
 } from "./emu-texts.types";
 
 export class AdminEmuTextsService {
@@ -25,21 +25,21 @@ export class AdminEmuTextsService {
     return fetchFromApi("emu-texts");
   }
 
-  public getById(emuTextsId: number): Promise<AdminEmuTextsGetByIdResponse> {
-    return fetchFromApi(`emu-texts/${emuTextsId}`);
+  public getByKey(emuTextsKey: string): Promise<AdminEmuTextsGetByKeyResponse> {
+    return fetchFromApi(`emu-texts/${emuTextsKey}`);
   }
 
-  public updateById(
-    emuTextsId: number,
-    dto: AdminEmuTextsUpdateByIdParams
-  ): Promise<AdminEmuTextsUpdateByIdResponse> {
-    return patchToApi(`emu-texts/${emuTextsId}`, dto);
+  public updateByKey(
+    emuTextsKey: string,
+    dto: AdminEmuTextsUpdateByKeyParams
+  ): Promise<AdminEmuTextsUpdateByKeyResponse> {
+    return patchToApi(`emu-texts/${emuTextsKey}`, dto);
   }
 
-  public deleteById(
-    emuTextsId: number
-  ): Promise<AdminEmuTextsDeleteByIdResponse> {
-    return deleteFromApi(`emu-texts/${emuTextsId}`);
+  public deleteByKey(
+    emuTextsKey: string
+  ): Promise<AdminEmuTextsDeleteByKeyResponse> {
+    return deleteFromApi(`emu-texts/${emuTextsKey}`);
   }
 }
 

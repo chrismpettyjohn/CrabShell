@@ -12,19 +12,19 @@ export class GroupEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ name: 'name', type: 'varchar' })
   name!: string;
 
-  @Column()
+  @Column({ name: 'badge', type: 'varchar' })
   badge!: string;
 
-  @Column()
+  @Column({ name: 'description', type: 'text' })
   description!: string;
 
-  @Column({ name: 'user_id' })
+  @Column({ name: 'user_id', type: 'int' })
   userID!: number;
 
-  @Column({ name: 'room_id' })
+  @Column({ name: 'room_id', type: 'int' })
   roomID!: number;
 
   @ManyToOne(() => UserEntity)

@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { cookieConfig } from './auth.config';
-import { AuthenticatedUser } from '../fastify';
+import { AuthenticatedUser } from '../app';
 import { RankRepository } from '../database/rank.repository';
 
 @Injectable()
