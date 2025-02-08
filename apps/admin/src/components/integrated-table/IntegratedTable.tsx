@@ -1,14 +1,7 @@
-import {
-  createSignal,
-  createMemo,
-  onCleanup,
-  onMount,
-  For,
-  Show,
-  JSX,
-} from "solid-js";
+import { createSignal, createMemo, For, Show, JSX } from "solid-js";
 
 export interface ITableColumn<T> {
+  key: keyof T; // Unique key for identifying the field in the row
   header: string;
   selector: (row: T) => any;
   width?: number;
@@ -26,6 +19,7 @@ export interface ITableColumn<T> {
 export interface IntegratedTableProps<T> {
   columns: ITableColumn<T>[];
   rows(): T[] | undefined;
+  getRowId: (row: T) => string;
   onRowClick?: (row: T) => void;
   onRowEdit?: (originalRow: T, modifiedRow: T) => void;
   loadMoreRows?: () => Promise<void>;
@@ -35,43 +29,25 @@ export interface IntegratedTableProps<T> {
 export function IntegratedTable<T>({
   columns,
   rows,
+  getRowId,
   onRowClick,
   onRowEdit,
   loadMoreRows,
   rowHeight = 40,
 }: IntegratedTableProps<T>) {
-  let scrollableRef: HTMLDivElement | undefined;
-  let sentinelRef: HTMLTableRowElement | undefined;
-
   const [searchTerm, setSearchTerm] = createSignal("");
   const [sortConfig, setSortConfig] = createSignal<
     { key: string; direction: "asc" | "desc" }[]
   >([]);
-  const [scrollTop, setScrollTop] = createSignal(0);
-  const [containerHeight, setContainerHeight] = createSignal(0);
   const [editingCell, setEditingCell] = createSignal<{
-    row: T;
+    rowId: string;
     column: string;
   } | null>(null);
   const [editedValues, setEditedValues] = createSignal<Record<string, any>>({});
 
-  const handleSort = (col: ITableColumn<T>) => {
-    if (!col.sortable) return;
-    setSortConfig((prev) => {
-      const existing = prev.find((s) => s.key === col.header);
-      if (existing) {
-        if (existing.direction === "asc")
-          return prev.map((s) =>
-            s.key === col.header ? { ...s, direction: "desc" } : s
-          );
-        return prev.filter((s) => s.key !== col.header);
-      }
-      return [...prev, { key: col.header, direction: "asc" }];
-    });
-  };
-
   const sortedFilteredRows = createMemo(() => {
     let data = rows() || [];
+
     if (searchTerm()) {
       const term = searchTerm().toLowerCase();
       data = data.filter((row) =>
@@ -80,8 +56,9 @@ export function IntegratedTable<T>({
         )
       );
     }
+
     sortConfig().forEach(({ key, direction }) => {
-      const column = columns.find((col) => col.header === key);
+      const column = columns.find((col) => col.key === key);
       if (column) {
         data = [...data].sort((a, b) => {
           if (column.customSort)
@@ -101,33 +78,27 @@ export function IntegratedTable<T>({
       }
     });
 
-    if (scrollableRef) {
-      scrollableRef.scrollTop = 0;
-      setScrollTop(0);
-    }
-
     return data;
   });
 
-  const visibleRange = createMemo(() => {
-    const scroll = scrollTop();
-    const height = containerHeight();
-    const start = Math.floor(scroll / rowHeight);
-    const count = Math.ceil(height / rowHeight);
-    return { start, end: start + count };
-  });
+  const startEditing = (rowId: string, columnKey: string) => {
+    setEditingCell({ rowId, column: columnKey });
+  };
 
-  const handleEdit = (row: T, key: string, value: any) => {
+  const handleEdit = (rowId: string, columnKey: string, value: any) => {
     setEditedValues((prev) => ({
       ...prev,
-      [`${JSON.stringify(row)}-${key}`]: value,
+      [`${rowId}-${columnKey}`]: value,
     }));
   };
 
-  const saveEdit = (row: T, key: string) => {
-    const rowKey = `${JSON.stringify(row)}-${key}`;
-    const updatedRow = { ...row, [key]: editedValues()[rowKey] };
-    onRowEdit?.(row, updatedRow);
+  const saveEdit = (row: T, columnKey: string) => {
+    const rowId = getRowId(row);
+    const rowKey = `${rowId}-${columnKey}`;
+    if (editedValues()[rowKey] !== undefined) {
+      const updatedRow = { ...row, [columnKey]: editedValues()[rowKey] };
+      onRowEdit?.(row, updatedRow);
+    }
 
     setEditedValues((prev) => {
       const newValues = { ...prev };
@@ -138,29 +109,13 @@ export function IntegratedTable<T>({
     setEditingCell(null);
   };
 
-  const createObserver = () => {
-    const observer = new IntersectionObserver(
-      async ([entry]) => {
-        if (entry.isIntersecting && loadMoreRows) await loadMoreRows();
-      },
-      { root: scrollableRef, threshold: 1.0 }
-    );
-    if (sentinelRef) observer.observe(sentinelRef);
-    onCleanup(() => observer.disconnect());
-  };
-
-  onMount(() => {
-    if (scrollableRef) setContainerHeight(scrollableRef.clientHeight);
-    createObserver();
-  });
-
   return (
     <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
       <input
         type="text"
         placeholder="Search..."
         onInput={(e) => setSearchTerm(e.currentTarget.value)}
-        style="margin: 10px; padding: 8px; width: 95%; border: 1px solid #ccc; border-radius: 4px;"
+        style="margin-bottom: 14px; margin-top: 4px; padding: 8px;"
       />
       <div style="overflow-x: auto;">
         <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
@@ -170,14 +125,25 @@ export function IntegratedTable<T>({
                 {(col) => (
                   <th
                     style="padding: 12px; text-align: left; background: #f8f9fa; border-bottom: 2px solid #dee2e6; white-space: nowrap; cursor: pointer;"
-                    onClick={() => handleSort(col)}
+                    onClick={() => {
+                      if (!col.sortable) return;
+                      // @ts-ignore
+                      setSortConfig((prev) => {
+                        const existing = prev.find((s) => s.key === col.key);
+                        if (existing) {
+                          return existing.direction === "asc"
+                            ? prev.map((s) =>
+                                s.key === col.key
+                                  ? { ...s, direction: "desc" }
+                                  : s
+                              )
+                            : prev.filter((s) => s.key !== col.key);
+                        }
+                        return [...prev, { key: col.key, direction: "asc" }];
+                      });
+                    }}
                   >
-                    {col.header}{" "}
-                    <Show when={col.sortable}>
-                      <i
-                        class={`fa fa-caret-${sortConfig().find((s) => s.key === col.header)?.direction === "asc" ? "up" : "down"}`}
-                      />
-                    </Show>
+                    {col.header}
                   </th>
                 )}
               </For>
@@ -185,66 +151,65 @@ export function IntegratedTable<T>({
           </thead>
         </table>
       </div>
-      <div
-        ref={scrollableRef}
-        onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
-        style="flex: 1; overflow: auto; position: relative;"
-      >
+      <div style="flex: 1; overflow: auto; position: relative;">
         <Show when={sortedFilteredRows().length > 0}>
           <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
             <tbody>
-              <For
-                each={sortedFilteredRows().slice(
-                  visibleRange().start,
-                  visibleRange().end
-                )}
-              >
-                {(row) => (
-                  <tr style={`height: ${rowHeight}px; cursor: pointer;`}>
-                    <For each={columns}>
-                      {(col) => {
-                        const isEditing =
-                          editingCell()?.row === row &&
-                          editingCell()?.column === col.header;
-                        return (
-                          <td style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;">
-                            <Show
-                              when={isEditing}
-                              fallback={
-                                col.customRender
-                                  ? col.customRender(col.selector(row), row)
-                                  : col.selector(row)
-                              }
+              <For each={sortedFilteredRows()}>
+                {(row) => {
+                  const rowId = getRowId(row);
+                  return (
+                    <tr style={`height: ${rowHeight}px; cursor: pointer;`}>
+                      <For each={columns}>
+                        {(col) => {
+                          const columnKey = col.key as string;
+                          const isEditing = () =>
+                            editingCell()?.rowId === rowId &&
+                            editingCell()?.column === columnKey;
+
+                          return (
+                            <td
+                              style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (col.editable) {
+                                  startEditing(rowId, columnKey);
+                                }
+                              }}
                             >
-                              <input
-                                type="text"
-                                value={
-                                  editedValues()[
-                                    `${JSON.stringify(row)}-${col.header}`
-                                  ] ?? col.selector(row)
-                                }
-                                onBlur={() => saveEdit(row, col.header)}
-                                onKeyDown={(e) =>
-                                  e.key === "Enter" && saveEdit(row, col.header)
-                                }
-                                onFocus={() =>
-                                  setEditingCell({ row, column: col.header })
-                                }
-                                onInput={(e) =>
-                                  handleEdit(
-                                    row,
-                                    col.header,
-                                    e.currentTarget.value
-                                  )
-                                }
-                              />
-                            </Show>
-                          </td>
-                        );
-                      }}
-                    </For>
-                  </tr>
-                )}
+                              <Show
+                                when={isEditing()}
+                                // @ts-ignore
+                                fallback={() => col.selector(row)}
+                              >
+                                <input
+                                  type="text"
+                                  value={
+                                    editedValues()[`${rowId}-${columnKey}`] ??
+                                    col.selector(row)
+                                  }
+                                  onBlur={() => saveEdit(row, columnKey)}
+                                  onKeyDown={(e) =>
+                                    e.key === "Enter" &&
+                                    saveEdit(row, columnKey)
+                                  }
+                                  onInput={(e) =>
+                                    handleEdit(
+                                      rowId,
+                                      columnKey,
+                                      e.currentTarget.value
+                                    )
+                                  }
+                                  autofocus
+                                />
+                              </Show>
+                            </td>
+                          );
+                        }}
+                      </For>
+                    </tr>
+                  );
+                }}
               </For>
             </tbody>
           </table>

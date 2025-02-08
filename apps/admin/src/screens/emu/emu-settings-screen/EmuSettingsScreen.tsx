@@ -18,6 +18,7 @@ export function EmuSettingsScreen() {
   onMount(async () => {
     try {
       const response = await adminEmuSettingsService.getAll();
+      console.log("Loaded settings:", response);
       setSettings(response);
     } catch (e) {
       toast.error("Failed to load emu settings");
@@ -30,7 +31,7 @@ export function EmuSettingsScreen() {
     modifiedRow: AdminEmuSettingsWire
   ) => {
     try {
-      await adminEmuSettingsService.updateByKey(modifiedRow.key, modifiedRow);
+      await adminEmuSettingsService.updateByKey(originalRow.key, modifiedRow);
       setSettings((prevSettings) =>
         prevSettings.map((setting) =>
           setting.key === originalRow.key ? modifiedRow : setting
@@ -45,12 +46,14 @@ export function EmuSettingsScreen() {
 
   const columns: ITableColumn<AdminEmuSettingsWire>[] = [
     {
+      key: "key",
       header: "Key",
       selector: (row) => row.key,
       sortable: true,
       editable: true,
     },
     {
+      key: "value",
       header: "Value",
       selector: (row) => row.value,
       editable: true,
@@ -69,11 +72,14 @@ export function EmuSettingsScreen() {
           </button>
         </A>
       </div>
-      <IntegratedTable
-        columns={columns}
-        rows={settings}
-        onRowEdit={handleRowEdit}
-      />
+      <div class="card">
+        <IntegratedTable
+          columns={columns}
+          rows={settings}
+          getRowId={(row) => row.key}
+          onRowEdit={handleRowEdit}
+        />
+      </div>
     </EmuLayout>
   );
 }
