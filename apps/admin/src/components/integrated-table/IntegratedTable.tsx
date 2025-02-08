@@ -1,7 +1,7 @@
-import { createSignal, createMemo, For, Show, JSX } from "solid-js";
+import { createSignal, createMemo, For, Show, JSX, onMount } from "solid-js";
 
 export interface ITableColumn<T> {
-  key: keyof T; // Unique key for identifying the field in the row
+  key: keyof T;
   header: string;
   selector: (row: T) => any;
   width?: number;
@@ -9,7 +9,7 @@ export interface ITableColumn<T> {
   filterable?: boolean;
   customSort?: (a: T, b: T) => number;
   customRender?: (value: any, row: T) => any;
-  editor?: (
+  customEdit?: (
     row: T,
     setValue: (value: any, save: () => void) => void
   ) => JSX.Element;
@@ -47,7 +47,6 @@ export function IntegratedTable<T>({
 
   const sortedFilteredRows = createMemo(() => {
     let data = rows() || [];
-
     if (searchTerm()) {
       const term = searchTerm().toLowerCase();
       data = data.filter((row) =>
@@ -56,7 +55,6 @@ export function IntegratedTable<T>({
         )
       );
     }
-
     sortConfig().forEach(({ key, direction }) => {
       const column = columns.find((col) => col.key === key);
       if (column) {
@@ -77,7 +75,6 @@ export function IntegratedTable<T>({
         });
       }
     });
-
     return data;
   });
 
@@ -99,15 +96,36 @@ export function IntegratedTable<T>({
       const updatedRow = { ...row, [columnKey]: editedValues()[rowKey] };
       onRowEdit?.(row, updatedRow);
     }
-
     setEditedValues((prev) => {
       const newValues = { ...prev };
       delete newValues[rowKey];
       return newValues;
     });
-
     setEditingCell(null);
   };
+
+  let containerRef: HTMLDivElement | undefined;
+  const [containerHeight, setContainerHeight] = createSignal(0);
+  const [scrollTop, setScrollTop] = createSignal(0);
+
+  onMount(() => {
+    if (containerRef) setContainerHeight(containerRef.clientHeight);
+  });
+
+  const visibleData = createMemo(() => {
+    const data = sortedFilteredRows();
+    const total = data.length;
+    const startIndex = Math.floor(scrollTop() / rowHeight);
+    const overscan = 2;
+    const visibleCount = Math.ceil(containerHeight() / rowHeight) + overscan;
+    const endIndex = Math.min(total, startIndex + visibleCount);
+    return {
+      data: data.slice(startIndex, endIndex),
+      startIndex,
+      total,
+      endIndex,
+    };
+  });
 
   return (
     <div style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
@@ -127,7 +145,6 @@ export function IntegratedTable<T>({
                     style="padding: 12px; text-align: left; background: #f8f9fa; border-bottom: 2px solid #dee2e6; white-space: nowrap; cursor: pointer;"
                     onClick={() => {
                       if (!col.sortable) return;
-                      // @ts-ignore
                       setSortConfig((prev) => {
                         const existing = prev.find((s) => s.key === col.key);
                         if (existing) {
@@ -139,7 +156,10 @@ export function IntegratedTable<T>({
                               )
                             : prev.filter((s) => s.key !== col.key);
                         }
-                        return [...prev, { key: col.key, direction: "asc" }];
+                        return [
+                          ...prev,
+                          { key: col.key as string, direction: "asc" },
+                        ];
                       });
                     }}
                   >
@@ -151,11 +171,21 @@ export function IntegratedTable<T>({
           </thead>
         </table>
       </div>
-      <div style="flex: 1; overflow: auto; position: relative;">
+      <div
+        ref={containerRef}
+        style="flex: 1; overflow: auto; position: relative;"
+        onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)}
+      >
         <Show when={sortedFilteredRows().length > 0}>
           <table style="width: 100%; table-layout: fixed; border-collapse: collapse;">
             <tbody>
-              <For each={sortedFilteredRows()}>
+              <tr style={`height: ${visibleData().startIndex * rowHeight}px;`}>
+                <td
+                  colspan={columns.length}
+                  style="padding: 0; border: 0;"
+                ></td>
+              </tr>
+              <For each={visibleData().data}>
                 {(row) => {
                   const rowId = getRowId(row);
                   return (
@@ -166,7 +196,6 @@ export function IntegratedTable<T>({
                           const isEditing = () =>
                             editingCell()?.rowId === rowId &&
                             editingCell()?.column === columnKey;
-
                           return (
                             <td
                               style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;"
@@ -179,29 +208,45 @@ export function IntegratedTable<T>({
                             >
                               <Show
                                 when={isEditing()}
-                                // @ts-ignore
-                                fallback={() => col.selector(row)}
+                                fallback={
+                                  col.customRender
+                                    ? col.customRender(col.selector(row), row)
+                                    : col.selector(row)
+                                }
                               >
-                                <input
-                                  type="text"
-                                  value={
-                                    editedValues()[`${rowId}-${columnKey}`] ??
-                                    col.selector(row)
+                                <Show
+                                  when={col.customEdit !== undefined}
+                                  fallback={
+                                    <input
+                                      type="text"
+                                      value={
+                                        editedValues()[
+                                          `${rowId}-${columnKey}`
+                                        ] ?? col.selector(row)
+                                      }
+                                      onBlur={() => saveEdit(row, columnKey)}
+                                      onKeyDown={(e) =>
+                                        e.key === "Enter" &&
+                                        saveEdit(row, columnKey)
+                                      }
+                                      onInput={(e) =>
+                                        handleEdit(
+                                          rowId,
+                                          columnKey,
+                                          e.currentTarget.value
+                                        )
+                                      }
+                                      autofocus
+                                    />
                                   }
-                                  onBlur={() => saveEdit(row, columnKey)}
-                                  onKeyDown={(e) =>
-                                    e.key === "Enter" &&
-                                    saveEdit(row, columnKey)
-                                  }
-                                  onInput={(e) =>
-                                    handleEdit(
-                                      rowId,
-                                      columnKey,
-                                      e.currentTarget.value
-                                    )
-                                  }
-                                  autofocus
-                                />
+                                >
+                                  {col.customEdit
+                                    ? col.customEdit(row, (value, save) => {
+                                        handleEdit(rowId, columnKey, value);
+                                        save();
+                                      })
+                                    : null}
+                                </Show>
                               </Show>
                             </td>
                           );
@@ -211,6 +256,14 @@ export function IntegratedTable<T>({
                   );
                 }}
               </For>
+              <tr
+                style={`height: ${(visibleData().total - visibleData().endIndex) * rowHeight}px;`}
+              >
+                <td
+                  colspan={columns.length}
+                  style="padding: 0; border: 0;"
+                ></td>
+              </tr>
             </tbody>
           </table>
         </Show>

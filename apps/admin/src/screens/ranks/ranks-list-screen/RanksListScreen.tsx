@@ -47,14 +47,27 @@ export function RanksListScreen() {
     {
       key: "id",
       header: "ID",
-      selector: (row) => row.id,
+      filterable: true,
       sortable: true,
+      selector: (row) => row.id,
       width: 60,
     },
     {
       key: "badgeCode",
       header: "Badge",
+      filterable: true,
+      sortable: true,
+      editable: true,
       selector: (row) => row.badgeCode,
+      customEdit: (row: AdminRankWire) => (
+        <>
+          <img
+            src={`${BADGE_BASE_URL}/${row.badgeCode}${BADGE_EXT}`}
+            style="object-fit: contain; height: 45px;"
+          />
+          <input type="text" value={row.badgeCode} />
+        </>
+      ),
       customRender: (badgeCode) => (
         <img
           src={`${BADGE_BASE_URL}/${badgeCode}${BADGE_EXT}`}
