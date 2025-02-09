@@ -1,15 +1,12 @@
-import { RankWire } from "@crabshell/public-client";
+import { RankScope, RankWire } from "@crabshell/public-client";
 export { RankScope } from "@crabshell/public-client";
 
-export interface AdminRankWire extends RankWire {
-  id: number;
-  name: string;
-  badgeCode: string;
-}
+export interface AdminRankWire extends RankWire {}
 
 export interface AdminRankCreateParams {
   name: string;
   badgeCode: string;
+  scopes: Record<RankScope, boolean>;
 }
 
 export type AdminRankCreateResponse = RankWire;

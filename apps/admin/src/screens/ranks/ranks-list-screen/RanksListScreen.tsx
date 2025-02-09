@@ -49,9 +49,9 @@ export function RanksListScreen() {
       header: "ID",
       filterable: true,
       sortable: true,
-      customRender: (name: string, row: AdminRankWire) => (
+      customRender: (id: number, row: AdminRankWire) => (
         <A href={`/ranks/${row.id}`} onClick={(e) => e.stopPropagation()}>
-          {name}
+          {id}
         </A>
       ),
       selector: (row) => row.id,
@@ -95,6 +95,21 @@ export function RanksListScreen() {
       filterable: true,
       sortable: true,
       editable: true,
+    },
+    {
+      key: "scopes",
+      header: "Scopes",
+      selector: (row) => row.scopes,
+      customRender: (scopes: string, row: AdminRankWire) => (
+        <div style="overflow-x:auto;">
+          {Object.keys(row.scopes)
+            // @ts-ignore
+            .filter((scope) => row.scopes[scope])
+            .join(", ")}
+        </div>
+      ),
+      filterable: true,
+      sortable: false,
     },
   ];
 
