@@ -1,6 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { RankDTO } from './rank.dto';
-import { RankService } from './rank.service';
 import { RankRepository } from '../database/rank.repository';
 import { RankPipe } from './rank.pipe';
 import { RankBoolean, RankEntity } from '../database/rank.entity';
