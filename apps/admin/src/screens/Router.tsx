@@ -26,6 +26,9 @@ const UsersEditScreen = lazy(
 const UsersBansScreen = lazy(
   () => import("./users/users-bans-screen/UsersBansScreen")
 );
+const UsersCameraScreen = lazy(
+  () => import("./users/users-camera-screen/UsersCameraScreen")
+);
 const UsersFurnitureScreen = lazy(
   () => import("./users/users-furniture-screen/UsersFurnitureScreen")
 );
@@ -138,6 +141,7 @@ export const Router: Component = () => {
         component={UsersFurnitureScreen}
       />
       <Route path="/users/:username/messages" component={UsersMessagesScreen} />
+      <Route path="/users/:username/camera" component={UsersCameraScreen} />
       <Route path="/users/:username/rooms" component={UsersRoomsScreen} />
       <Route path="/users/:username/sessions" component={UsersSessionsScreen} />
       <Route path="/ranks" component={RanksListScreen} />

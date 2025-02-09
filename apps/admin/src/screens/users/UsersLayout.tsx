@@ -26,6 +26,10 @@ export function UsersLayout({ children, username }: UsersLayoutProps) {
       href: `/users/${username}/rooms`,
     },
     {
+      label: "Camera",
+      href: `/users/${username}/camera`,
+    },
+    {
       label: "Furniture",
       href: `/users/${username}/furniture`,
     },

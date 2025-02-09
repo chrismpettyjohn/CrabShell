@@ -2,15 +2,15 @@ import { useParams } from "@solidjs/router";
 import { UsersLayout } from "../UsersLayout";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
-export function UsersSessionsScreen() {
+export function UsersCameraScreen() {
   const { username } = useParams();
   return (
     <UsersLayout username={username}>
-      <SiteTitle>Session</SiteTitle>
-      <h1>Sessions</h1>
-      <p>bans</p>
+      <SiteTitle>User Camera</SiteTitle>
+      <h1>Camera</h1>
+      <p>camera</p>
     </UsersLayout>
   );
 }
 
-export default UsersSessionsScreen;
+export default UsersCameraScreen;

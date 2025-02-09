@@ -1,10 +1,13 @@
 import { useParams } from "@solidjs/router";
 import { UsersLayout } from "../UsersLayout";
+import { SiteTitle } from "../../../components/site-title/SiteTitle";
 
 export function UsersFurnitureScreen() {
   const { username } = useParams();
   return (
     <UsersLayout username={username}>
+      <SiteTitle>User Furniture</SiteTitle>
+      <h1>Furniture</h1>
       <p>furniture</p>
     </UsersLayout>
   );
