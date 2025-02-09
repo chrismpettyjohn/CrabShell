@@ -1,6 +1,5 @@
 import { createSignal, onMount, type Component } from "solid-js";
-import { GuardUser } from "../../components/guard-user/GuardUser";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { SiteTitle, UserGuard } from "@crabshell/shared-web";
 import { NITRO_URL } from "../../App.const";
 import { authService } from "@crabshell/public-client";
 
@@ -13,7 +12,7 @@ const PlayScreen: Component = () => {
   });
 
   return (
-    <GuardUser>
+    <UserGuard>
       <SiteTitle>Play</SiteTitle>
       {sso() ? (
         <iframe
@@ -23,7 +22,7 @@ const PlayScreen: Component = () => {
       ) : (
         <p>Signing in...</p>
       )}
-    </GuardUser>
+    </UserGuard>
   );
 };
 

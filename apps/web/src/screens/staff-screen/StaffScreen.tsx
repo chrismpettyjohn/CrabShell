@@ -1,7 +1,6 @@
 import { createSignal, onMount, type Component } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { GuardUser } from "../../components/guard-user/GuardUser";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { SiteTitle, UserGuard } from "@crabshell/shared-web";
 import { ranksService, RankWire } from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../App.const";
 
@@ -14,7 +13,7 @@ const StaffScreen: Component = () => {
   });
 
   return (
-    <GuardUser>
+    <UserGuard>
       <SiteTitle>Staff</SiteTitle>
       <SiteSidebar />
       <main>
@@ -54,7 +53,7 @@ const StaffScreen: Component = () => {
           </div>
         </div>
       </main>
-    </GuardUser>
+    </UserGuard>
   );
 };
 

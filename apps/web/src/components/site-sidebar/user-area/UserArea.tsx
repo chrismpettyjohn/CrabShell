@@ -1,4 +1,4 @@
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "@crabshell/shared-web";
 import { IMAGER_BASE_URL } from "../../../App.const";
 import { useSidebar } from "../../../context/SidebarContext";
 

@@ -1,10 +1,8 @@
 import { createSignal, type Component } from "solid-js";
-import { GuardGuest } from "../../components/guard-guest/GuardGuest";
+import { GuestGuard, useAuth, SiteTitle } from "@crabshell/shared-web";
 import { SITE_NAME } from "../../App.const";
 import { authService } from "@crabshell/public-client";
-import { useAuth } from "../../context/AuthContext";
 import { A, redirect } from "@solidjs/router";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
 import { useOnlineUsers } from "../../context/OnlineUsersContext";
 
 const LoginScreen: Component = () => {
@@ -29,7 +27,7 @@ const LoginScreen: Component = () => {
   }
 
   return (
-    <GuardGuest>
+    <GuestGuard>
       <SiteTitle>Log In</SiteTitle>
       <div class="login-page">
         <div class="container">
@@ -42,7 +40,7 @@ const LoginScreen: Component = () => {
             <h2>Welcome to {SITE_NAME}!</h2>
             <p>You're gonna get hooked</p>
             <form onSubmit={onLogin}>
-              <label for="username">Username</label>
+              <h2>Username</h2>
               <input
                 type="text"
                 id="username"
@@ -53,7 +51,7 @@ const LoginScreen: Component = () => {
                 required
               />
 
-              <label for="password">Password</label>
+              <h2>Password</h2>
               <input
                 type="password"
                 id="password"
@@ -83,7 +81,7 @@ const LoginScreen: Component = () => {
           </footer>
         </div>
       </div>
-    </GuardGuest>
+    </GuestGuard>
   );
 };
 

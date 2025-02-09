@@ -1,11 +1,10 @@
 import { SITE_NAME } from "../../App.const";
-import { GuardUser } from "../../components/guard-user/GuardUser";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { SiteTitle, UserGuard } from "@crabshell/shared-web";
 
 export function AboutScreen() {
   return (
-    <GuardUser>
+    <UserGuard>
       <SiteTitle>About</SiteTitle>
       <SiteSidebar />
       <main>
@@ -37,7 +36,7 @@ export function AboutScreen() {
           ></iframe>
         </div>
       </main>
-    </GuardUser>
+    </UserGuard>
   );
 }
 

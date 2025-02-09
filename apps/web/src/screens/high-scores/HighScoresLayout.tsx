@@ -1,7 +1,6 @@
 import { JSX } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { GuardUser } from "../../components/guard-user/GuardUser";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { SiteTitle, UserGuard } from "@crabshell/shared-web";
 import { A, useLocation } from "@solidjs/router";
 
 export interface HighScoresLayoutProps {
@@ -34,7 +33,7 @@ const HIGH_SCORE_LINKS: Array<{ label: string; href: string }> = [
 export function HighScoresLayout({ children }: HighScoresLayoutProps) {
   const { pathname } = useLocation();
   return (
-    <GuardUser>
+    <UserGuard>
       <SiteTitle>High Scores</SiteTitle>
       <SiteSidebar />
       <main>
@@ -52,6 +51,6 @@ export function HighScoresLayout({ children }: HighScoresLayoutProps) {
           {children}
         </div>
       </main>
-    </GuardUser>
+    </UserGuard>
   );
 }

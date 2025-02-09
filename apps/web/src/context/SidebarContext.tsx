@@ -11,7 +11,7 @@ import {
   type Component,
   type JSX,
 } from "solid-js";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "@crabshell/shared-web";
 
 interface SidebarContextValue {
   achievementCount(): number;

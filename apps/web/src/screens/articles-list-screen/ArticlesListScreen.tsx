@@ -1,7 +1,6 @@
 import { createSignal, onMount, type Component } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { GuardUser } from "../../components/guard-user/GuardUser";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { SiteTitle, UserGuard } from "@crabshell/shared-web";
 import { articleService, ArticleWire } from "@crabshell/public-client";
 import { A } from "@solidjs/router";
 
@@ -14,7 +13,7 @@ const ArticlesListScreen: Component = () => {
   });
 
   return (
-    <GuardUser>
+    <UserGuard>
       <SiteTitle>Articles</SiteTitle>
       <SiteSidebar />
       <main>
@@ -54,7 +53,7 @@ const ArticlesListScreen: Component = () => {
           </div>
         </div>
       </main>
-    </GuardUser>
+    </UserGuard>
   );
 };
 

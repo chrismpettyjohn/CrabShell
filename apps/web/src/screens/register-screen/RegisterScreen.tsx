@@ -1,9 +1,7 @@
 import { createSignal, type Component } from "solid-js";
-import { GuardGuest } from "../../components/guard-guest/GuardGuest";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
+import { GuestGuard, SiteTitle, useAuth } from "@crabshell/shared-web";
 import { A, redirect } from "@solidjs/router";
 import { authService } from "@crabshell/public-client";
-import { useAuth } from "../../context/AuthContext";
 import { useOnlineUsers } from "../../context/OnlineUsersContext";
 
 const RegisterScreen: Component = () => {
@@ -26,7 +24,7 @@ const RegisterScreen: Component = () => {
     return redirect("/me");
   }
   return (
-    <GuardGuest>
+    <GuestGuard>
       <SiteTitle>Register</SiteTitle>
       <div class="login-page">
         <div class="container">
@@ -39,7 +37,7 @@ const RegisterScreen: Component = () => {
             <h2>Join HabCrab Today!</h2>
             <p>Create your free account</p>
             <form onSubmit={onRegister}>
-              <label for="username">Username</label>
+              <h2>Username</h2>
               <input
                 type="text"
                 id="username"
@@ -50,7 +48,7 @@ const RegisterScreen: Component = () => {
                 required
               />
 
-              <label for="email">Email</label>
+              <h2>Email</h2>
               <input
                 type="email"
                 id="email"
@@ -61,7 +59,7 @@ const RegisterScreen: Component = () => {
                 required
               />
 
-              <label for="password">Password</label>
+              <h2>Password</h2>
               <input
                 type="password"
                 id="password"
@@ -72,7 +70,7 @@ const RegisterScreen: Component = () => {
                 required
               />
 
-              <label for="password">Password Again</label>
+              <h2>Password Again</h2>
               <input
                 type="password"
                 id="passwordAgain"
@@ -100,7 +98,7 @@ const RegisterScreen: Component = () => {
           </footer>
         </div>
       </div>
-    </GuardGuest>
+    </GuestGuard>
   );
 };
 
