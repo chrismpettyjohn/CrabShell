@@ -4,10 +4,10 @@ export interface AdminUserTradeLogWire {
   id: number;
   userOneID: number;
   userOneIpAddress: string;
-  userOneItemID: number;
+  userOneitemCount: number;
   userTwoID: number;
   userTwoIpAddress: string;
-  userTwoItemID: number;
+  userTwoitemCount: number;
   timestamp: number;
   userOne: UserWire;
   userTwo: UserWire;

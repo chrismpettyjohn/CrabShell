@@ -25,6 +25,7 @@ export class AdminUserRoomEnterLogDTO implements AdminUserRoomEnterLogWire {
 
   static fromEntity(entity: UserRoomEnterLogEntity): AdminUserRoomEnterLogDTO {
     const dto = new AdminUserRoomEnterLogDTO();
+    dto.id = entity.id;
     dto.roomID = entity.roomID;
     dto.userID = entity.userID;
     dto.enteredAt = entity.enteredAt;

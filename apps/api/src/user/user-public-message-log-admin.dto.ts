@@ -35,6 +35,7 @@ export class AdminUserPublicMessageLogDTO
     entity: UserPublicMessageLogEntity,
   ): AdminUserPublicMessageLogDTO {
     const dto = new AdminUserPublicMessageLogDTO();
+    dto.id = entity.id;
     dto.roomID = entity.roomID;
     dto.userID = entity.userID;
     dto.sentToUserID = entity.sentToUserID;

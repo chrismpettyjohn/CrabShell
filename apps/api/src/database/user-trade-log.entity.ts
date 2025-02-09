@@ -18,8 +18,8 @@ export class UserTradeLogEntity {
   @Column({ name: 'user_one_ip', type: 'varchar', length: 45 })
   userOneIpAddress!: string;
 
-  @Column({ name: 'user_one_item', type: 'int' })
-  userOneItemId!: number;
+  @Column({ name: 'user_one_item_count', type: 'int' })
+  userOneItemCount!: number;
 
   @Column({ name: 'user_two_id', type: 'int' })
   userTwoId!: number;
@@ -27,8 +27,8 @@ export class UserTradeLogEntity {
   @Column({ name: 'user_two_ip', type: 'varchar', length: 45 })
   userTwoIpAddress!: string;
 
-  @Column({ name: 'user_two_item', type: 'int' })
-  userTwoItemId!: number;
+  @Column({ name: 'user_two_item_count', type: 'int' })
+  userTwoItemCount!: number;
 
   @Column({ name: 'timestamp', type: 'int' })
   timestamp!: number;

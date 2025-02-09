@@ -15,7 +15,7 @@ export class AdminUserTradeLogDTO implements AdminUserTradeLogWire {
   userOneIpAddress: string;
 
   @IsNumber()
-  userOneItemID: number;
+  userOneitemCount: number;
 
   @IsNumber()
   userTwoID: number;
@@ -24,7 +24,7 @@ export class AdminUserTradeLogDTO implements AdminUserTradeLogWire {
   userTwoIpAddress: string;
 
   @IsNumber()
-  userTwoItemID: number;
+  userTwoitemCount: number;
 
   @IsNumber()
   timestamp: number;
@@ -40,10 +40,10 @@ export class AdminUserTradeLogDTO implements AdminUserTradeLogWire {
     dto.id = entity.id;
     dto.userOneID = entity.userOneId;
     dto.userOneIpAddress = entity.userOneIpAddress;
-    dto.userOneItemID = entity.userOneItemId;
+    dto.userOneitemCount = entity.userOneItemCount;
     dto.userTwoID = entity.userTwoId;
     dto.userTwoIpAddress = entity.userTwoIpAddress;
-    dto.userTwoItemID = entity.userTwoItemId;
+    dto.userTwoitemCount = entity.userTwoItemCount;
     dto.timestamp = entity.timestamp;
     dto.userOne = UserDTO.fromEntity(entity.userOne);
     dto.userTwo = UserDTO.fromEntity(entity.userTwo);

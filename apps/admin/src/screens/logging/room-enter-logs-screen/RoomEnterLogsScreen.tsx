@@ -1,31 +1,85 @@
+import { createSignal, onMount } from "solid-js";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { LoggingLayout } from "../LoggingLayout";
+import toast from "solid-toast";
+import {
+  adminUserRoomEnterLogService,
+  AdminUserRoomEnterLogWire,
+} from "@crabshell/admin-client";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
+import { A } from "@solidjs/router";
+import { IMAGER_BASE_URL } from "../../../App.const";
 
 export function RoomEnterLogsScreen() {
+  const [logs, setLogs] = createSignal<AdminUserRoomEnterLogWire[]>([]);
+
+  onMount(async () => {
+    try {
+      const response = await adminUserRoomEnterLogService.getAll();
+      setLogs(response);
+    } catch (e) {
+      toast.error("Failed to fetch room visit logs");
+      console.error(e);
+    }
+  });
+
+  const columns: ITableColumn<AdminUserRoomEnterLogWire>[] = [
+    {
+      key: "user",
+      header: "User",
+      selector: (row: AdminUserRoomEnterLogWire) => row.user.username,
+      customRender: (_: number, row: AdminUserRoomEnterLogWire) => (
+        <A
+          href={`/users/${row.user.username}`}
+          onClick={(e) => e.stopPropagation()}
+          style="display:flex;gap:8px;align-items:center;"
+        >
+          <img
+            class="avatar"
+            src={`${IMAGER_BASE_URL}?figure=${row.user.look}&headonly=1`}
+            style="object-fit: contain; height: 65px"
+          />
+          <p>{row.user.username}</p>
+        </A>
+      ),
+      sortable: true,
+    },
+    {
+      key: "roomID",
+      header: "Room ID",
+      selector: (row: AdminUserRoomEnterLogWire) => row.roomID,
+      sortable: true,
+    },
+    {
+      key: "enteredAt",
+      header: "Entered At",
+      selector: (row: AdminUserRoomEnterLogWire) =>
+        new Date(row.enteredAt * 1000).toISOString(),
+      sortable: true,
+    },
+    {
+      key: "leftAt",
+      header: "Left At",
+      selector: (row: AdminUserRoomEnterLogWire) =>
+        row.leftAt
+          ? new Date(row.leftAt * 1000).toISOString()
+          : "Still in room",
+      sortable: true,
+    },
+  ];
+
   return (
     <LoggingLayout>
       <SiteTitle>Room Visit Logs</SiteTitle>
       <h1>Room Visit Logs</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Initiating User</th>
-            <th>Initiating User Items</th>
-            <th>Receiving User</th>
-            <th>Receiving User Items</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <tr>
-              <td>User {i + 1}</td>
-              <td>Item {i + 1}</td>
-              <td>User {i + 1}</td>
-              <td>Item {i + 1}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <IntegratedTable
+        columns={columns}
+        rows={logs}
+        getRowId={(row: AdminUserRoomEnterLogWire) => `${row.id}`}
+      />
     </LoggingLayout>
   );
 }
