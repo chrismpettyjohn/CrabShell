@@ -1,12 +1,14 @@
 import bcrypt from 'bcryptjs';
-import { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { Response } from 'express';
 import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
 import { generate } from 'randomstring';
-
 import {
+  JWT_COOKIE,
+  JWT_SECRET,
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
   USER_DEFAULT_HOME_ROOM,
@@ -14,8 +16,9 @@ import {
   USER_DEFAULT_MOTTO,
   USER_DEFAULT_POINTS,
 } from '../app.const';
-import { SessionEntity } from '../database/session.entity';
 import { Injectable } from '@nestjs/common';
+
+const JWT_EXPIRATION = '1h';
 
 @Injectable()
 export class AuthService {
@@ -37,27 +40,27 @@ export class AuthService {
     return user;
   }
 
-  async login(loginDto: AuthLoginDTO, req: Request, res: Response): Promise<Response> {
-    const sessionId = req.cookies['sessionId'];
+   async generateSSO(userId: number): Promise<string> {
+    const gameSSO: string = 'crabshell_' + generate(30) + '_' + userId;
+    await this.userRepo.update({ id: userId }, { gameSSO });
+    return gameSSO;
+  }
 
-    if (sessionId) {
-      await this.sessionRepo.delete({ id: Number(sessionId) });
-      res.clearCookie('sessionId');
-    }
-
+  async login(loginDto: AuthLoginDTO, res: Response): Promise<Response> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
-
-    res.cookie('sessionId', String(session.id), {
+    console.log(session)
+    const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    res.cookie(JWT_COOKIE, `Bearer ${token}`, {
       httpOnly: true,
       sameSite: 'lax',
       path: '/'
     });
 
-    return res.json(user)
+    return res.json({ user, token });
   }
 
-  async register(registerDto: AuthRegisterDTO, req: Request, res: Response): Promise<Response> {
+  async register(registerDto: AuthRegisterDTO, res: Response): Promise<Response> {
     const existingUser = await this.userRepo.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
     });
@@ -78,8 +81,8 @@ export class AuthService {
       gender: 1,
       accountCreatedAt: now,
       lastOnlineAt: now,
-      ipLast: req.ip || '127.0.0.1',
-      ipRegistered: req.ip || '127.0.0.1',
+      ipLast: '127.0.0.1',
+      ipRegistered: '127.0.0.1',
       onlineStatus: '0',
       rankID: 1,
       credits: USER_DEFAULT_CREDITS,
@@ -92,40 +95,11 @@ export class AuthService {
       machineAddress: generate(10),
     });
 
-    return this.login({ username: user.username, password: registerDto.password }, req, res);
+    return this.login({ username: user.username, password: registerDto.password }, res);
   }
 
-  async generateSSO(userId: number): Promise<string> {
-    const gameSSO: string = 'crabshell_' + generate(30) + '_' + userId;
-    await this.userRepo.update({ id: userId }, { gameSSO });
-    return gameSSO;
-  }
-
-  async logout(req: Request, res: Response) {
-    const sessionId = Number(req.cookies['sessionId']);
-    await this.sessionRepo.delete({ id: sessionId });
+  logout(res: Response): Response{
     res.clearCookie('sessionId');
-    return { message: 'Logged out successfully' };
-  }
-
-  async validateSession(sessionId: number): Promise<{ session: SessionEntity; user: UserEntity }> {
-    const session = await this.sessionRepo.findOne({ where: { id: sessionId } });
-    if (!session) {
-      throw new Error('Invalid session');
-    }
-
-    const user = await this.userRepo.findOne({ where: { id: session.userID } });
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    return { session, user };
-  }
-
-  async getProfile(req: Request): Promise<UserEntity> {
-    const sessionId = Number(req.cookies['sessionId']);
-    const { user } = await this.validateSession(sessionId);
-    return user;
+    return res.json({ message: 'Logged out successfully' });
   }
 }

@@ -12,6 +12,10 @@ export const DB_USER = process.env.DB_USER;
 export const DB_PASS = process.env.DB_PASS;
 export const DB_NAME = process.env.DB_NAME;
 
+// JWT
+export const JWT_SECRET = process.env.JWT_SECRET!;
+export const JWT_COOKIE = 'crab-sess';
+
 // User Defaults
 export const USER_DEFAULT_DUCKETS = Number(process.env.USER_DEFAULT_DUCKETS);
 export const USER_DEFAULT_POINTS = Number(process.env.USER_DEFAULT_POINTS);
