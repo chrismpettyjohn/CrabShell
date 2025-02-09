@@ -34,6 +34,10 @@ import { UserPublicMessageLogEntity } from './user-public-message-log.entity';
 import { UserPublicMessageLogRepository } from './user-public-message-log.repository';
 import { UserPrivateMessageLogEntity } from './user-private-message-log.entity';
 import { UserPrivateMessageLogRepository } from './user-private-message-log.repository';
+import { CatalogPageEntity } from './catalog-page.entity';
+import { CatalogPageRepository } from './catalog-page.repository';
+import { CatalogItemEntity } from './catalog-item.entity';
+import { CatalogItemRepository } from './catalog-item.repository';
 
 export const databaseEntities = [
   ArticleEntity,
@@ -54,6 +58,8 @@ export const databaseEntities = [
   EmuSettingsEntity,
   EmuTextsEntity,
   ItemBaseEntity,
+  CatalogPageEntity,
+  CatalogItemEntity,
 ];
 
 export const databaseRepositories = [
@@ -75,4 +81,6 @@ export const databaseRepositories = [
   EmuSettingsRepository,
   EmuTextsRepository,
   ItemBaseRepository,
+  CatalogPageRepository,
+  CatalogItemRepository,
 ];
