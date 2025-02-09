@@ -1,10 +1,6 @@
 import { UserWire } from "@crabshell/public-client";
 
-export interface AdminUserWire extends UserWire {
-  id: number;
-  username: string;
-  look: string;
-}
+export interface AdminUserWire extends UserWire {}
 
 export type AdminUserUpdateByIdParams = Partial<AdminUserWire>;
 

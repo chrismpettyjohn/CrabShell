@@ -53,6 +53,32 @@ export function UsersListScreen() {
       filterable: true,
       sortable: true,
     },
+    {
+      key: "credits",
+      header: "Credits",
+      selector: (row) => row.credits,
+      customRender: (credits: string) => (
+        <>{Number(credits).toLocaleString()}</>
+      ),
+      filterable: true,
+      sortable: true,
+    },
+    {
+      key: "pixels",
+      header: "Pixels",
+      selector: (row) => row.pixels,
+      customRender: (pixels: string) => <>{Number(pixels).toLocaleString()}</>,
+      filterable: true,
+      sortable: true,
+    },
+    {
+      key: "points",
+      header: "Points",
+      selector: (row) => row.points,
+      customRender: (points: string) => <>{Number(points).toLocaleString()}</>,
+      filterable: true,
+      sortable: true,
+    },
   ];
 
   return (

@@ -21,6 +21,15 @@ export class UserDTO implements UserWire {
   @IsBoolean()
   online: boolean;
 
+  @IsNumber()
+  credits: number;
+
+  @IsNumber()
+  pixels: number;
+
+  @IsNumber()
+  points: number;
+
   static fromEntity(entity: UserEntity): UserDTO {
     const dto = new UserDTO();
     dto.id = entity.id;
@@ -29,6 +38,9 @@ export class UserDTO implements UserWire {
     dto.look = entity.look;
     dto.motto = entity.motto;
     dto.online = entity.onlineStatus === '1';
+    dto.credits = entity.credits;
+    dto.pixels = entity.activityPoints;
+    dto.points = entity.vipPoints;
     return dto;
   }
 }

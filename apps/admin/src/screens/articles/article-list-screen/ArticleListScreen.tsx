@@ -65,11 +65,11 @@ export function ArticleListScreen() {
           <img
             src={imageUrl}
             class="img-fluid"
-            style="object-fit: contain; height: 100px"
+            style="object-fit: contain; width: 300px"
           />
         </A>
       ),
-      width: 120,
+      width: 400,
     },
     {
       key: "name",

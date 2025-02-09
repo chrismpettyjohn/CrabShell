@@ -5,6 +5,9 @@ export interface UserWire {
   look: string;
   motto: string;
   online: boolean;
+  credits: number;
+  pixels: number;
+  points: number;
 }
 
 export type UsersOnlineResponse = UserWire[];
