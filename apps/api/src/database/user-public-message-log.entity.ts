@@ -30,4 +30,8 @@ export class UserPublicMessageLogEntity {
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_from_id' })
   user?: UserEntity;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'user_to_id' })
+  sentToUser?: UserEntity;
 }

@@ -8,6 +8,7 @@ export interface AdminUserPublicMessageLogWire {
   message: string;
   timestamp: number;
   user: UserWire;
+  sentToUser?: UserWire;
 }
 
 export type AdminUserPublicMessageLogResponse = AdminUserPublicMessageLogWire[];
