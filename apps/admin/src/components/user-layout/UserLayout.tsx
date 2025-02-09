@@ -48,6 +48,12 @@ const SIDEBAR_LINKS = [
     scope: RankScope.MANAGE_FURNITURE,
   },
   {
+    path: "/catalog/pages",
+    icon: "fa-store",
+    label: "Catalog",
+    scope: RankScope.MANAGE_FURNITURE,
+  },
+  {
     path: "/emulator/settings",
     icon: "fa-wrench",
     label: "Settings",

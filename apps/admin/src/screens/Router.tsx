@@ -92,6 +92,24 @@ const RoomEnterLogsScreen = lazy(
 const RoomTradeLogsScreen = lazy(
   () => import("./logging/room-trade-logs-screen/RoomTradeLogsScreen")
 );
+const CatalogItemsCreateScreen = lazy(
+  () => import("./catalog/catalog-items-create-screen/CatalogItemsCreateScreen")
+);
+const CatalogItemsEditScreen = lazy(
+  () => import("./catalog/catalog-items-edit-screen/CatalogItemsEditScreen")
+);
+const CatalogItemsListScreen = lazy(
+  () => import("./catalog/catalog-items-list-screen/CatalogItemsListScreen")
+);
+const CatalogPagesCreateScreen = lazy(
+  () => import("./catalog/catalog-pages-create-screen/CatalogPagesCreateScreen")
+);
+const CatalogPagesEditScreen = lazy(
+  () => import("./catalog/catalog-pages-edit-screen/CatalogPagesEditScreen")
+);
+const CatalogPagesListScreen = lazy(
+  () => import("./catalog/catalog-pages-list-screen/CatalogPagesListScreen")
+);
 export const Router: Component = () => {
   return (
     <BaseRouter>
@@ -131,6 +149,18 @@ export const Router: Component = () => {
       <Route path="/logs/public-chat" component={RoomChatlogsScreen} />
       <Route path="/logs/room-enters" component={RoomEnterLogsScreen} />
       <Route path="/logs/room-trades" component={RoomTradeLogsScreen} />
+      <Route path="/catalog/pages" component={CatalogPagesListScreen} />
+      <Route
+        path="/catalog/pages/create"
+        component={CatalogPagesCreateScreen}
+      />
+      <Route path="/catalog/pages/:pageId" component={CatalogPagesEditScreen} />
+      <Route path="/catalog/items" component={CatalogItemsListScreen} />
+      <Route
+        path="/catalog/items/create"
+        component={CatalogItemsCreateScreen}
+      />
+      <Route path="/catalog/items/:itemId" component={CatalogItemsEditScreen} />
     </BaseRouter>
   );
 };

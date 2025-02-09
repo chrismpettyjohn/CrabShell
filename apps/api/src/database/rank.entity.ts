@@ -38,6 +38,9 @@ export class RankEntity {
   @Column({ name: 'cms_manage_furniture', type: 'enum', enum: RankBoolean })
   manageFurniture: RankBoolean;
 
+  @Column({ name: 'cms_manage_catalog', type: 'enum', enum: RankBoolean })
+  manageCatalog: RankBoolean;
+
   @Column({ name: 'cms_manage_logs', type: 'enum', enum: RankBoolean })
   manageLogs: RankBoolean;
 

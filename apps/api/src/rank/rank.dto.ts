@@ -27,6 +27,9 @@ export class RankScopesDTO {
   manageFurniture!: boolean;
 
   @IsBoolean()
+  manageCatalog!: boolean;
+
+  @IsBoolean()
   manageRanks!: boolean;
 
   @IsBoolean()
@@ -42,6 +45,7 @@ export class RankScopesDTO {
     dto.manageBadges = entity.manageBadges === '1';
     dto.manageEmu = entity.manageEmu === '1';
     dto.manageFurniture = entity.manageFurniture === '1';
+    dto.manageCatalog = entity.manageCatalog === '1';
     dto.manageRanks = entity.manageRanks === '1';
     dto.manageLogs = entity.manageLogs === '1';
     dto.manageUsers = entity.manageUsers === '1';
