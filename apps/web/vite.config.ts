@@ -23,6 +23,9 @@ export default defineConfig(({ mode }) => {
       "process.env.ADMIN_PANEL_URL": JSON.stringify(
         env.VITE_ADMIN_PANEL_URL || ""
       ),
+      "process.env.GUEST_REDIRECT_URL": JSON.stringify(
+        env.VITE_GUEST_REDIRECT_URL || ""
+      ),
       "process.env.FINDRETROS_GUARD_ENABLED": JSON.stringify(
         env.VITE_FINDRETROS_GUARD_ENABLED || ""
       ),

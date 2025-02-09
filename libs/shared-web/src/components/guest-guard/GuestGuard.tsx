@@ -1,4 +1,4 @@
-import { createEffect, JSX } from "solid-js";
+import { createEffect, JSX, Show } from "solid-js";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "@solidjs/router";
 import { GUEST_REDIRECT_URL } from "../../const";
@@ -17,5 +17,9 @@ export function GuestGuard({ children }: GuestGuardProps) {
     }
   });
 
-  return !user() ? children : null;
+  return (
+    <Show when={!user()} fallback="">
+      {children}
+    </Show>
+  );
 }
