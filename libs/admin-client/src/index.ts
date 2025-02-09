@@ -30,6 +30,10 @@ export * from "./emu-settings/emu-settings.types";
 export * from "./emu-texts/emu-texts.service";
 export * from "./emu-texts/emu-texts.types";
 
+// Event
+export * from "./event/event.service";
+export * from "./event/event.types";
+
 // Items Base
 export * from "./items-base/items-base.service";
 export * from "./items-base/items-base.types";

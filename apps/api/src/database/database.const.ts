@@ -42,6 +42,8 @@ import { BanEntity } from './ban.entity';
 import { BanRepository } from './ban.repository';
 import { PhotoEntity } from './photo.entity';
 import { PhotoRepository } from './photo.repository';
+import { EventRepository } from './event.repository';
+import { EventEntity } from './event.entity';
 
 export const databaseEntities = [
   ArticleEntity,
@@ -66,6 +68,7 @@ export const databaseEntities = [
   CatalogItemEntity,
   BanEntity,
   PhotoEntity,
+  EventEntity,
 ];
 
 export const databaseRepositories = [
@@ -91,4 +94,5 @@ export const databaseRepositories = [
   CatalogItemRepository,
   BanRepository,
   PhotoRepository,
+  EventRepository,
 ];

@@ -19,6 +19,7 @@ import { BanModule } from './ban/ban.module';
 import { AppController } from './app.controller';
 import { FindRetrosModule } from './findretros/findretros.module';
 import { PhotoModule } from './photo/photo.module';
+import { EventModule } from './event/event.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { PhotoModule } from './photo/photo.module';
     CatalogPageModule,
     FindRetrosModule,
     PhotoModule,
+    EventModule,
   ],
   controllers: [AppController],
 })

@@ -12,6 +12,7 @@ export enum RankScope {
   ADMIN_PANEL = "accessAdminPanel",
   MANAGE_ARTICLES = "manageArticles",
   MANAGE_BADGES = "manageBadges",
+  MANAGE_EVENTS = "manageEvents",
   MANAGE_USERS = "manageUsers",
   MANAGE_BANS = "manageBans",
   MANAGE_RANKS = "manageRanks",

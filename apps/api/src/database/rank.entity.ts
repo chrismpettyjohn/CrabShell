@@ -50,6 +50,9 @@ export class RankEntity {
   @Column({ name: 'cms_manage_bans', type: 'enum', enum: RankBoolean })
   manageBans: RankBoolean;
 
+  @Column({ name: 'cms_manage_events', type: 'enum', enum: RankBoolean })
+  manageEvents: RankBoolean;
+
   @OneToMany(() => UserEntity, (user) => user.rank)
   members?: UserEntity[];
 }

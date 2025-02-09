@@ -1,4 +1,4 @@
-import { RankWire } from '@crabshell/public-client';
+import { RankScopes, RankWire } from '@crabshell/public-client';
 import {
   IsArray,
   IsBoolean,
@@ -41,6 +41,9 @@ export class RankScopesDTO {
   @IsBoolean()
   manageBans!: boolean;
 
+  @IsBoolean()
+  manageEvents!: boolean;
+
   static fromEntity(entity: RankEntity) {
     const dto = new RankScopesDTO();
     dto.accessAdminPanel = entity.accessAdminPanel === '1';
@@ -53,6 +56,7 @@ export class RankScopesDTO {
     dto.manageLogs = entity.manageLogs === '1';
     dto.manageUsers = entity.manageUsers === '1';
     dto.manageBans = entity.manageBans === '1';
+    dto.manageEvents = entity.manageEvents === '1';
     return dto;
   }
 }
