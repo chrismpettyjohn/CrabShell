@@ -33,6 +33,7 @@ import { UserRoomEnterLogRepository } from './user-room-enter-log.repository';
 import { UserPublicMessageLogEntity } from './user-public-message-log.entity';
 import { UserPublicMessageLogRepository } from './user-public-message-log.repository';
 import { UserPrivateMessageLogEntity } from './user-private-message-log.entity';
+import { UserPrivateMessageLogRepository } from './user-private-message-log.repository';
 
 export const databaseEntities = [
   ArticleEntity,
@@ -64,7 +65,7 @@ export const databaseRepositories = [
   UserRoomEnterLogRepository,
   UserNameChangeLogRepository,
   UserPublicMessageLogRepository,
-  UserPrivateMessageLogEntity,
+  UserPrivateMessageLogRepository,
   ArticleRepository,
   GroupRepository,
   GroupMembershipRepository,

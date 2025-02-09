@@ -16,7 +16,7 @@ export class UserTradeLogEntity {
   userOneId!: number;
 
   @Column({ name: 'user_one_ip', type: 'varchar', length: 45 })
-  userOneIpAddress!: number;
+  userOneIpAddress!: string;
 
   @Column({ name: 'user_one_item', type: 'int' })
   userOneItemId!: number;
@@ -25,7 +25,7 @@ export class UserTradeLogEntity {
   userTwoId!: number;
 
   @Column({ name: 'user_two_ip', type: 'varchar', length: 45 })
-  userTwoIpAddress!: number;
+  userTwoIpAddress!: string;
 
   @Column({ name: 'user_two_item', type: 'int' })
   userTwoItemId!: number;

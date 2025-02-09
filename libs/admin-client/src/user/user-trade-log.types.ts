@@ -1,17 +1,16 @@
 import { UserWire } from "@crabshell/public-client";
 
-export enum AdminUserTradeLogResult {
-  Success = "yes",
-  Failure = "no",
-}
-
 export interface AdminUserTradeLogWire {
-  userId: number;
+  id: number;
+  userOneID: number;
+  userOneIpAddress: string;
+  userOneItemID: number;
+  userTwoID: number;
+  userTwoIpAddress: string;
+  userTwoItemID: number;
   timestamp: number;
-  command: string;
-  params: string;
-  result: AdminUserTradeLogResult;
-  user: UserWire;
+  userOne: UserWire;
+  userTwo: UserWire;
 }
 
 export type AdminUserTradeLogResponse = AdminUserTradeLogWire[];
