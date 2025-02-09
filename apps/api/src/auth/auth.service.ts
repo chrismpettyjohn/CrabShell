@@ -48,7 +48,7 @@ export class AuthService {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
 
-    res.cookie('sessionId', String(session.id), { sameSite: 'strict' });
+    res.cookie('sessionId', String(session.id), { sameSite: 'lax' });
 
     return res.json(user)
   }
