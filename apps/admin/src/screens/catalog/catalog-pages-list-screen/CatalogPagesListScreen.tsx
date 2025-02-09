@@ -1,7 +1,6 @@
 import { A, useNavigate } from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
-import { LoggingLayout } from "../../logging/LoggingLayout";
 import {
   IntegratedTable,
   ITableColumn,
@@ -11,6 +10,7 @@ import {
   AdminCatalogPageWire,
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
+import { UserLayout } from "../../../components/user-layout/UserLayout";
 
 export function CatalogPagesListScreen() {
   const navigate = useNavigate();
@@ -37,7 +37,10 @@ export function CatalogPagesListScreen() {
       header: "Catalog Page",
       selector: (row) => row.publicName,
       customRender: (publicName: string, row: AdminCatalogPageWire) => (
-        <A href={`/catalog/${row.id}`} onClick={(e) => e.stopPropagation()}>
+        <A
+          href={`/catalog/pages/${row.id}`}
+          onClick={(e) => e.stopPropagation()}
+        >
           {publicName}
         </A>
       ),
@@ -48,7 +51,7 @@ export function CatalogPagesListScreen() {
   ];
 
   return (
-    <LoggingLayout>
+    <UserLayout>
       <SiteTitle>Catalog Pages</SiteTitle>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; width: 100%;">
         <h2>Catalog Pages</h2>
@@ -66,10 +69,10 @@ export function CatalogPagesListScreen() {
           rowHeight={40}
           loadMoreRows={fetchData}
           getRowId={(row) => `${row.id}`}
-          onRowClick={(row) => navigate(`/catalog/${row.id}`)}
+          onRowClick={(row) => navigate(`/catalog/pages/${row.id}`)}
         />
       </div>
-    </LoggingLayout>
+    </UserLayout>
   );
 }
 

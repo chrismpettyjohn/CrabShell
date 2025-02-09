@@ -1,9 +1,9 @@
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
-import { LoggingLayout } from "../../logging/LoggingLayout";
+import { UserLayout } from "../../../components/user-layout/UserLayout";
 
 export function CatalogItemsListScreen() {
   return (
-    <LoggingLayout>
+    <UserLayout>
       <SiteTitle>Catalog Items</SiteTitle>
       <h1>Catalog Items</h1>
       <table class="table table-striped">
@@ -26,7 +26,7 @@ export function CatalogItemsListScreen() {
           ))}
         </tbody>
       </table>
-    </LoggingLayout>
+    </UserLayout>
   );
 }
 
