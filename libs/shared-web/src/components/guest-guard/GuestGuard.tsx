@@ -1,6 +1,7 @@
 import { createEffect, JSX } from "solid-js";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "@solidjs/router";
+import { GUEST_REDIRECT_URL } from "../../const";
 
 export interface GuestGuardProps {
   children: JSX.Element;
@@ -12,7 +13,7 @@ export function GuestGuard({ children }: GuestGuardProps) {
 
   createEffect(() => {
     if (user()) {
-      navigate("/dashboard", { replace: true });
+      navigate(GUEST_REDIRECT_URL, { replace: true });
     }
   });
 
