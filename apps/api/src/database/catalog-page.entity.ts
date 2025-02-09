@@ -1,5 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+export enum CatalogVisibility {
+  Visible = '1',
+  Hidden = '0',
+}
+
 @Entity('catalog_pages')
 export class CatalogPageEntity {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int' })
@@ -34,17 +39,37 @@ export class CatalogPageEntity {
   @Column({ name: 'order_num', type: 'int', nullable: true })
   orderNum?: number;
 
-  @Column({ name: 'visible', type: 'enum', enum: ['0', '1'], nullable: true })
-  visible?: string;
+  @Column({
+    name: 'visible',
+    type: 'enum',
+    enum: CatalogVisibility,
+    nullable: true,
+  })
+  visible?: CatalogVisibility;
 
-  @Column({ name: 'enabled', type: 'enum', enum: ['0', '1'], nullable: true })
-  enabled?: string;
+  @Column({
+    name: 'enabled',
+    type: 'enum',
+    enum: CatalogVisibility,
+    nullable: true,
+  })
+  enabled?: CatalogVisibility;
 
-  @Column({ name: 'club_only', type: 'enum', enum: ['0', '1'], nullable: true })
-  clubOnly?: string;
+  @Column({
+    name: 'club_only',
+    type: 'enum',
+    enum: CatalogVisibility,
+    nullable: true,
+  })
+  clubOnly?: CatalogVisibility;
 
-  @Column({ name: 'vip_only', type: 'enum', enum: ['0', '1'], nullable: true })
-  vipOnly?: string;
+  @Column({
+    name: 'vip_only',
+    type: 'enum',
+    enum: CatalogVisibility,
+    nullable: true,
+  })
+  vipOnly?: CatalogVisibility;
 
   @Column({
     name: 'page_headline',

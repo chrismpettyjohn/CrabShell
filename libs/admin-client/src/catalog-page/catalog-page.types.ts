@@ -1,10 +1,55 @@
+export enum CatalogVisibility {
+  Visible = "1",
+  Hidden = "0",
+}
+
 export interface AdminCatalogPageWire {
   id: number;
-  publicName: string;
+  parentId?: number;
+  captionSave?: string;
+  publicName?: string;
+  pageLayout?: string;
+  iconColor?: number;
+  iconImage?: number;
+  minRank?: number;
+  orderNum?: number;
+  visible?: CatalogVisibility;
+  enabled?: CatalogVisibility;
+  clubOnly?: CatalogVisibility;
+  vipOnly?: CatalogVisibility;
+  pageHeadline?: string;
+  pageTeaser?: string;
+  pageSpecial?: string;
+  pageText1?: string;
+  pageText2?: string;
+  pageTextDetails?: string;
+  pageTextTeaser?: string;
+  roomId?: number;
+  includes?: string;
 }
 
 export interface AdminCatalogPageCreateParams {
+  parentId?: number;
+  captionSave?: string;
   publicName: string;
+  pageLayout?: string;
+  iconColor?: number;
+  iconImage?: number;
+  minRank?: number;
+  orderNum?: number;
+  visible?: CatalogVisibility;
+  enabled?: CatalogVisibility;
+  clubOnly?: CatalogVisibility;
+  vipOnly?: CatalogVisibility;
+  pageHeadline?: string;
+  pageTeaser?: string;
+  pageSpecial?: string;
+  pageText1?: string;
+  pageText2?: string;
+  pageTextDetails?: string;
+  pageTextTeaser?: string;
+  roomId?: number;
+  includes?: string;
 }
 
 export type AdminCatalogPageCreateResponse = AdminCatalogPageWire;
