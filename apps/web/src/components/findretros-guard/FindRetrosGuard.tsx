@@ -34,10 +34,7 @@ export function FindRetrosGuard({ children }: FindRetrosGuardProps) {
   }
 
   return (
-    <Show
-      when={!vote()?.success}
-      fallback={<i class="fa fa-spinner fa-spin" />}
-    >
+    <Show when={vote()?.success} fallback={<i class="fa fa-spinner fa-spin" />}>
       {children}
     </Show>
   );
