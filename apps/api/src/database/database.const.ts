@@ -40,6 +40,8 @@ import { CatalogItemEntity } from './catalog-item.entity';
 import { CatalogItemRepository } from './catalog-item.repository';
 import { BanEntity } from './ban.entity';
 import { BanRepository } from './ban.repository';
+import { PhotoEntity } from './photo.entity';
+import { PhotoRepository } from './photo.repository';
 
 export const databaseEntities = [
   ArticleEntity,
@@ -63,6 +65,7 @@ export const databaseEntities = [
   CatalogPageEntity,
   CatalogItemEntity,
   BanEntity,
+  PhotoEntity,
 ];
 
 export const databaseRepositories = [
@@ -87,4 +90,5 @@ export const databaseRepositories = [
   CatalogPageRepository,
   CatalogItemRepository,
   BanRepository,
+  PhotoRepository,
 ];

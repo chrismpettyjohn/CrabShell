@@ -22,10 +22,16 @@ const JWT_EXPIRATION = '1h';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userRepo: UserRepository, private readonly sessionRepo: SessionRepository) {}
+  constructor(
+    private readonly userRepo: UserRepository,
+    private readonly sessionRepo: SessionRepository,
+  ) {}
 
   async validateUser(username: string, password: string): Promise<UserEntity> {
-    const user = await this.userRepo.findOne({ where: { username }, relations: ['rank']});
+    const user = await this.userRepo.findOne({
+      where: { username },
+      relations: ['rank'],
+    });
 
     if (!user || !user.password) {
       throw new Error('Invalid credentials');
@@ -40,7 +46,7 @@ export class AuthService {
     return user;
   }
 
-   async generateSSO(userId: number): Promise<string> {
+  async generateSSO(userId: number): Promise<string> {
     const gameSSO: string = 'crabshell_' + generate(30) + '_' + userId;
     await this.userRepo.update({ id: userId }, { gameSSO });
     return gameSSO;
@@ -49,17 +55,22 @@ export class AuthService {
   async login(loginDto: AuthLoginDTO, res: Response): Promise<Response> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
-    const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
+    const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, {
+      expiresIn: JWT_EXPIRATION,
+    });
     res.cookie(JWT_COOKIE, `Bearer ${token}`, {
       httpOnly: true,
       sameSite: 'lax',
-      path: '/'
+      path: '/',
     });
 
-    return res.json({ user, token });
+    return res.json(user);
   }
 
-  async register(registerDto: AuthRegisterDTO, res: Response): Promise<Response> {
+  async register(
+    registerDto: AuthRegisterDTO,
+    res: Response,
+  ): Promise<Response> {
     const existingUser = await this.userRepo.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
     });
@@ -94,10 +105,13 @@ export class AuthService {
       machineAddress: generate(10),
     });
 
-    return this.login({ username: user.username, password: registerDto.password }, res);
+    return this.login(
+      { username: user.username, password: registerDto.password },
+      res,
+    );
   }
 
-  logout(res: Response): Response{
+  logout(res: Response): Response {
     res.clearCookie('sessionId');
     return res.json({ message: 'Logged out successfully' });
   }

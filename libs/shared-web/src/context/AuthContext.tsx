@@ -1,4 +1,4 @@
-import { authService, AdminUserWire } from "@crabshell/admin-client";
+import { authService, UserWire } from "@crabshell/public-client";
 import {
   createContext,
   useContext,
@@ -10,15 +10,15 @@ import {
 } from "solid-js";
 
 interface AuthContextValue {
-  user: () => AdminUserWire | null;
-  setUser: (user: AdminUserWire | null) => void;
+  user: () => UserWire | null;
+  setUser: (user: UserWire | null) => void;
 }
 
 const AuthContext = createContext<AuthContextValue>();
 
 export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
   const [loading, setLoading] = createSignal(true);
-  const [user, setUser] = createSignal<AdminUserWire | null>(null);
+  const [user, setUser] = createSignal<UserWire | null>(null);
 
   onMount(async () => {
     try {
