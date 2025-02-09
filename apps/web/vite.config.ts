@@ -29,6 +29,9 @@ export default defineConfig(({ mode }) => {
       "process.env.FINDRETROS_GUARD_ENABLED": JSON.stringify(
         env.VITE_FINDRETROS_GUARD_ENABLED || ""
       ),
+      "process.env.DISCORD_INVITE_URL": JSON.stringify(
+        env.VITE_DISCORD_INVITE_URL || ""
+      ),
     },
     plugins: [solidPlugin()],
     server: {

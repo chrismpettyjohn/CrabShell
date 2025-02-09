@@ -14,7 +14,7 @@ export function EventCalendar() {
   };
 
   return (
-    <div class="calendar-container">
+    <div class="calendar-container" style="height:100%;">
       <Calendar
         date={currentDate()}
         selectedDate={selectedDate()}

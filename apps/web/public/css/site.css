@@ -117,7 +117,7 @@ header .actions {
     padding-right: 24px;
 }
 
-header .enter-hotel-btn {
+.enter-hotel-btn {
     cursor: pointer;
     background: #ffc500;
     color: black;
@@ -1318,4 +1318,109 @@ button:hover {
   border-color: white;
 }
 
+.user-container {
+  border-radius: 0.5rem;
+  border: 2px solid #333;
+  background-color: var(--bg-three);
+  flex: 1;
+}
 
+.user-container__user-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-size: cover;
+  background-position: center;
+  height: 8.7rem;
+  image-rendering: pixelated;
+  background-image: url('/img/rave.gif');
+}
+
+.user-container__enter-hotel-link {
+  position: relative;
+  display: block;
+  margin-right: 1.5rem;
+}
+
+.user-container__enter-hotel-link img {
+  display: block;
+  transition: all 0.3s;
+  image-rendering: pixelated;
+  opacity: 0.85;
+}
+
+.user-container__enter-hotel-link img:hover {
+  opacity: 1;
+}
+.user-container__enter-hotel-link img:nth-child(2) {
+  display: none;
+}
+
+.user-container__user-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background-color: var(--bg-four);
+}
+
+.user-container__profile-link {
+  position: relative;
+  flex-shrink: 0;
+  display: block;
+}
+
+.user-container__profile-image {
+  image-rendering: pixelated;
+  position: absolute;
+  bottom: 1.75rem;
+  left: 0.75rem;
+}
+
+.user-container__stand-image {
+  margin-top: -1.5rem;
+  image-rendering: pixelated;
+}
+
+.user-container__motto-container {
+  border-radius: 0.5rem;
+  border: 2px solid #333;
+  background-color: #1a1a1a;
+}
+
+.user-container__motto-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.user-container__motto-content img {
+  image-rendering: pixelated;
+}
+
+.user-container__motto-input {
+  flex: 1;
+  max-width: none;
+  min-width: none;
+  padding: 0;
+  font-size: 0.875rem;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-container__username {
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  background-color: var(--bg-four);
+  border-radius: 0.5rem;
+}
