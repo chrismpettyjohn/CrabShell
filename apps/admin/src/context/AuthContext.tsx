@@ -1,5 +1,6 @@
 import { adminRankService, AdminRankWire } from "@crabshell/admin-client";
 import { authService, AdminUserWire } from "@crabshell/admin-client";
+import { ranksService } from "@crabshell/public-client";
 import {
   createContext,
   useContext,
@@ -27,7 +28,7 @@ export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
   onMount(async () => {
     try {
       const currUser = await authService.viewAuthenticatedUser();
-      const currRank = await adminRankService.getById(currUser.rankID);
+      const currRank = await ranksService.getById(currUser.rankID);
       setUser(currUser);
       setRank(currRank);
     } finally {
