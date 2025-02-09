@@ -30,12 +30,14 @@ export function UsersListScreen() {
       key: "look",
       header: "Avatar",
       selector: (row) => row.look,
-      customRender: (look) => (
-        <img
-          class="avatar"
-          src={`${IMAGER_BASE_URL}?figure=${look}&headonly=1`}
-          style="object-fit: contain; height: 65px"
-        />
+      customRender: (look: string, row: AdminUserWire) => (
+        <A href={`/users/${row.username}`} onClick={(e) => e.stopPropagation()}>
+          <img
+            class="avatar"
+            src={`${IMAGER_BASE_URL}?figure=${look}&headonly=1`}
+            style="object-fit: contain; height: 65px"
+          />
+        </A>
       ),
       width: 80,
     },
@@ -43,6 +45,11 @@ export function UsersListScreen() {
       key: "username",
       header: "Username",
       selector: (row) => row.username,
+      customRender: (username: string) => (
+        <A href={`/users/${username}`} onClick={(e) => e.stopPropagation()}>
+          {username}
+        </A>
+      ),
       filterable: true,
       sortable: true,
     },

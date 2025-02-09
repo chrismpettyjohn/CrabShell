@@ -1,7 +1,8 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 import { UserEntity } from '../database/user.entity';
 import {
   AdminUserUpdateByIdParams,
+  AdminUserUpdateByUsernameParams,
   AdminUserWire,
 } from '@crabshell/admin-client';
 import { UserDTO } from './user.dto';
@@ -19,7 +20,16 @@ export class AdminUserDTO extends UserDTO implements AdminUserWire {
   }
 }
 
-export class UpdateUserDTO implements AdminUserUpdateByIdParams {
+export class UpdateUserByIdDTO implements AdminUserUpdateByIdParams {
+  @IsOptional()
+  @IsString()
+  username?: string;
+
+  @IsOptional()
+  @IsString()
+  look?: string;
+}
+export class UpdateUserByUsernameDTO implements AdminUserUpdateByUsernameParams {
   @IsOptional()
   @IsString()
   username?: string;

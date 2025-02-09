@@ -47,6 +47,11 @@ export function ArticleListScreen() {
       key: "id",
       header: "#",
       selector: (row) => row.id,
+      customRender: (id: string) => (
+        <A href={`/articles/${id}`} onClick={(e) => e.stopPropagation()}>
+          {id}
+        </A>
+      ),
       width: 50,
     },
     {
@@ -55,12 +60,14 @@ export function ArticleListScreen() {
       editable: true,
       filterable: true,
       selector: (row) => row.imageUrl,
-      customRender: (imageUrl) => (
-        <img
-          src={imageUrl}
-          class="img-fluid"
-          style="object-fit: contain; height: 100px"
-        />
+      customRender: (imageUrl: string, row: AdminArticleWire) => (
+        <A href={`/articles/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          <img
+            src={imageUrl}
+            class="img-fluid"
+            style="object-fit: contain; height: 100px"
+          />
+        </A>
       ),
       width: 120,
     },
@@ -68,6 +75,11 @@ export function ArticleListScreen() {
       key: "name",
       header: "Title",
       selector: (row) => row.name,
+      customRender: (name: string, row: AdminArticleWire) => (
+        <A href={`/articles/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          {name}
+        </A>
+      ),
       filterable: true,
       sortable: true,
       editable: true,

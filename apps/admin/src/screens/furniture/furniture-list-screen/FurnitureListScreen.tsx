@@ -36,6 +36,11 @@ export function FurnitureListScreen() {
       key: "publicName",
       header: "Public Name",
       selector: (row) => row.publicName,
+      customRender: (publicName: string, row: AdminItemsBaseWire) => (
+        <A href={`/furniture/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          {publicName}
+        </A>
+      ),
       width: 225,
       sortable: true,
       filterable: true,
@@ -44,6 +49,11 @@ export function FurnitureListScreen() {
       key: "itemName",
       header: "Item Name",
       selector: (row) => row.itemName,
+      customRender: (itemName: string, row: AdminItemsBaseWire) => (
+        <A href={`/furniture/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          {itemName}
+        </A>
+      ),
       width: 225,
       sortable: true,
       filterable: true,
@@ -160,7 +170,7 @@ export function FurnitureListScreen() {
           rows={items}
           rowHeight={40}
           loadMoreRows={fetchData}
-          getRowId={(row) => row.id}
+          getRowId={(row) => `${row.id}`}
           onRowClick={(row) => navigate(`/furniture/${row.id}`)}
         />
       </div>

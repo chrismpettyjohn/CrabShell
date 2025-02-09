@@ -11,13 +11,13 @@ import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UsersLayout } from "../UsersLayout";
 
 export function UsersEditScreen() {
-  const { userId } = useParams();
+  const { username } = useParams();
   const [loading, setLoading] = createSignal(false);
   const [user, setUser] = createSignal<AdminUserWire>();
 
   onMount(async () => {
     try {
-      const response = await adminUserService.getById(Number(userId));
+      const response = await adminUserService.getByUsername(username);
       setUser({ ...response });
     } catch (error) {
       toast.error("Failed to fetch user");
@@ -28,7 +28,7 @@ export function UsersEditScreen() {
   async function onEdit(dto: AdminUserUpdateByIdParams) {
     try {
       setLoading(true);
-      await adminUserService.updateById(Number(userId), dto);
+      await adminUserService.updateByUsername(username, dto);
       toast.success("User successfully updated");
     } catch (error) {
       toast.error("Failed to update user");
@@ -39,7 +39,7 @@ export function UsersEditScreen() {
   }
 
   return (
-    <UsersLayout userId={Number(userId)}>
+    <UsersLayout username={username}>
       <SiteTitle>Edit User</SiteTitle>
       <h1>Edit User</h1>
       <div class="card">

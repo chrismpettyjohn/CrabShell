@@ -31,11 +31,13 @@ export function BadgesListScreen() {
       header: "Badge",
       selector: (row) => row.code,
       customRender: (code) => (
-        <img
-          src={`${BADGE_BASE_URL}/${code}${BADGE_EXT}`}
-          alt="Badge"
-          style="object-fit: contain; height: 50px;"
-        />
+        <A href={`/badges/${code}`} onClick={(e) => e.stopPropagation()}>
+          <img
+            src={`${BADGE_BASE_URL}/${code}${BADGE_EXT}`}
+            alt="Badge"
+            style="object-fit: contain; height: 50px;"
+          />
+        </A>
       ),
       width: 100,
     },
@@ -43,6 +45,11 @@ export function BadgesListScreen() {
       key: "code",
       header: "Code",
       selector: (row) => row.code,
+      customRender: (code: string, row: AdminBadgeWire) => (
+        <A href={`/badges/${row.code}`} onClick={(e) => e.stopPropagation()}>
+          {code}
+        </A>
+      ),
       filterable: true,
       sortable: true,
     },

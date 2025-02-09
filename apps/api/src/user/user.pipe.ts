@@ -6,11 +6,12 @@ import { UserEntity } from '../database/user.entity';
 export class UserPipe implements PipeTransform {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async transform(userID: number): Promise<UserEntity> {
+  async transform(identifier: number | string): Promise<UserEntity> {
     const user = await this.userRepo.findOne({
-      where: {
-        id: userID,
-      },
+      where:
+        typeof identifier === 'number'
+          ? { id: identifier }
+          : { username: identifier },
     });
 
     if (!user) {

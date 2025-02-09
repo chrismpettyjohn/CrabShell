@@ -2,9 +2,9 @@ import { useParams } from "@solidjs/router";
 import { UsersLayout } from "../UsersLayout";
 
 export function UsersBansScreen() {
-  const { userId } = useParams();
+  const { username } = useParams();
   return (
-    <UsersLayout userId={Number(userId)}>
+    <UsersLayout username={username}>
       <p>bans</p>
     </UsersLayout>
   );

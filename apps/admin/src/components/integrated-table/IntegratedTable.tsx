@@ -110,7 +110,8 @@ export function IntegratedTable<T>({
   let startX = 0;
   let initialScrollLeft = 0;
   const mouseDownHandler = (e: MouseEvent) => {
-    if ((e.target as HTMLElement).tagName === "TH") return; // Ignore clicks on headers
+    if ((e.target as HTMLElement).closest("a")) return;
+    if ((e.target as HTMLElement).tagName === "TH") return;
     e.preventDefault();
     setDragging(true);
     startX = e.pageX;
@@ -217,7 +218,10 @@ export function IntegratedTable<T>({
               {(row) => {
                 const rowId = getRowId(row);
                 return (
-                  <tr style={`height: ${rowHeight}px; cursor: pointer;`}>
+                  <tr
+                    style={`height: ${rowHeight}px; cursor: pointer;`}
+                    onClick={() => onRowClick && onRowClick(row)}
+                  >
                     <For each={columns}>
                       {(col) => {
                         const columnKey = col.key as string;
@@ -228,8 +232,10 @@ export function IntegratedTable<T>({
                           <td
                             style="padding: 12px; border-bottom: 1px solid #dee2e6; white-space: nowrap;"
                             onClick={(e) => {
-                              e.stopPropagation();
-                              if (col.editable) startEditing(rowId, columnKey);
+                              if (col.editable) {
+                                e.stopPropagation();
+                                startEditing(rowId, columnKey);
+                              }
                             }}
                           >
                             <Show

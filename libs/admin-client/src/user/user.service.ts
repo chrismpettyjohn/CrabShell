@@ -10,6 +10,9 @@ import {
   AdminUserGetByIdResponse,
   AdminUserUpdateByIdParams,
   AdminUserUpdateByIdResponse,
+  AdminUserGetByUsernameResponse,
+  AdminUserUpdateByUsernameParams,
+  AdminUserUpdateByUsernameResponse,
 } from "./user.types";
 
 export class AdminUserService {
@@ -21,11 +24,24 @@ export class AdminUserService {
     return fetchFromApi(`users/${userId}`);
   }
 
+  public getByUsername(
+    username: string
+  ): Promise<AdminUserGetByUsernameResponse> {
+    return fetchFromApi(`users/${username}`);
+  }
+
   public updateById(
     userId: number,
     dto: AdminUserUpdateByIdParams
   ): Promise<AdminUserUpdateByIdResponse> {
     return patchToApi(`users/${userId}`, dto);
+  }
+
+  public updateByUsername(
+    username: string,
+    dto: AdminUserUpdateByUsernameParams
+  ): Promise<AdminUserUpdateByUsernameResponse> {
+    return patchToApi(`users/${username}`, dto);
   }
 
   public deleteById(userId: number): Promise<AdminUserDeleteByIdResponse> {

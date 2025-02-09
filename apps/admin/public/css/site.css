@@ -622,7 +622,16 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: #f1f3f5;
+  background: var(--bg-two);
+}
+
+tbody a {
+    color: var(--bg-brand);
+    text-decoration: none;
+}
+tbody a:hover {
+    color: var(--color-brand);
+    text-decoration: underline;
 }
 
 

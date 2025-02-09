@@ -49,6 +49,11 @@ export function RanksListScreen() {
       header: "ID",
       filterable: true,
       sortable: true,
+      customRender: (name: string, row: AdminRankWire) => (
+        <A href={`/ranks/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          {name}
+        </A>
+      ),
       selector: (row) => row.id,
       width: 60,
     },
@@ -68,11 +73,13 @@ export function RanksListScreen() {
           <input type="text" value={row.badgeCode} />
         </>
       ),
-      customRender: (badgeCode) => (
-        <img
-          src={`${BADGE_BASE_URL}/${badgeCode}${BADGE_EXT}`}
-          style="object-fit: contain; height: 45px;"
-        />
+      customRender: (badgeCode: string, row: AdminRankWire) => (
+        <A href={`/ranks/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          <img
+            src={`${BADGE_BASE_URL}/${badgeCode}${BADGE_EXT}`}
+            style="object-fit: contain; height: 45px;"
+          />
+        </A>
       ),
       width: 80,
     },
@@ -80,6 +87,11 @@ export function RanksListScreen() {
       key: "name",
       header: "Name",
       selector: (row) => row.name,
+      customRender: (name: string, row: AdminRankWire) => (
+        <A href={`/ranks/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          {name}
+        </A>
+      ),
       filterable: true,
       sortable: true,
       editable: true,

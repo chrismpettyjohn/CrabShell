@@ -104,12 +104,15 @@ export const Router: Component = () => {
       <Route path="/articles/create" component={ArticlesCreateScreen} />
       <Route path="/articles/:articleId" component={ArticleEditScreen} />
       <Route path="/users" component={UserListScreen} />
-      <Route path="/users/:userId" component={UsersEditScreen} />
-      <Route path="/users/bans/:userId" component={UsersBansScreen} />
-      <Route path="/users/furniture/:userId" component={UsersFurnitureScreen} />
-      <Route path="/users/messages/:userId" component={UsersMessagesScreen} />
-      <Route path="/users/rooms/:userId" component={UsersRoomsScreen} />
-      <Route path="/users/sessions/:userId" component={UsersSessionsScreen} />
+      <Route path="/users/:username" component={UsersEditScreen} />
+      <Route path="/users/:username/bans" component={UsersBansScreen} />
+      <Route
+        path="/users/:username/furniture"
+        component={UsersFurnitureScreen}
+      />
+      <Route path="/users/:username/messages" component={UsersMessagesScreen} />
+      <Route path="/users/:username/rooms" component={UsersRoomsScreen} />
+      <Route path="/users/:username/sessions" component={UsersSessionsScreen} />
       <Route path="/ranks" component={RanksListScreen} />
       <Route path="/ranks/create" component={RanksCreateScreen} />
       <Route path="/ranks/:rankId" component={RanksEditScreen} />

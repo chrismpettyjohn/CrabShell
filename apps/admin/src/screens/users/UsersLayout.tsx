@@ -3,35 +3,35 @@ import { UserLayout } from "../../components/user-layout/UserLayout";
 import { Link, LinkBar } from "../../components/links-bar/LinksBar";
 
 export interface UsersLayoutProps {
-  userId: number;
+  username: string;
   children: JSX.Element;
 }
 
-export function UsersLayout({ children, userId }: UsersLayoutProps) {
+export function UsersLayout({ children, username }: UsersLayoutProps) {
   const USER_LINKS: Link[] = [
     {
       label: "Information",
-      href: `/users/${userId}`,
+      href: `/users/${username}`,
     },
     {
       label: "Bans",
-      href: `/users/bans/${userId}`,
+      href: `/users/${username}/bans`,
     },
     {
       label: "Sessions",
-      href: `/users/sessions/${userId}`,
+      href: `/users/${username}/sessions`,
     },
     {
       label: "Rooms",
-      href: `/users/rooms/${userId}`,
+      href: `/users/${username}/rooms`,
     },
     {
       label: "Furniture",
-      href: `/users/furniture/${userId}`,
+      href: `/users/${username}/furniture`,
     },
     {
       label: "Messages",
-      href: `/users/messages/${userId}`,
+      href: `/users/${username}/messages`,
     },
   ];
   return (
