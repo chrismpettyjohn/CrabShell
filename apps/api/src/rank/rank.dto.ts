@@ -38,6 +38,9 @@ export class RankScopesDTO {
   @IsBoolean()
   manageUsers!: boolean;
 
+  @IsBoolean()
+  manageBans!: boolean;
+
   static fromEntity(entity: RankEntity) {
     const dto = new RankScopesDTO();
     dto.accessAdminPanel = entity.accessAdminPanel === '1';
@@ -49,6 +52,7 @@ export class RankScopesDTO {
     dto.manageRanks = entity.manageRanks === '1';
     dto.manageLogs = entity.manageLogs === '1';
     dto.manageUsers = entity.manageUsers === '1';
+    dto.manageBans = entity.manageBans === '1';
     return dto;
   }
 }

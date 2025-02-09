@@ -13,6 +13,7 @@ export enum RankScope {
   MANAGE_ARTICLES = "manageArticles",
   MANAGE_BADGES = "manageBadges",
   MANAGE_USERS = "manageUsers",
+  MANAGE_BANS = "manageBans",
   MANAGE_RANKS = "manageRanks",
   MANAGE_EMU = "manageEmu",
   MANAGE_FURNITURE = "manageFurniture",

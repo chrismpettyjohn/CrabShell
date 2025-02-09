@@ -15,6 +15,7 @@ import { ItemsBaseModule } from './items-base/items-base.module';
 import { BadgeModule } from './badge/badge.module';
 import { CatalogItemModule } from './catalog-item/catalog-item.module';
 import { CatalogPageModule } from './catalog-page/catalog-page.module';
+import { BanModule } from './ban/ban.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CatalogPageModule } from './catalog-page/catalog-page.module';
       entities: databaseEntities,
       synchronize: false,
     }),
+    BanModule,
     ArticleModule,
     AuthModule,
     BadgeModule,

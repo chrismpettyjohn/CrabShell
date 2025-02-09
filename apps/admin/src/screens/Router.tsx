@@ -110,6 +110,15 @@ const CatalogPagesEditScreen = lazy(
 const CatalogPagesListScreen = lazy(
   () => import("./catalog/catalog-pages-list-screen/CatalogPagesListScreen")
 );
+const BansListScreen = lazy(
+  () => import("./bans/bans-list-screen/BansListScreen")
+);
+const BansCreateScreen = lazy(
+  () => import("./bans/bans-create-screen/BansCreateScreen")
+);
+const BansEditScreen = lazy(
+  () => import("./bans/bans-edit-screen/BansEditScreen")
+);
 export const Router: Component = () => {
   return (
     <BaseRouter>
@@ -161,6 +170,9 @@ export const Router: Component = () => {
         component={CatalogItemsCreateScreen}
       />
       <Route path="/catalog/items/:itemId" component={CatalogItemsEditScreen} />
+      <Route path="/bans" component={BansListScreen} />
+      <Route path="/bans/:banId" component={BansCreateScreen} />
+      <Route path="/bans/:banId" component={BansEditScreen} />
     </BaseRouter>
   );
 };

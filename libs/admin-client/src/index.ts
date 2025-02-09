@@ -10,6 +10,10 @@ export * from "./auth/auth.types";
 export * from "./badge/badge.service";
 export * from "./badge/badge.types";
 
+// Ban
+export * from "./ban/ban.service";
+export * from "./ban/ban.types";
+
 // Catalog Item
 export * from "./catalog-item/catalog-item.service";
 export * from "./catalog-item/catalog-item.types";

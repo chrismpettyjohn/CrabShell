@@ -18,6 +18,12 @@ const SIDEBAR_LINKS = [
     scope: RankScope.ADMIN_PANEL,
   },
   {
+    path: "/bans",
+    icon: "fa-ban",
+    label: "Bans",
+    scope: RankScope.MANAGE_BANS,
+  },
+  {
     path: "/users",
     icon: "fa-users",
     label: "Users",
