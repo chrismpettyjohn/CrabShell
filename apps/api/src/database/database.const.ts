@@ -24,13 +24,27 @@ import { ItemBaseEntity } from './items-base.entity';
 import { ItemBaseRepository } from './items-base.repository';
 import { UserCommandLogEntity } from './user-command-log.entity';
 import { UserCommandLogRepository } from './user-command-log.repository';
+import { UserNameChangeLogEntity } from './user-name-change-log.entity';
+import { UserNameChangeLogRepository } from './user-name-change-log.repository';
+import { UserTradeLogEntity } from './user-trade-log.entity';
+import { UserTradeLogRepository } from './user-trade-log.repository';
+import { UserRoomEnterLogEntity } from './user-room-enter-log.entity';
+import { UserRoomEnterLogRepository } from './user-room-enter-log.repository';
+import { UserPublicMessageLogEntity } from './user-public-message-log.entity';
+import { UserPublicMessageLogRepository } from './user-public-message-log.repository';
+import { UserPrivateMessageLogEntity } from './user-private-message-log.entity';
 
 export const databaseEntities = [
   ArticleEntity,
   RankEntity,
   SessionEntity,
   UserEntity,
+  UserTradeLogEntity,
   UserCommandLogEntity,
+  UserRoomEnterLogEntity,
+  UserNameChangeLogEntity,
+  UserPublicMessageLogEntity,
+  UserPrivateMessageLogEntity,
   GroupEntity,
   GroupMembershipEntity,
   UserBadgeEntity,
@@ -45,7 +59,12 @@ export const databaseRepositories = [
   RankRepository,
   SessionRepository,
   UserRepository,
+  UserTradeLogRepository,
   UserCommandLogRepository,
+  UserRoomEnterLogRepository,
+  UserNameChangeLogRepository,
+  UserPublicMessageLogRepository,
+  UserPrivateMessageLogEntity,
   ArticleRepository,
   GroupRepository,
   GroupMembershipRepository,

@@ -1,7 +1,7 @@
 import { fetchFromApi } from "../client.const";
 import { AdminUserCommandLogResponse } from "./user-command-log.types";
 
-export class UserCommandLogService {
+export class AdminUserCommandLogService {
   public getAll(): Promise<AdminUserCommandLogResponse> {
     return fetchFromApi("users/command-logs");
   }
@@ -15,5 +15,5 @@ export class UserCommandLogService {
   }
 }
 
-export const adminUserChatlogService: UserCommandLogService =
-  new UserCommandLogService();
+export const adminUserChatlogService: AdminUserCommandLogService =
+  new AdminUserCommandLogService();

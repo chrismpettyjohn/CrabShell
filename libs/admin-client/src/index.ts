@@ -29,6 +29,15 @@ export * from "./rank/rank.types";
 // User
 export * from "./user/user-command-log.service";
 export * from "./user/user-command-log.types";
-
+export * from "./user/user-name-change-log.service";
+export * from "./user/user-name-change-log.types";
+export * from "./user/user-private-message-log.service";
+export * from "./user/user-private-message-log.types";
+export * from "./user/user-public-message-log.service";
+export * from "./user/user-public-message-log.types";
+export * from "./user/user-room-enter-log.service";
+export * from "./user/user-room-enter-log.types";
+export * from "./user/user-trade-log.service";
+export * from "./user/user-trade-log.types";
 export * from "./user/user.service";
 export * from "./user/user.types";
