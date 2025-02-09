@@ -47,12 +47,12 @@ export function BansListScreen() {
       ),
       sortable: true,
     },
-    // {
-    //   key: "ip",
-    //   header: "IP Address",
-    //   selector: (row) => row.ip,
-    //   sortable: true,
-    // },
+    {
+      key: "ip",
+      header: "IP Address",
+      selector: (row) => row.ip,
+      sortable: true,
+    },
     {
       key: "machineId",
       header: "Machine ID",

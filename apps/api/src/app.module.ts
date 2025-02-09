@@ -16,6 +16,7 @@ import { BadgeModule } from './badge/badge.module';
 import { CatalogItemModule } from './catalog-item/catalog-item.module';
 import { CatalogPageModule } from './catalog-page/catalog-page.module';
 import { BanModule } from './ban/ban.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -43,5 +44,6 @@ import { BanModule } from './ban/ban.module';
     CatalogItemModule,
     CatalogPageModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
