@@ -14,6 +14,8 @@ export class SessionGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const sessionId = request.cookies['sessionId'];
 
+    console.log({ sessionId });
+
     if (!sessionId) {
       return false;
     }
@@ -22,6 +24,7 @@ export class SessionGuard implements CanActivate {
       const { user, session } = await this.authService.validateSession(
         Number(sessionId),
       );
+      console.log(user, session);
       const rank = await this.rankRepo.findOneOrFail({ id: user.rankID });
       const authenticatedUser: AuthenticatedUser = {
         user,
