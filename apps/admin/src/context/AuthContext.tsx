@@ -28,18 +28,29 @@ export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
   onMount(async () => {
     try {
       const currUser = await authService.viewAuthenticatedUser();
-      const currRank = await ranksService.getById(currUser.rankID);
-      setUser(currUser);
-      setRank(currRank);
+      if (currUser) {
+        const currRank = await ranksService.getById(currUser.rankID);
+        setUser(currUser);
+        setRank(currRank);
+      }
     } finally {
       setLoading(false);
     }
   });
 
   createEffect(() => {
-    if (user() == null && rank() !== null) {
+    if (user() == null) {
       setRank(null);
+      return;
     }
+
+    (async () => {
+      const rankID = user()?.rankID;
+      if (rankID) {
+        const updatedRank = await ranksService.getById(rankID);
+        setRank(updatedRank);
+      }
+    })();
   });
 
   return (
