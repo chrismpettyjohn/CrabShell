@@ -22,7 +22,7 @@ export class UserPrivateMessageLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'sentToUser'],
       });
     return privateMessageLogs.map(AdminUserPrivateMessageLogDTO.fromEntity);
   }
@@ -40,7 +40,7 @@ export class UserPrivateMessageLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'sentToUser'],
       });
     return privateMessageLogs.map(AdminUserPrivateMessageLogDTO.fromEntity);
   }

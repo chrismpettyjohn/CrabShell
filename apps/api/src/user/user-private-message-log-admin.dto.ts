@@ -25,6 +25,9 @@ export class AdminUserPrivateMessageLogDTO
   @Type(() => UserDTO)
   user: UserDTO;
 
+  @Type(() => UserDTO)
+  sentToUser: UserDTO;
+
   static fromEntity(
     entity: UserPrivateMessageLogEntity,
   ): AdminUserPrivateMessageLogDTO {
@@ -35,6 +38,7 @@ export class AdminUserPrivateMessageLogDTO
     dto.message = entity.message;
     dto.timestamp = entity.timestamp;
     dto.user = UserDTO.fromEntity(entity.user);
+    dto.sentToUser = UserDTO.fromEntity(entity.sentToUser);
     return dto;
   }
 }

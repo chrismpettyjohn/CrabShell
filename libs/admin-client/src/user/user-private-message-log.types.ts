@@ -7,6 +7,7 @@ export interface AdminUserPrivateMessageLogWire {
   message: string;
   timestamp: number;
   user: UserWire;
+  sentToUser: UserWire;
 }
 
 export type AdminUserPrivateMessageLogResponse =
