@@ -27,5 +27,8 @@ export * from "./rank/rank.service";
 export * from "./rank/rank.types";
 
 // User
+export * from "./user/user-command-log.service";
+export * from "./user/user-command-log.types";
+
 export * from "./user/user.service";
 export * from "./user/user.types";

@@ -3,6 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import {
@@ -14,6 +15,7 @@ import {
   USER_DEFAULT_POINTS,
 } from '../app.const';
 import { RankEntity } from './rank.entity';
+import { UserCommandLogEntity } from './user-command-log.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -77,4 +79,7 @@ export class UserEntity {
   @ManyToOne(() => RankEntity, (rank) => rank.members)
   @JoinColumn({ name: 'rank' })
   rank?: RankEntity;
+
+  @OneToMany(() => UserCommandLogEntity, (commandLog) => commandLog.user)
+  commandLogs?: UserCommandLogEntity[];
 }

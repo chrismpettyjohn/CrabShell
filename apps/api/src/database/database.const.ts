@@ -22,11 +22,15 @@ import { EmuTextsRepository } from './emu-texts.repository';
 import { EmuSettingsEntity } from './emu-settings.entity';
 import { ItemBaseEntity } from './items-base.entity';
 import { ItemBaseRepository } from './items-base.repository';
+import { UserCommandLogEntity } from './user-command-log.entity';
+import { UserCommandLogRepository } from './user-command-log.repository';
+
 export const databaseEntities = [
   ArticleEntity,
   RankEntity,
   SessionEntity,
   UserEntity,
+  UserCommandLogEntity,
   GroupEntity,
   GroupMembershipEntity,
   UserBadgeEntity,
@@ -41,6 +45,7 @@ export const databaseRepositories = [
   RankRepository,
   SessionRepository,
   UserRepository,
+  UserCommandLogRepository,
   ArticleRepository,
   GroupRepository,
   GroupMembershipRepository,
