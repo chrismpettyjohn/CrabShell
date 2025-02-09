@@ -1,6 +1,14 @@
 import { UserWire } from '@crabshell/public-client';
-import { IsBoolean, IsInt, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNumber,
+  IsObject,
+  IsString,
+} from 'class-validator';
 import { UserEntity } from '../database/user.entity';
+import { RankDTO } from '../rank/rank.dto';
+import { Type } from 'class-transformer';
 
 export class UserDTO implements UserWire {
   @IsInt()
@@ -30,6 +38,10 @@ export class UserDTO implements UserWire {
   @IsNumber()
   points: number;
 
+  @IsObject()
+  @Type(() => RankDTO)
+  rank: RankDTO;
+
   static fromEntity(entity: UserEntity): UserDTO {
     const dto = new UserDTO();
     dto.id = entity.id;
@@ -41,6 +53,7 @@ export class UserDTO implements UserWire {
     dto.credits = entity.credits;
     dto.pixels = entity.activityPoints;
     dto.points = entity.vipPoints;
+    dto.rank = RankDTO.fromEntity(entity.rank);
     return dto;
   }
 }

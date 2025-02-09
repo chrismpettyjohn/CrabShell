@@ -25,7 +25,7 @@ export class AuthService {
   constructor(private readonly userRepo: UserRepository, private readonly sessionRepo: SessionRepository) {}
 
   async validateUser(username: string, password: string): Promise<UserEntity> {
-    const user = await this.userRepo.findOne({ where: { username } });
+    const user = await this.userRepo.findOne({ where: { username }, relations: ['rank']});
 
     if (!user || !user.password) {
       throw new Error('Invalid credentials');
@@ -49,7 +49,6 @@ export class AuthService {
   async login(loginDto: AuthLoginDTO, res: Response): Promise<Response> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
-    console.log(session)
     const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, { expiresIn: JWT_EXPIRATION });
     res.cookie(JWT_COOKIE, `Bearer ${token}`, {
       httpOnly: true,

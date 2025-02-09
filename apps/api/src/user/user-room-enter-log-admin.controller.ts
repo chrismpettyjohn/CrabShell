@@ -20,7 +20,7 @@ export class UserRoomEnterLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return roomEnterLogs.map(AdminUserRoomEnterLogDTO.fromEntity);
   }
@@ -38,7 +38,7 @@ export class UserRoomEnterLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return roomEnterLogs.map(AdminUserRoomEnterLogDTO.fromEntity);
   }

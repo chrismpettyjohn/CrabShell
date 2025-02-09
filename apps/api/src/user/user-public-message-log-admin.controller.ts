@@ -22,7 +22,7 @@ export class UserPublicMessageLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return publicMessageLogs.map(AdminUserPublicMessageLogDTO.fromEntity);
   }
@@ -40,7 +40,7 @@ export class UserPublicMessageLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return publicMessageLogs.map(AdminUserPublicMessageLogDTO.fromEntity);
   }

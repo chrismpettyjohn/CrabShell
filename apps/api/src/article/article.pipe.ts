@@ -11,6 +11,7 @@ export class ArticlePipe implements PipeTransform {
       where: {
         id: articleID,
       },
+      relations: ['user', 'user.rank'],
     });
 
     if (!article) {

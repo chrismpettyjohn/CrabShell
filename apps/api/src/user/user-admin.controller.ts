@@ -9,6 +9,7 @@ import {
   AdminUserGetByIdResponse,
   AdminUserUpdateByIdResponse,
 } from '@crabshell/admin-client';
+import { UpdateUserByIdDTO } from './user-admin.dto';
 
 @Controller('admin/users')
 export class UserAdminController {
@@ -37,7 +38,7 @@ export class UserAdminController {
   @HasScope('manageUsers')
   async updateById(
     @Param('userID', UserPipe) user: UserEntity,
-    @Body() userDto: UserDTO,
+    @Body() userDto: UpdateUserByIdDTO,
   ): Promise<AdminUserUpdateByIdResponse> {
     await this.userRepo.update({ id: user.id }, userDto);
     return true;

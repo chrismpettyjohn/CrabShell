@@ -1,4 +1,4 @@
-import { RankScopes, RankWire } from '@crabshell/public-client';
+import { RankWire } from '@crabshell/public-client';
 import {
   IsArray,
   IsBoolean,

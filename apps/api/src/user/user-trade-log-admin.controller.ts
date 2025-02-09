@@ -17,7 +17,7 @@ export class UserTradeLogAdminController {
       order: {
         id: 'DESC',
       },
-      relations: ['userOne', 'userTwo'],
+      relations: ['userOne', 'userOne.rank', 'userTwo', 'userTwo.rank'],
     });
     return tradeLogs.map(AdminUserTradeLogDTO.fromEntity);
   }
@@ -34,7 +34,7 @@ export class UserTradeLogAdminController {
       order: {
         id: 'DESC',
       },
-      relations: ['userOne', 'userTwo'],
+      relations: ['userOne', 'userOne.rank', 'userTwo', 'userTwo.rank'],
     });
     return tradeLogs.map(AdminUserTradeLogDTO.fromEntity);
   }

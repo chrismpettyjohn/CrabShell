@@ -20,7 +20,7 @@ export class UserNameChangeLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return nameChangeLogs.map(AdminUserNameChangeLogDTO.fromEntity);
   }
@@ -38,7 +38,7 @@ export class UserNameChangeLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return nameChangeLogs.map(AdminUserNameChangeLogDTO.fromEntity);
   }

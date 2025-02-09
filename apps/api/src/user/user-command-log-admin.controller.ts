@@ -18,7 +18,7 @@ export class UserCommandLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return commandLogs.map(AdminUserChatlogDTO.fromEntity);
   }
@@ -36,7 +36,7 @@ export class UserCommandLogAdminController {
         order: {
           id: 'DESC',
         },
-        relations: ['user'],
+        relations: ['user', 'user.rank'],
       });
     return commandLogs.map(AdminUserChatlogDTO.fromEntity);
   }

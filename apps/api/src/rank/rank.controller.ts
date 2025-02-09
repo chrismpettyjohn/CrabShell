@@ -15,7 +15,7 @@ export class RankController {
       order: {
         id: 'DESC',
       },
-      relations: ['members'],
+      relations: ['members', 'members.rank'],
     });
     return ranks.map(RankDTO.fromEntity);
   }

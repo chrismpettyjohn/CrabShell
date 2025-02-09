@@ -36,7 +36,7 @@ export class BanAdminController {
       order: {
         id: 'DESC',
       },
-      relations: ['user'],
+      relations: ['user', 'user.rank'],
     });
     return bans.map(AdminBanDTO.fromEntity);
   }

@@ -4,7 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { UserEntity } from './user.entity';
 
 @Entity('crab_articles')
 export class ArticleEntity {
@@ -31,4 +34,8 @@ export class ArticleEntity {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'int' })
   updatedAt?: string;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'user_id' })
+  user?: UserEntity;
 }

@@ -6,6 +6,7 @@ import {
   AdminArticleWire,
 } from '@crabshell/admin-client';
 import { ArticleDTO } from './article.dto';
+import { AdminUserDTO } from '../user/user-admin.dto';
 
 export class AdminArticleDTO extends ArticleDTO implements AdminArticleWire {
   static fromEntity(entity: ArticleEntity) {
@@ -16,13 +17,14 @@ export class AdminArticleDTO extends ArticleDTO implements AdminArticleWire {
     dto.description = entity.description;
     dto.content = entity.content;
     dto.userId = entity.userId;
+    dto.user = AdminUserDTO.fromEntity(entity.user);
     dto.createdAt = entity.createdAt;
     dto.updatedAt = entity.updatedAt;
     return dto;
   }
 }
 
-export class CreateArticleDTO implements AdminArticleCreateParams {
+export class AdminCreateArticleDTO implements AdminArticleCreateParams {
   @IsString()
   name!: string;
 
@@ -36,7 +38,7 @@ export class CreateArticleDTO implements AdminArticleCreateParams {
   content!: string;
 }
 
-export class UpdateArticleDTO implements AdminArticleUpdateByIdParams {
+export class AdminUpdateArticleDTO implements AdminArticleUpdateByIdParams {
   @IsOptional()
   @IsString()
   name?: string;

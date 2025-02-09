@@ -1,3 +1,5 @@
+import { RankWire } from "../ranks/ranks.types";
+
 export interface UserWire {
   id: number;
   username: string;
@@ -8,6 +10,7 @@ export interface UserWire {
   credits: number;
   pixels: number;
   points: number;
+  rank: RankWire;
 }
 
 export type UsersOnlineResponse = UserWire[];

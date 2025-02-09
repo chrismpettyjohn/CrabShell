@@ -6,6 +6,7 @@ import {
   AdminUserWire,
 } from '@crabshell/admin-client';
 import { UserDTO } from './user.dto';
+import { RankDTO } from '../rank/rank.dto';
 
 export class AdminUserDTO extends UserDTO implements AdminUserWire {
   static fromEntity(entity: UserEntity): UserDTO {
@@ -16,6 +17,7 @@ export class AdminUserDTO extends UserDTO implements AdminUserWire {
     dto.look = entity.look;
     dto.motto = entity.motto;
     dto.online = entity.onlineStatus === '1';
+    dto.rank = RankDTO.fromEntity(entity.rank);
     return dto;
   }
 }
