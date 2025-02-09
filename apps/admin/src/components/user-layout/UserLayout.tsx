@@ -1,6 +1,6 @@
 import { A, useLocation } from "@solidjs/router";
 import { JSX } from "solid-js";
-import { IMAGER_BASE_URL } from "../../App.const";
+import { IMAGER_BASE_URL, MAIN_SITE_URL } from "../../App.const";
 import { RankScope } from "@crabshell/admin-client";
 import { ScopeGuard, useAuth, UserGuard } from "@crabshell/shared-web";
 
@@ -8,7 +8,13 @@ export interface UserLayoutProps {
   children: JSX.Element;
 }
 
-const SIDEBAR_LINKS = [
+const SIDEBAR_LINKS: Array<{
+  path: string;
+  icon: string;
+  label: string;
+  scope?: RankScope;
+  css?: string;
+}> = [
   {
     path: "/dashboard",
     icon: "fa-home",
@@ -75,6 +81,13 @@ const SIDEBAR_LINKS = [
     label: "Sign Out",
     scope: undefined,
   },
+  {
+    path: MAIN_SITE_URL,
+    icon: "fa-caret-left",
+    label: "Back to Site",
+    scope: undefined,
+    css: "background:blue;color:white;",
+  },
 ];
 
 export function UserLayout({ children }: UserLayoutProps) {
@@ -103,16 +116,20 @@ export function UserLayout({ children }: UserLayoutProps) {
           <p style="margin:0;">{user()?.rank?.name}</p>
         </div>
         <div class="navigation">
-          {SIDEBAR_LINKS.map(({ path, icon, label, scope }) => {
+          {SIDEBAR_LINKS.map(({ path, icon, label, scope, css }) => {
             const currentBase = location.pathname
               .split("/")
               .slice(0, 2)
-              .join("/"); // Extract first two segments
-            const linkBase = path.split("/").slice(0, 2).join("/"); // Extract first two segments from link
+              .join("/");
+            const linkBase = path.split("/").slice(0, 2).join("/");
             const isActive = currentBase === linkBase;
 
             const child = (
-              <A href={path} class={`${isActive ? "current" : ""}`.trim()}>
+              <A
+                href={path}
+                class={`${isActive ? "current" : ""}`.trim()}
+                style={css}
+              >
                 <i class={`fa ${icon}`} />
                 {label}
               </A>
