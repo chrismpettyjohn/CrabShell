@@ -3,7 +3,7 @@ import { RankDTO } from './rank.dto';
 import { RankService } from './rank.service';
 import { RankRepository } from '../database/rank.repository';
 import { RankPipe } from './rank.pipe';
-import { RankEntity } from '../database/rank.entity';
+import { RankBoolean, RankEntity } from '../database/rank.entity';
 
 @Controller('ranks')
 export class RankController {
@@ -12,6 +12,9 @@ export class RankController {
   @Get('staff')
   async getStaff(): Promise<RankDTO[]> {
     const ranks = await this.rankRepo.find({
+      where: {
+        showStaff: RankBoolean.True,
+      },
       order: {
         id: 'DESC',
       },
