@@ -6,6 +6,9 @@ import { UserDTO } from './user.dto';
 
 export class AdminUserNameChangeLogDTO implements AdminUserNameChangeLogWire {
   @IsNumber()
+  id: number;
+
+  @IsNumber()
   userID: number;
 
   @IsString()
@@ -24,6 +27,7 @@ export class AdminUserNameChangeLogDTO implements AdminUserNameChangeLogWire {
     entity: UserNameChangeLogEntity,
   ): AdminUserNameChangeLogDTO {
     const dto = new AdminUserNameChangeLogDTO();
+    dto.id = entity.id;
     dto.userID = entity.userID;
     dto.oldName = entity.oldName;
     dto.newName = entity.newName;
