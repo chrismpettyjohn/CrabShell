@@ -14,6 +14,10 @@ export * from "./auth/auth.types";
 export * from "./badge/badge.service";
 export * from "./badge/badge.types";
 
+// FindRetros
+export * from "./findretros/findretros.service";
+export * from "./findretros/findretros.types";
+
 // Group
 export * from "./group/group.service";
 export * from "./group/group.types";

@@ -10,6 +10,6 @@ import { AuthAdminController } from './auth-admin.controller';
   imports: [DatabaseModule],
   controllers: [AuthController, AuthAdminController],
   providers: [AuthService, SessionGuard, ScopeGuard, Logger],
-  exports: [AuthService, ScopeGuard],
+  exports: [AuthService, SessionGuard, ScopeGuard],
 })
 export class AuthModule {}

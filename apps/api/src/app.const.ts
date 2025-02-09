@@ -30,3 +30,7 @@ export const USER_DEFAULT_MOTTO = process.env.USER_DEFAULT_MOTTO!;
 
 // Badges
 export const BADGES_FOLDER: string = process.env.BADGES_FOLDER!;
+
+// FindRetros
+export const FIND_RETROS_SERVER_NAME: string =
+  process.env.FIND_RETROS_SERVER_NAME;
