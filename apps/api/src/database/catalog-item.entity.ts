@@ -17,7 +17,7 @@ export class CatalogItemEntity {
     length: 100,
     nullable: true,
   })
-  catalogName?: string;
+  publicName?: string;
 
   @Column({ name: 'cost_credits', type: 'int', nullable: true })
   costCredits?: number;

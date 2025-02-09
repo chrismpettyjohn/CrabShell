@@ -10,6 +10,14 @@ export * from "./auth/auth.types";
 export * from "./badge/badge.service";
 export * from "./badge/badge.types";
 
+// Catalog Item
+export * from "./catalog-item/catalog-item.service";
+export * from "./catalog-item/catalog-item.types";
+
+// Catalog Page
+export * from "./catalog-page/catalog-page.service";
+export * from "./catalog-page/catalog-page.types";
+
 // Emu Settings
 export * from "./emu-settings/emu-settings.service";
 export * from "./emu-settings/emu-settings.types";

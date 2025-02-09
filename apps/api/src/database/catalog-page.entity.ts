@@ -12,7 +12,7 @@ export class CatalogPageEntity {
   captionSave?: string;
 
   @Column({ name: 'caption', type: 'varchar', length: 128, nullable: true })
-  caption?: string;
+  publicName?: string;
 
   @Column({
     name: 'page_layout',

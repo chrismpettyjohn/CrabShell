@@ -1,31 +1,74 @@
+import { A, useNavigate } from "@solidjs/router";
+import { createSignal, onMount } from "solid-js";
 import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { LoggingLayout } from "../../logging/LoggingLayout";
+import {
+  IntegratedTable,
+  ITableColumn,
+} from "../../../components/integrated-table/IntegratedTable";
+import {
+  adminCatalogPageService,
+  AdminCatalogPageWire,
+} from "@crabshell/admin-client";
+import toast from "solid-toast";
 
 export function CatalogPagesListScreen() {
+  const navigate = useNavigate();
+  const [pages, setPages] = createSignal<AdminCatalogPageWire[]>([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await adminCatalogPageService.getAll();
+      console.log("Loaded catalog pages:", response);
+      setPages(response);
+    } catch (error) {
+      toast.error("Failed to load catalog pages.");
+      console.error(error);
+    }
+  };
+
+  onMount(() => {
+    fetchData();
+  });
+
+  const columns: ITableColumn<AdminCatalogPageWire>[] = [
+    {
+      key: "publicName",
+      header: "Catalog Page",
+      selector: (row) => row.publicName,
+      customRender: (publicName: string, row: AdminCatalogPageWire) => (
+        <A href={`/catalog/${row.id}`} onClick={(e) => e.stopPropagation()}>
+          {publicName}
+        </A>
+      ),
+      width: 300,
+      sortable: true,
+      filterable: true,
+    },
+  ];
+
   return (
     <LoggingLayout>
       <SiteTitle>Catalog Pages</SiteTitle>
-      <h1>Catalog Pages</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Initiating User</th>
-            <th>Initiating User Items</th>
-            <th>Receiving User</th>
-            <th>Receiving User Items</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <tr>
-              <td>User {i + 1}</td>
-              <td>Item {i + 1}</td>
-              <td>User {i + 1}</td>
-              <td>Item {i + 1}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; width: 100%;">
+        <h2>Catalog Pages</h2>
+        <A href="/catalog/create">
+          <button>
+            <i class="fa fa-plus-circle" style="margin-right: 8px;" />
+            Create
+          </button>
+        </A>
+      </div>
+      <div class="card">
+        <IntegratedTable
+          columns={columns}
+          rows={pages}
+          rowHeight={40}
+          loadMoreRows={fetchData}
+          getRowId={(row) => `${row.id}`}
+          onRowClick={(row) => navigate(`/catalog/${row.id}`)}
+        />
+      </div>
     </LoggingLayout>
   );
 }

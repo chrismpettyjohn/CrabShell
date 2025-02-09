@@ -13,6 +13,8 @@ import { EmuSettingsModule } from './emu-settings/emu-settings.module';
 import { EmuTextsModule } from './emu-texts/emu-texts.module';
 import { ItemsBaseModule } from './items-base/items-base.module';
 import { BadgeModule } from './badge/badge.module';
+import { CatalogItemModule } from './catalog-item/catalog-item.module';
+import { CatalogPageModule } from './catalog-page/catalog-page.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { BadgeModule } from './badge/badge.module';
     EmuSettingsModule,
     EmuTextsModule,
     ItemsBaseModule,
+    CatalogItemModule,
+    CatalogPageModule,
   ],
 })
 export class AppModule {}
