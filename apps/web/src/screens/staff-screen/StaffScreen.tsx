@@ -35,7 +35,7 @@ const StaffScreen: Component = () => {
                     <div class="staff-member">
                       <img
                         class="avatar"
-                        src={`${IMAGER_BASE_URL}?figure=${member.look}&headonly=1"`}
+                        src={`${IMAGER_BASE_URL}?figure=${member.look}&headonly=1`}
                         alt="Avatar"
                       />
                       <div class="member-info">

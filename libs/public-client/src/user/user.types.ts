@@ -10,7 +10,7 @@ export interface UserWire {
   credits: number;
   pixels: number;
   points: number;
-  rank: RankWire;
+  rank?: RankWire;
 }
 
 export type UsersOnlineResponse = UserWire[];

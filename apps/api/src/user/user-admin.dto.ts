@@ -17,7 +17,7 @@ export class AdminUserDTO extends UserDTO implements AdminUserWire {
     dto.look = entity.look;
     dto.motto = entity.motto;
     dto.online = entity.onlineStatus === '1';
-    dto.rank = RankDTO.fromEntity(entity.rank);
+    dto.rank = entity.rank ? RankDTO.fromEntity(entity.rank) : undefined
     return dto;
   }
 }

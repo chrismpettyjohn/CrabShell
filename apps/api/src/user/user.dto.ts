@@ -4,6 +4,7 @@ import {
   IsInt,
   IsNumber,
   IsObject,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { UserEntity } from '../database/user.entity';
@@ -39,8 +40,9 @@ export class UserDTO implements UserWire {
   points: number;
 
   @IsObject()
+  @IsOptional()
   @Type(() => RankDTO)
-  rank: RankDTO;
+  rank?: RankDTO;
 
   static fromEntity(entity: UserEntity): UserDTO {
     const dto = new UserDTO();
@@ -53,7 +55,7 @@ export class UserDTO implements UserWire {
     dto.credits = entity.credits;
     dto.pixels = entity.activityPoints;
     dto.points = entity.vipPoints;
-    dto.rank = RankDTO.fromEntity(entity.rank);
+    dto.rank = entity.rank ? RankDTO.fromEntity(entity.rank) : undefined;
     return dto;
   }
 }

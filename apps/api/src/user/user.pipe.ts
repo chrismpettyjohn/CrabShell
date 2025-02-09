@@ -8,10 +8,9 @@ export class UserPipe implements PipeTransform {
 
   async transform(identifier: number | string): Promise<UserEntity> {
     const user = await this.userRepo.findOne({
-      where:
-        typeof identifier === 'number'
-          ? { id: identifier }
-          : { username: identifier },
+      where: !isNaN(Number(identifier))
+        ? { id: Number(identifier) }
+        : { username: identifier as string },
     });
 
     if (!user) {
