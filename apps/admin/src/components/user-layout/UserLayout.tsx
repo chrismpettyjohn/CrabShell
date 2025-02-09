@@ -1,10 +1,8 @@
 import { A, useLocation } from "@solidjs/router";
 import { JSX } from "solid-js";
-import { UserGuard } from "../user-guard/UserGuard";
 import { IMAGER_BASE_URL } from "../../App.const";
-import { useAuth } from "../../context/AuthContext";
 import { RankScope } from "@crabshell/admin-client";
-import { ScopeGuard } from "../scope-guard/ScopeGuard";
+import { ScopeGuard, useAuth, UserGuard } from "@crabshell/shared-web";
 
 export interface UserLayoutProps {
   children: JSX.Element;
@@ -80,7 +78,7 @@ const SIDEBAR_LINKS = [
 ];
 
 export function UserLayout({ children }: UserLayoutProps) {
-  const { user, rank } = useAuth();
+  const { user } = useAuth();
   const location = useLocation();
   return (
     <UserGuard>
@@ -102,7 +100,7 @@ export function UserLayout({ children }: UserLayoutProps) {
           </div>
           <br />
           <h2 style="margin:0;">{user()?.username}</h2>
-          <p style="margin:0;">{rank()?.name}</p>
+          <p style="margin:0;">{user()?.rank?.name}</p>
         </div>
         <div class="navigation">
           {SIDEBAR_LINKS.map(({ path, icon, label, scope }) => {

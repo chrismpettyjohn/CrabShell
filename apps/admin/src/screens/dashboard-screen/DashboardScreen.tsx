@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
 import { UserLayout } from "../../components/user-layout/UserLayout";
+import { SiteTitle } from "@crabshell/shared-web";
 
 const MeScreen: Component = () => {
   return (

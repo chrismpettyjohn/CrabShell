@@ -8,7 +8,7 @@ import {
 } from "@crabshell/admin-client";
 import { ArticleEditor } from "../article-editor/ArticleEditor";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function ArticleEditScreen() {
   const { articleId } = useParams();

@@ -6,6 +6,7 @@
     "paths": {
       "@crabshell/admin-client": [ "libs/admin-client/src" ],
       "@crabshell/public-client": [ "libs/public-client/src" ],
+      "@crabshell/shared-web": [ "libs/shared-web/src" ],
     }
   }
 }

@@ -1,10 +1,10 @@
 import { A, useNavigate } from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import {
+  SiteTitle,
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+} from "@crabshell/shared-web";
 import {
   adminCatalogPageService,
   AdminCatalogPageWire,

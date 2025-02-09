@@ -27,7 +27,7 @@ export function UsersEditor({ defaultUser, onSave }: UserEditorProps) {
 
   return (
     <form onSubmit={onSubmit}>
-      <label>Username</label>
+      <h2>Username</h2>
       <input
         name="username"
         value={dto().username}
@@ -35,7 +35,7 @@ export function UsersEditor({ defaultUser, onSave }: UserEditorProps) {
         type="text"
       />
 
-      <label>Look</label>
+      <h2>Look</h2>
       <input name="look" value={dto().look} onInput={onChange} type="text" />
 
       <div style="display:flex;justify-content:flex-end;width:100%;margin-top:auto;">

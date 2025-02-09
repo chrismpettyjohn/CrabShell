@@ -1,5 +1,4 @@
 import { createSignal, onMount } from "solid-js";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { adminRankService, AdminRankWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
 import toast from "solid-toast";
@@ -8,7 +7,8 @@ import { UserLayout } from "../../../components/user-layout/UserLayout";
 import {
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+  SiteTitle,
+} from "@crabshell/shared-web";
 
 export function RanksListScreen() {
   const navigate = useNavigate();

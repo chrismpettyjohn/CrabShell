@@ -1,5 +1,5 @@
+import { SiteTitle } from "@crabshell/shared-web";
 import { UserLayout } from "../../components/user-layout/UserLayout";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
 
 export function AboutScreen() {
   return (

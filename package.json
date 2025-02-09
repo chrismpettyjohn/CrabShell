@@ -12,6 +12,7 @@
         "build:api": "bun run --cwd apps/api build",
         "build:admin-client": "bun run --cwd libs/admin-client build",
         "build:public-client": "bun run --cwd libs/public-client build",
+        "build:shared-web": "bun run --cwd libs/shared-web build",
         "dev:admin": "bun run --cwd apps/admin dev",
         "dev:web": "bun run --cwd apps/web dev",
         "dev:api": "bun run --cwd apps/api start:dev",

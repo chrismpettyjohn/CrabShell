@@ -20,6 +20,9 @@ export default defineConfig(({ mode }) => {
       "process.env.USER_OF_THE_WEEK_TEXT": JSON.stringify(
         env.VITE_USER_OF_THE_WEEK_TEXT || ""
       ),
+      "process.env.ADMIN_PANEL_URL": JSON.stringify(
+        env.VITE_ADMIN_PANEL_URL || ""
+      ),
     },
     plugins: [solidPlugin()],
     server: {

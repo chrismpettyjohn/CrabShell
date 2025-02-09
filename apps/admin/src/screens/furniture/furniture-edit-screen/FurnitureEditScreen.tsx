@@ -1,7 +1,7 @@
 import { useParams } from "@solidjs/router";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { FurnitureEditor } from "../furniture-editor/FurnitureEditor";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function FurnitureEditScreen() {
   const { baseItemId } = useParams();

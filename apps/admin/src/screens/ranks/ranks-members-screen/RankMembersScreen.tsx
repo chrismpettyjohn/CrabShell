@@ -1,6 +1,6 @@
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { A, useParams } from "@solidjs/router";
 import { RankLayout } from "../RankLayout";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function RankMembersScreen() {
   const { rankId } = useParams();

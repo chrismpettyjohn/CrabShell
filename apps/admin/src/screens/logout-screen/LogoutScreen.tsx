@@ -1,9 +1,7 @@
 import { onMount, type Component } from "solid-js";
-import { UserGuard } from "../../components/user-guard/UserGuard";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
 import { authService } from "@crabshell/admin-client";
 import { redirect } from "@solidjs/router";
-import { useAuth } from "../../context/AuthContext";
+import { SiteTitle, useAuth, UserGuard } from "@crabshell/shared-web";
 
 const LogoutScreen: Component = () => {
   const { setUser } = useAuth();

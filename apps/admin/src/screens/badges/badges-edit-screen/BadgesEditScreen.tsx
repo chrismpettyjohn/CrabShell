@@ -8,7 +8,7 @@ import {
   AdminBadgeWire,
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function BadgesEditScreen() {
   const { badgeCode } = useParams();

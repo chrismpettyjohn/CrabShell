@@ -1,14 +1,14 @@
 import { createSignal, onMount } from "solid-js";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { adminUserService, AdminUserWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
 import toast from "solid-toast";
 import { IMAGER_BASE_URL } from "../../../App.const";
 import {
+  SiteTitle,
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+} from "@crabshell/shared-web";
 
 export function UsersListScreen() {
   const navigate = useNavigate();

@@ -1,11 +1,11 @@
 import { createSignal, onMount } from "solid-js";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { LoggingLayout } from "../LoggingLayout";
 import toast from "solid-toast";
 import {
+  SiteTitle,
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+} from "@crabshell/shared-web";
 import { A } from "@solidjs/router";
 import { IMAGER_BASE_URL } from "../../../App.const";
 import {

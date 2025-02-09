@@ -6,11 +6,11 @@ import {
 } from "@crabshell/admin-client";
 import toast from "solid-toast";
 import { A } from "@solidjs/router";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import {
+  SiteTitle,
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+} from "@crabshell/shared-web";
 
 export function EmuTextsScreen() {
   const [texts, setTexts] = createSignal<AdminEmuTextsWire[]>([]);

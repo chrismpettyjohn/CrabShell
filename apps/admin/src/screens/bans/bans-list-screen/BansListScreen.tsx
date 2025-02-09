@@ -1,14 +1,14 @@
 import { A } from "@solidjs/router";
-import { BADGE_BASE_URL, BADGE_EXT, IMAGER_BASE_URL } from "../../../App.const";
+import { IMAGER_BASE_URL } from "../../../App.const";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { createSignal, onMount, Show } from "solid-js";
 import { adminBanService, AdminBanWire } from "@crabshell/admin-client";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import {
+  SiteTitle,
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+} from "@crabshell/shared-web";
 
 export function BansListScreen() {
   const [bans, setBans] = createSignal<AdminBanWire[]>([]);

@@ -7,7 +7,7 @@ import { createSignal } from "solid-js";
 import { RanksEditor } from "../ranks-editor/RanksEditor";
 import toast from "solid-toast";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function RanksCreateScreen() {
   const navigate = useNavigate();

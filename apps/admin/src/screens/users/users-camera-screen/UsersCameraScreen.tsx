@@ -1,6 +1,6 @@
 import { useParams } from "@solidjs/router";
 import { UsersLayout } from "../UsersLayout";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function UsersCameraScreen() {
   const { username } = useParams();

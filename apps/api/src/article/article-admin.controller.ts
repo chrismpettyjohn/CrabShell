@@ -47,6 +47,7 @@ export class ArticleAdminController {
       order: {
         id: 'DESC',
       },
+      relations: ['user', 'user.rank']
     });
     return articles.map(ArticleDTO.fromEntity);
   }

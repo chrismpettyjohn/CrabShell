@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => {
         env.VITE_BADGE_BASE_URL || ""
       ),
       "process.env.BADGE_EXT": JSON.stringify(env.VITE_BADGE_EXT || ""),
+      "process.env.MAIN_SITE_URL": JSON.stringify(env.VITE_MAIN_SITE_URL || ""),
     },
     plugins: [solidPlugin()],
     server: {

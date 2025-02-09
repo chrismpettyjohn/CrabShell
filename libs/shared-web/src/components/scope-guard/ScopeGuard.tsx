@@ -14,11 +14,11 @@ export function ScopeGuard({
   scope,
   redirect = false,
 }: ScopeGuardProps) {
-  const { user, rank } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   createEffect(() => {
-    if (!!rank()?.scopes?.[scope]) {
+    if (!!user()?.rank?.scopes?.[scope]) {
       return;
     }
 
@@ -29,7 +29,7 @@ export function ScopeGuard({
     return navigate(user() ? "/me" : "/login");
   });
 
-  if (!rank()?.scopes?.[scope]) {
+  if (!user()?.rank?.scopes?.[scope]) {
     return null;
   }
 

@@ -1,7 +1,7 @@
 import type { Component } from "solid-js";
-import { AuthProvider } from "./context/AuthContext";
 import { Router } from "./screens/Router";
 import { Toaster } from "solid-toast";
+import { AuthProvider } from "@crabshell/shared-web";
 
 export const CrabShellApp: Component = () => {
   return (

@@ -7,7 +7,7 @@ import { useNavigate } from "@solidjs/router";
 import { createSignal } from "solid-js";
 import { ArticleEditor } from "../article-editor/ArticleEditor";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function ArticlesCreateScreen() {
   const navigate = useNavigate();

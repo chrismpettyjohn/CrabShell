@@ -22,6 +22,7 @@ export class UserAdminController {
       order: {
         id: 'DESC',
       },
+      relations: ['rank']
     });
     return users.map(UserDTO.fromEntity);
   }

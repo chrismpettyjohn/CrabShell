@@ -1,13 +1,13 @@
 import { createSignal, onMount } from "solid-js";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import {
+  SiteTitle,
+  IntegratedTable,
+  ITableColumn,
+} from "@crabshell/shared-web";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { adminArticleService, AdminArticleWire } from "@crabshell/admin-client";
 import { A, useNavigate } from "@solidjs/router";
 import toast from "solid-toast";
-import {
-  IntegratedTable,
-  ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
 
 export function ArticleListScreen() {
   const navigate = useNavigate();

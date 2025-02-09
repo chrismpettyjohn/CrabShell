@@ -4,11 +4,11 @@ import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { createSignal, onMount } from "solid-js";
 import { adminBadgeService, AdminBadgeWire } from "@crabshell/admin-client";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import {
+  SiteTitle,
   IntegratedTable,
   ITableColumn,
-} from "../../../components/integrated-table/IntegratedTable";
+} from "@crabshell/shared-web";
 
 export function BadgesListScreen() {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import {
 } from "@crabshell/admin-client";
 import { RanksEditor } from "../ranks-editor/RanksEditor";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
+import { SiteTitle } from "@crabshell/shared-web";
 import { RankLayout } from "../RankLayout";
 
 export function RanksEditScreen() {

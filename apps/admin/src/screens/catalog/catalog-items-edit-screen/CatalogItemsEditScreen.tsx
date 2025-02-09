@@ -1,7 +1,7 @@
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UserLayout } from "../../../components/user-layout/UserLayout";
 import { CatalogItemsEditor } from "../catalog-items-editor/CatalogItemsEditor";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function CatalogItemsEditScreen() {
   async function onSave(dto: any) {

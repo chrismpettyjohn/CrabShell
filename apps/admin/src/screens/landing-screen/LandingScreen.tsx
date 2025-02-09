@@ -1,6 +1,6 @@
 import { onMount } from "solid-js";
-import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "@solidjs/router";
+import { useAuth } from "@crabshell/shared-web";
 
 export function LandingScreen() {
   const { user } = useAuth();

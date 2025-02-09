@@ -1,10 +1,8 @@
 import { createSignal, type Component } from "solid-js";
-import { GuestGuard } from "../../components/guest-guard/GuestGuard";
 import { authService } from "@crabshell/admin-client";
-import { useAuth } from "../../context/AuthContext";
 import { A, redirect } from "@solidjs/router";
-import { SiteTitle } from "../../components/site-title/SiteTitle";
 import toast from "solid-toast";
+import { GuestGuard, SiteTitle, useAuth } from "@crabshell/shared-web";
 
 const LoginScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -40,7 +38,7 @@ const LoginScreen: Component = () => {
             <h1>CrabShell</h1>
             <p>This area is only intended for staff members.</p>
             <form onSubmit={onLogin}>
-              <label for="username">Username</label>
+              <h2>Username</h2>
               <input
                 type="text"
                 id="username"
@@ -50,8 +48,7 @@ const LoginScreen: Component = () => {
                 onInput={(e) => setUsername(e.target.value ?? "")}
                 required
               />
-
-              <label for="password">Password</label>
+              <h2>Password</h2>
               <input
                 type="password"
                 id="password"

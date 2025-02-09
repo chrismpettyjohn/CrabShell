@@ -7,8 +7,8 @@ import {
 } from "@crabshell/admin-client";
 import { UsersEditor } from "../users-editor/UsersEditor";
 import toast from "solid-toast";
-import { SiteTitle } from "../../../components/site-title/SiteTitle";
 import { UsersLayout } from "../UsersLayout";
+import { SiteTitle } from "@crabshell/shared-web";
 
 export function UsersEditScreen() {
   const { username } = useParams();

@@ -1,4 +1,4 @@
-import { createSignal, onCleanup, onMount } from "solid-js";
+import { onCleanup, onMount } from "solid-js";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 
