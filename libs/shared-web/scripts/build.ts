@@ -9,4 +9,4 @@ await build({
   format: "esm",
 });
 
-console.log("@crabshell/public-client built successfully");
+console.log("@crabshell/shared-web built successfully");
