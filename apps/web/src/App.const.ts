@@ -1,4 +1,5 @@
 export const IMAGER_BASE_URL: string = process.env.IMAGER_BASE_URL!;
+export const BADGE_BASE_URL: string = process.env.BADGE_BASE_URL!;
 export const NITRO_URL: string = process.env.NITRO_URL!;
 export const ADMIN_PANEL_URL: string = process.env.ADMIN_PANEL_URL!;
 export const DISCORD_INVITE_URL: string = process.env.DISCORD_INVITE_URL!;

@@ -2,7 +2,8 @@ import { createSignal, onMount, type Component } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { SiteTitle, UserGuard } from "@crabshell/shared-web";
 import { ranksService, RankWire } from "@crabshell/public-client";
-import { IMAGER_BASE_URL } from "../../App.const";
+import { BADGE_BASE_URL, IMAGER_BASE_URL } from "../../App.const";
+import { A } from "@solidjs/router";
 
 const StaffScreen: Component = () => {
   const [ranks, setRanks] = createSignal<RankWire[]>([]);
@@ -25,7 +26,7 @@ const StaffScreen: Component = () => {
                 <div class="role-header">
                   <img
                     class="badge"
-                    src="https://swfs.habcrab.com/c_images/album1584/ADM.gif"
+                    src={`${BADGE_BASE_URL}/${rank.badgeCode}.gif`}
                     alt="Badge"
                   />
                   <h2>{rank.name}</h2>
@@ -33,13 +34,21 @@ const StaffScreen: Component = () => {
                 <div class="role-members">
                   {rank.members.map((member) => (
                     <div class="staff-member">
-                      <img
-                        class="avatar"
-                        src={`${IMAGER_BASE_URL}?figure=${member.look}&headonly=1`}
-                        alt="Avatar"
-                      />
+                      <A href={`/profile/${member.username}`}>
+                        <img
+                          class="avatar"
+                          src={`${IMAGER_BASE_URL}?figure=${member.look}&size=l`}
+                          alt="Avatar"
+                          style="object-fit:cover;cursor:pointer;"
+                        />
+                      </A>
                       <div class="member-info">
-                        <h3>{member.username}</h3>
+                        <A
+                          href={`/profile/${member.username}`}
+                          style="text-decoration:none;"
+                        >
+                          <h3>{member.username}</h3>
+                        </A>
                         <p class="motto">{member.motto}</p>
                         <span
                           class={`online-indicator ${member.online ? "online" : "offline"}`}

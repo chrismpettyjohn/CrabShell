@@ -5,6 +5,7 @@ import {
   highScoresService,
 } from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../../App.const";
+import { A } from "@solidjs/router";
 
 const MostRespectsScreen: Component = () => {
   const [rows, setRows] = createSignal<HighScoresByRespectsReceivedRow[]>([]);
@@ -31,11 +32,14 @@ const MostRespectsScreen: Component = () => {
               <tr>
                 <td>#{i + 1}</td>
                 <td>
-                  <img
-                    class="avatar"
-                    src={`${IMAGER_BASE_URL}?figure=${_.look}&headonly=1`}
-                    style="object-fit: contain"
-                  />
+                  <A href={`/profile/${_.username}`}>
+                    <img
+                      class="avatar"
+                      src={`${IMAGER_BASE_URL}?figure=${_.look}&size=l`}
+                      alt="Avatar"
+                      style="object-fit:cover;cursor:pointer;"
+                    />
+                  </A>
                 </td>
                 <td>{_.username}</td>
                 <td>{_.respectsReceived}</td>
