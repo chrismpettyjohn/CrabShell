@@ -69,10 +69,8 @@ export class EventAdminController {
       { id: event.id! },
       {
         ...dto,
-        startsAt: dto.startsAt
-          ? Math.floor(dto.startsAt / 1000)
-          : event.startsAt,
-        endsAt: dto.endsAt ? Math.floor(dto.endsAt / 1000) : event.endsAt,
+        startsAt: dto.startsAt ? Math.floor(dto.startsAt) : event.startsAt,
+        endsAt: dto.endsAt ? Math.floor(dto.endsAt) : event.endsAt,
         userId: user.id!,
         updatedAt: Math.floor(Date.now() / 1000),
       },

@@ -10,16 +10,16 @@ export function EventCalendar() {
 
   createEffect(async () => {
     setEvents(undefined);
-    const response = await eventsService.getByDate(
-      getMonthDateYear(selectedDate())
-    );
+    const date = getMonthDateYear(selectedDate());
+    const response = await eventsService.getByDate(date);
     setEvents(response);
-  }, [selectedDate]);
+  });
 
   const navigate = (dir) => {
     setCurrentDate((prev) => {
       const newDate = new Date(prev);
       newDate.setMonth(newDate.getMonth() + dir);
+      setSelectedDate(newDate); // Sync selectedDate with currentDate
       return newDate;
     });
   };
