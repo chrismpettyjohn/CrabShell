@@ -358,7 +358,7 @@ main {
 }
 
 [class*="col-"] {
-    flex: 0 0 calc((100% / 12) * var(--columns) - var(--text-small));
+    flex: 0 0 calc((100% / 12) * var(--columns) - 10px);
     box-sizing: border-box;
 }
 

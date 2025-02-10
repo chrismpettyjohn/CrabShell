@@ -75,8 +75,6 @@ html, body, p {
 }
 
 html, body {
-    background-image: url('/img/bg.png');
-    background-color: var(--bg-one);
     color:  var(--color-one);
     font-family: 'Quicksand', sans-serif;
     margin: 0;
@@ -87,6 +85,28 @@ html, body {
     min-width: 100%;
     overflow: hidden;
     font-size: var(--text-body);
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Ensure enough space for movement */
+    height: 100%;
+    background-image: url('https://i.imgur.com/Z6OQ77U.png');
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% transparency */
+    animation: bgMove 45s linear infinite;
+    z-index: -1;
+}
+
+@keyframes bgMove {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 header {
@@ -361,7 +381,7 @@ main {
 }
 
 [class*="col-"] {
-    flex: 0 0 calc((100% / 12) * var(--columns) - var(--text-small));
+    flex: 0 0 calc((100% / 12) * var(--columns) - 10px);
     box-sizing: border-box;
 }
 
