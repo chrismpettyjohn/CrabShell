@@ -1,7 +1,7 @@
 import { createEffect, createSignal, onMount, Show } from "solid-js";
 import { Calendar } from "../../../components/calendar/Calendar";
 import { eventsService, EventWire } from "@crabshell/public-client";
-import { getMonthDateYear } from "../../../App.util";
+import { getMonthDateYear, getTime } from "../../../App.util";
 
 export function EventCalendar() {
   const [currentDate, setCurrentDate] = createSignal(new Date());
@@ -40,10 +40,13 @@ export function EventCalendar() {
         >
           {events()?.map((_) => (
             <div class="event">
-              <span class="time">09:00pm</span>
+              <span class="time">{getTime(new Date(_.startsAt * 1000))}</span>
               <div class="details">
-                <h4>Prayer Group</h4>
-                <p>BYOB. Bring your own Bible.</p>
+                <h4>{_.title}</h4>
+                <p>{_.content}</p>
+                <div style="text-align:right;">
+                  Hosted by <b class="text-brand">{_.user.username}</b>
+                </div>
               </div>
             </div>
           ))}

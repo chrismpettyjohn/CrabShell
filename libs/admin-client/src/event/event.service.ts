@@ -18,26 +18,26 @@ export class AdminEventService {
   public create(
     dto: AdminEventCreateParams
   ): Promise<AdminEventCreateResponse> {
-    return postToApi("emu-texts", dto);
+    return postToApi("events", dto);
   }
 
   public getAll(): Promise<AdminEventGetAllResponse> {
-    return fetchFromApi("emu-texts");
+    return fetchFromApi("events");
   }
 
-  public getById(emuTextsId: string): Promise<AdminEventGetByIdResponse> {
-    return fetchFromApi(`emu-texts/${emuTextsId}`);
+  public getById(eventId: number): Promise<AdminEventGetByIdResponse> {
+    return fetchFromApi(`events/${eventId}`);
   }
 
   public updateById(
-    emuTextsId: string,
+    eventId: number,
     dto: AdminEventUpdateByIdParams
   ): Promise<AdminEventUpdateByIdResponse> {
-    return patchToApi(`emu-texts/${emuTextsId}`, dto);
+    return patchToApi(`events/${eventId}`, dto);
   }
 
-  public deleteById(emuTextsId: string): Promise<AdminEventDeleteByIdResponse> {
-    return deleteFromApi(`emu-texts/${emuTextsId}`);
+  public deleteById(eventId: number): Promise<AdminEventDeleteByIdResponse> {
+    return deleteFromApi(`events/${eventId}`);
   }
 }
 

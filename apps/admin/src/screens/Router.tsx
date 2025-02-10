@@ -122,6 +122,15 @@ const BansCreateScreen = lazy(
 const BansEditScreen = lazy(
   () => import("./bans/bans-edit-screen/BansEditScreen")
 );
+const EventsListScreen = lazy(
+  () => import("./events/events-list-screen/EventsListScreen")
+);
+const EventsEditScreen = lazy(
+  () => import("./events/events-edit-screen/EventsEditScreen")
+);
+const EventsCreateScreen = lazy(
+  () => import("./events/events-create-screen/EventsCreateScreen")
+);
 export const Router: Component = () => {
   return (
     <BaseRouter>
@@ -177,6 +186,9 @@ export const Router: Component = () => {
       <Route path="/bans" component={BansListScreen} />
       <Route path="/bans/:banId" component={BansCreateScreen} />
       <Route path="/bans/:banId" component={BansEditScreen} />
+      <Route path="/events/" component={EventsListScreen} />
+      <Route path="/events/create" component={EventsCreateScreen} />
+      <Route path="/events/:eventId" component={EventsEditScreen} />
     </BaseRouter>
   );
 };

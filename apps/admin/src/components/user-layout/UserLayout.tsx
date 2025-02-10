@@ -46,6 +46,12 @@ const SIDEBAR_LINKS: Array<{
     scope: RankScope.MANAGE_ARTICLES,
   },
   {
+    path: "/events",
+    icon: "fa-calendar",
+    label: "Events",
+    scope: RankScope.MANAGE_EVENTS,
+  },
+  {
     path: "/badges",
     icon: "fa-id-badge",
     label: "Badges",

@@ -24,10 +24,8 @@ export function getMonthDateYear(date: Date): string {
     .replace(/\//g, "-");
 }
 
-export function getTime(date: Date): string {
-  return date.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  });
+export function toLocalISOString(timestamp: number) {
+  const date = new Date(timestamp * 1000);
+  const offset = date.getTimezoneOffset() * 60000; // Adjust for timezone offset
+  return new Date(date.getTime() - offset).toISOString().slice(0, 16);
 }

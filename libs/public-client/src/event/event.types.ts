@@ -1,3 +1,5 @@
+import { UserWire } from "../user/user.types";
+
 export interface EventWire {
   id: number;
   userId: number;
@@ -7,4 +9,5 @@ export interface EventWire {
   endsAt: number;
   createdAt: number;
   updatedAt: number;
+  user: UserWire;
 }

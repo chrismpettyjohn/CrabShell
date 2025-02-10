@@ -1,5 +1,7 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsObject, IsString } from 'class-validator';
 import { EventEntity } from '../database/event.entity';
+import { UserDTO } from '../user/user.dto';
+import { Type } from 'class-transformer';
 
 export class EventDTO {
   @IsNumber()
@@ -26,6 +28,10 @@ export class EventDTO {
   @IsNumber()
   updatedAt: number;
 
+  @IsObject()
+  @Type(() => UserDTO)
+  user: UserDTO;
+
   static fromEntity(entity: EventEntity): EventDTO {
     const dto = new EventDTO();
     dto.id = entity.id!;
@@ -36,6 +42,7 @@ export class EventDTO {
     dto.endsAt = entity.endsAt;
     dto.createdAt = entity.createdAt;
     dto.updatedAt = entity.updatedAt;
+    dto.user = UserDTO.fromEntity(entity.user);
     return dto;
   }
 }

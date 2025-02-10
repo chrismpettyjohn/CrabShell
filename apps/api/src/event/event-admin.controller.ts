@@ -30,6 +30,7 @@ export class EventAdminController {
       order: {
         id: 'DESC',
       },
+      relations: ['user', 'user.rank'],
     });
     return events.map(AdminEventDTO.fromEntity);
   }
@@ -42,11 +43,13 @@ export class EventAdminController {
   ): Promise<AdminEventDTO> {
     const newEvent = await this.eventRepo.create({
       ...dto,
+      startsAt: Math.floor(dto.startsAt),
+      endsAt: Math.floor(dto.endsAt),
       userId: user.id!,
-      createdAt: +new Date(),
-      updatedAt: +new Date(),
+      createdAt: Math.floor(Date.now() / 1000),
+      updatedAt: Math.floor(Date.now() / 1000),
     });
-    return AdminEventDTO.fromEntity(newEvent);
+    return AdminEventDTO.fromEntity({ ...newEvent, user });
   }
 
   @Get(':eventId')
@@ -66,9 +69,12 @@ export class EventAdminController {
       { id: event.id! },
       {
         ...dto,
+        startsAt: dto.startsAt
+          ? Math.floor(dto.startsAt / 1000)
+          : event.startsAt,
+        endsAt: dto.endsAt ? Math.floor(dto.endsAt / 1000) : event.endsAt,
         userId: user.id!,
-
-        updatedAt: +new Date(),
+        updatedAt: Math.floor(Date.now() / 1000),
       },
     );
     return { success: true };

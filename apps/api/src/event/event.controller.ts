@@ -14,6 +14,7 @@ export class EventController {
         id: 'DESC',
       },
       where: {},
+      relations: ['user', 'user.rank'],
     });
     return matchingEvents.map(EventDTO.fromEntity);
   }

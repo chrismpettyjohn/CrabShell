@@ -11,6 +11,7 @@ export class EventPipe implements PipeTransform {
       where: {
         id: eventId,
       },
+      relations: ['user', 'user.rank'],
     });
 
     if (!event) {
