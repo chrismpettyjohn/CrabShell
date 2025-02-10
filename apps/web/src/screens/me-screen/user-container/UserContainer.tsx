@@ -1,10 +1,12 @@
-import { useAuth } from "@crabshell/shared-web";
 import { IMAGER_BASE_URL } from "../../../App.const";
 import { A } from "@solidjs/router";
+import { UserWire } from "@crabshell/public-client";
 
-export function UserContainer() {
-  const { user } = useAuth();
-  console.log(user());
+export interface UserContainerProps {
+  user: () => UserWire | null;
+}
+
+export function UserContainer({ user }: UserContainerProps) {
   return (
     <div class="user-container">
       <div>

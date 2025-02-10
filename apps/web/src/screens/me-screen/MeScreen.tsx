@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle, useAuth, UserGuard } from "@crabshell/shared-web";
 import { ArticlesSection } from "./articles-section/ArticlesSection";
 import { UsersCard } from "./users-card/UsersCard";
 import { GroupsCard } from "./groups-card/GroupsCard";
@@ -9,9 +9,8 @@ import { UserOfTheWeekCard } from "./user-of-the-week-card/UserOfTheWeekCard";
 import { UserContainer } from "./user-container/UserContainer";
 import { DISCORD_INVITE_URL, SITE_NAME } from "../../App.const";
 
-console.log(DISCORD_INVITE_URL);
-
 const MeScreen: Component = () => {
+  const { user } = useAuth();
   return (
     <UserGuard>
       <SiteTitle>Me</SiteTitle>
@@ -26,7 +25,7 @@ const MeScreen: Component = () => {
               <GroupsCard />
             </div>
             <div class="column col-6">
-              <UserContainer />
+              <UserContainer user={user} />
               <div
                 class="card"
                 style="display:flex;flex:1;justify-content:center;align-items:center;"

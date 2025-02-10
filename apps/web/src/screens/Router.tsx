@@ -30,6 +30,7 @@ const MostAchievementsScreen = lazy(
   () => import("./high-scores/most-achievements-screen/MostAchievementsScreen")
 );
 const StaffScreen = lazy(() => import("./staff-screen/StaffScreen"));
+const ProfileScreen = lazy(() => import("./profile-screen/ProfileScreen"));
 
 export const Router: Component = () => {
   return (
@@ -52,6 +53,7 @@ export const Router: Component = () => {
         component={MostAchievementsScreen}
       />
       <Route path="/staff" component={StaffScreen} />
+      <Route path="/profile/:username" component={ProfileScreen} />
     </BaseRouter>
   );
 };
