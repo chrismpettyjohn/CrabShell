@@ -30,6 +30,10 @@ export * from "./group/group.types";
 export * from "./high-scores/high-scores.service";
 export * from "./high-scores/high-scores.types";
 
+// Photo
+export * from "./photo/photo.service";
+export * from "./photo/photo.types";
+
 // Ranks
 export * from "./ranks/ranks.service";
 export * from "./ranks/ranks.types";

@@ -1,9 +1,6 @@
 import { Component, createSignal, onMount } from "solid-js";
 import { HighScoresLayout } from "../HighScoresLayout";
-import {
-  HighScoresByCreditsRow,
-  highScoresService,
-} from "@crabshell/public-client";
+import { HighScoresByCreditsRow, highScoresService } from "@crabshell/public-client";
 import { IMAGER_BASE_URL } from "../../../App.const";
 import { A } from "@solidjs/router";
 
@@ -33,15 +30,14 @@ const MostCreditsScreen: Component = () => {
                 <td>#{i + 1}</td>
                 <td>
                   <A href={`/profile/${_.username}`}>
-                    <img
-                      class="avatar"
-                      src={`${IMAGER_BASE_URL}?figure=${_.look}&size=l`}
-                      alt="Avatar"
-                      style="object-fit:cover;cursor:pointer;"
-                    />
+                    <img class="avatar" src={`${IMAGER_BASE_URL}?figure=${_.look}&size=l`} alt="Avatar" style="object-fit:cover;cursor:pointer;" />
                   </A>
                 </td>
-                <td>{_.username}</td>
+                <td>
+                  <A href={`/profile/${_.username}`} style={{ color: "white" }}>
+                    {_.username}
+                  </A>
+                </td>
                 <td>{_.credits}</td>
               </tr>
             ))}

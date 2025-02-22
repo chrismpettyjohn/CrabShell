@@ -1,9 +1,5 @@
 import { fetchFromApi } from "../client.const";
-import {
-  GroupsByUserIdResponse,
-  GroupsNewestResponse,
-  GroupsPopularResponse,
-} from "./group.types";
+import { GroupsByUserIdResponse, GroupsNewestResponse, GroupsPopularResponse, GroupWire } from "./group.types";
 
 export class GroupsService {
   public getPopularGroups(): Promise<GroupsPopularResponse> {
@@ -16,6 +12,10 @@ export class GroupsService {
 
   public getGroupsByUserId(userId: number): Promise<GroupsByUserIdResponse> {
     return fetchFromApi(`users/${userId}/groups`);
+  }
+
+  public getById(id: number): Promise<GroupWire> {
+    return fetchFromApi(`groups/${id}`);
   }
 }
 

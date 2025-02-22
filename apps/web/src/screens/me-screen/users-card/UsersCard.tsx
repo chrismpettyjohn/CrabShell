@@ -17,14 +17,14 @@ const tabs = [
 ];
 
 export function UsersCard() {
-  const [tabIndex, setTabIndex] = createSignal(0); // Reactive signal for tab index
-
+  const [tabIndex, setTabIndex] = createSignal(0);
+  {
+    tabs[tabIndex()].view();
+  }
   return (
     <div class="card">
       <h2>Users</h2>
       <TabBar tabs={tabs} activeTab={tabIndex} setTab={setTabIndex} />
-      <div class="tab-content">{tabs[tabIndex()].view()}</div>{" "}
-      {/* Render active tab's content */}
     </div>
   );
 }

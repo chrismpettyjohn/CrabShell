@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { UserEntity } from './user.entity';
 
 export enum PhotoVisibility {
   Visible = 1,
@@ -19,8 +26,12 @@ export class PhotoEntity {
   timestamp!: number;
 
   @Column({ name: 'url', type: 'varchar' })
-  url!: string;
+  imageUrl!: string;
 
   @Column({ name: 'visible', type: 'tinyint' })
   visible!: PhotoVisibility;
+
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'user_id' })
+  user?: UserEntity;
 }

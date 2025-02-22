@@ -8,6 +8,7 @@ import { EventCalendar } from "./event-calendar/EventCalendar";
 import { UserOfTheWeekCard } from "./user-of-the-week-card/UserOfTheWeekCard";
 import { UserContainer } from "./user-container/UserContainer";
 import { DISCORD_INVITE_URL, SITE_NAME } from "../../App.const";
+import { StoriesSection } from "./stories-section/StoriesSection";
 
 const MeScreen: Component = () => {
   const { user } = useAuth();
@@ -17,34 +18,21 @@ const MeScreen: Component = () => {
       <SiteSidebar />
       <main>
         <div class="main-content">
-          <ArticlesSection />
+          <StoriesSection />
           <br />
           <div class="grid">
             <div class="column col-3">
               <UsersCard />
-              <GroupsCard />
+              <UserOfTheWeekCard />
             </div>
             <div class="column col-6">
               <UserContainer user={user} />
-              <div
-                class="card"
-                style="display:flex;flex:1;justify-content:center;align-items:center;"
-              >
+              <ArticlesSection />
+              <div class="card" style="display:flex;flex:1;justify-content:center;align-items:center;">
                 <div style="text-align:center;">
-                  <img
-                    src="/img/logo.png"
-                    class="card-logo"
-                    style="width: 240px;object-size:cover;"
-                  />
+                  <img src="/img/logo.png" class="card-logo" style="width: 240px;object-size:cover;" />
                   <br />
-                  <br />
-                  <h2>Welcome to {SITE_NAME}!</h2>
-                  <p>Join our vibrant community and make new friends.</p>
-                  <a
-                    href={DISCORD_INVITE_URL}
-                    target="_blank"
-                    class="discord-link"
-                  >
+                  <a href={DISCORD_INVITE_URL} target="_blank" class="discord-link">
                     <button class="enter-hotel-btn">
                       <i class="fab fa-discord" style="margin-right: 8px;" />
                       Join Our Discord
@@ -55,7 +43,7 @@ const MeScreen: Component = () => {
             </div>
             <div class="column col-3">
               <EventCalendar />
-              <UserOfTheWeekCard />
+              <GroupsCard />
             </div>
           </div>
         </div>

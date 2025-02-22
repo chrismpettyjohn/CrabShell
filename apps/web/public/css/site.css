@@ -316,6 +316,17 @@ header .text-logo  {
     border-color: var(--color-four);
 }
 
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 main {
     display: flex;
     justify-content: center;
@@ -325,6 +336,7 @@ main {
     margin-top: var(--header-height);
     overflow: auto;
     z-index: 100;
+    animation: fadeInSlideUp 0.6s ease-out;
 }
 
 
@@ -836,6 +848,24 @@ button:hover {
     width: 100%;
 }
 
+.tab-content {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeInSlideFromLeft 0.6s ease-out forwards;
+}
+
+@keyframes fadeInSlideFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
 .tabs-container span {
     border-bottom: 2px solid transparent;
     cursor: pointer;
@@ -854,6 +884,11 @@ button:hover {
     max-height: 500px;
     margin-top: 14px;
     overflow-y: auto;
+}
+
+.users-list a {
+    text-decoration: none;
+    color: initial;
 }
 
 .users-list .row {
@@ -942,7 +977,7 @@ button:hover {
 
 .news-articles .container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     width: 100%;
 }
@@ -993,7 +1028,7 @@ button:hover {
 
 .news-article-page .container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20, max-content));
     gap: 20px;
 }
 
@@ -1350,7 +1385,8 @@ button:hover {
   border-radius: 0.5rem;
   border: 2px solid #333;
   background-color: var(--bg-three);
-  flex: 1;
+  height: fit-content;
+  width: 100%;
 }
 
 .user-container__user-banner {
@@ -1451,4 +1487,21 @@ button:hover {
   text-align: center;
   background-color: var(--bg-four);
   border-radius: 0.5rem;
+}
+
+.stories-container {
+    display: flex;
+    gap: 20px;
+}
+
+.stories-container .story {
+    border: 2px solid var(--bg-two);
+    border-radius: 100%;
+    cursor: pointer;
+    height: 120px;
+    width: 120px;
+}
+.stories-container .story:hover {
+    border-color: var(--bg-brand);
+    object-fit: cover;
 }

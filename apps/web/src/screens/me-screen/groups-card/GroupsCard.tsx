@@ -17,13 +17,12 @@ const tabs = [
 ];
 
 export function GroupsCard() {
-  const [tabIndex, setTabIndex] = createSignal(0); // Reactive signal for tab index
+  const [tabIndex, setTabIndex] = createSignal(0);
 
   return (
     <div class="card">
       <h2>Groups</h2>
       <TabBar tabs={tabs} activeTab={tabIndex} setTab={setTabIndex} />
-      <div class="tab-content">{tabs[tabIndex()].view()}</div>{" "}
     </div>
   );
 }
