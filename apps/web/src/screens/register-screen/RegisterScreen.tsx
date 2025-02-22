@@ -14,12 +14,7 @@ const RegisterScreen: Component = () => {
 
   async function onRegister(e: Event) {
     e.preventDefault();
-    const user = await authService.register(
-      email(),
-      username(),
-      password(),
-      passwordAgain()
-    );
+    const user = await authService.register(email(), username(), password(), passwordAgain());
     setUser(user);
     return redirect("/me");
   }
@@ -35,67 +30,58 @@ const RegisterScreen: Component = () => {
           <div class="left-side">
             <img src="https://i.imgur.com/IVT4J9o.png" />
           </div>
-            <form onSubmit={onRegister}>
-              <h2>Username</h2>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Username"
-                value={username()}
-                onInput={(e) => setUsername(e.target.value ?? "")}
-                required
-              />
+          <form onSubmit={onRegister}>
+            <h2>Username</h2>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              value={username()}
+              onInput={(e) => setUsername(e.target.value ?? "")}
+              required
+            />
 
-              <h2>Email</h2>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value={email()}
-                onInput={(e) => setEmail(e.target.value ?? "")}
-                required
-              />
+            <h2>Email</h2>
+            <input type="email" id="email" name="email" placeholder="Email" value={email()} onInput={(e) => setEmail(e.target.value ?? "")} required />
 
-              <h2>Password</h2>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                value={password()}
-                onInput={(e) => setPassword(e.target.value ?? "")}
-                required
-              />
+            <h2>Password</h2>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={password()}
+              onInput={(e) => setPassword(e.target.value ?? "")}
+              required
+            />
 
-              <h2>Password Again</h2>
-              <input
-                type="password"
-                id="passwordAgain"
-                name="passwordAgain"
-                placeholder="Password Again"
-                value={passwordAgain()}
-                onInput={(e) => setPasswordAgain(e.target.value ?? "")}
-                required
-              />
+            <h2>Password Again</h2>
+            <input
+              type="password"
+              id="passwordAgain"
+              name="passwordAgain"
+              placeholder="Password Again"
+              value={passwordAgain()}
+              onInput={(e) => setPasswordAgain(e.target.value ?? "")}
+              required
+            />
 
-              <button type="submit" class="success-btn">
-                Create Account
-              </button>
-            </form>
-            <div class="actions">
-              <A href="/login">Return to Login</A>
-            </div>
+            <button type="submit" class="success-btn">
+              Create Account
+            </button>
+          </form>
+          <div class="actions">
+            <A href="/login">Return to Login</A>
           </div>
-          <br />
-          <footer>
-            Powered by{" "}
-            <A href="/about">
-              <b>CrabShell</b>
-            </A>
-          </footer>
         </div>
+        <br />
+        <footer>
+          Powered by{" "}
+          <A href="/about">
+            <b>CrabShell</b>
+          </A>
+        </footer>
       </div>
     </GuestGuard>
   );
