@@ -2,7 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { AuthenticatedUser } from '../app';
 import * as jwt from 'jsonwebtoken';
 import { SessionRepository } from '../database/session.repository';
-import { JWT_COOKIE, JWT_SECRET } from '../app.const';
+import { JWT_SECRET } from '../app.const';
 import { UserRepository } from '../database/user.repository';
 
 @Injectable()
@@ -14,19 +14,19 @@ export class SessionGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const jwtCookie = request.cookies[JWT_COOKIE];
+    const authHeader = request.headers.authorization;
 
-    if (!jwtCookie) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return false;
     }
 
-    const token = jwtCookie.split('Bearer ')[1];
+    const token = authHeader.substring(7).trim();
 
     try {
-      const decoded: { id: number; userId: number } = jwt.verify(
-        token,
-        JWT_SECRET,
-      );
+      const decoded = jwt.verify(token, JWT_SECRET) as {
+        id: number;
+        userId: number;
+      };
 
       const [session, user] = await Promise.all([
         this.sessionRepo.findOneOrFail({ id: decoded.id }),
@@ -39,18 +39,11 @@ export class SessionGuard implements CanActivate {
       if (!user) {
         return false;
       }
-      const authenticatedUser: AuthenticatedUser = {
-        session,
-        user,
-        rank: user.rank,
-      };
 
-      request.auth = authenticatedUser;
-
+      request.auth = { session, user, rank: user.rank } as AuthenticatedUser;
       return true;
     } catch (e) {
-      console.log(e);
-      console.log('yyy');
+      console.error('JWT Verification Error:', e);
       return false;
     }
   }

@@ -7,7 +7,6 @@ import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
 import { generate } from 'randomstring';
 import {
-  JWT_COOKIE,
   JWT_SECRET,
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
@@ -17,6 +16,9 @@ import {
   USER_DEFAULT_POINTS,
 } from '../app.const';
 import { Injectable } from '@nestjs/common';
+import { AuthLoginResponse } from '@crabshell/admin-client';
+import { UserDTO } from '../user/user.dto';
+import { AuthRegisterResponse } from '@crabshell/public-client';
 
 const JWT_EXPIRATION = '1h';
 
@@ -52,24 +54,16 @@ export class AuthService {
     return gameSSO;
   }
 
-  async login(loginDto: AuthLoginDTO, res: Response): Promise<UserEntity> {
+  async login(loginDto: AuthLoginDTO): Promise<AuthLoginResponse> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
     const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, {
       expiresIn: JWT_EXPIRATION,
     });
-    res.cookie(JWT_COOKIE, `Bearer ${token}`, {
-      httpOnly: true,
-      sameSite: 'lax',
-      path: '/',
-    });
-    return user;
+    return { token, user: UserDTO.fromEntity(user) };
   }
 
-  async register(
-    registerDto: AuthRegisterDTO,
-    res: Response,
-  ): Promise<UserEntity> {
+  async register(registerDto: AuthRegisterDTO): Promise<AuthRegisterResponse> {
     const existingUser = await this.userRepo.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
       relations: ['rank'],
@@ -105,10 +99,10 @@ export class AuthService {
       machineAddress: generate(10),
     });
 
-    return this.login(
-      { username: user.username, password: registerDto.password },
-      res,
-    );
+    return this.login({
+      username: user.username,
+      password: registerDto.password,
+    });
   }
 
   logout(res: Response): Response {

@@ -1,11 +1,5 @@
 import { fetchFromApi, postToApi } from "../client.const";
-import {
-  AuthLoginParams,
-  AuthLoginResponse,
-  AuthProfileResponse,
-  AuthRegisterParams,
-  AuthRegisterResponse,
-} from "./auth.types";
+import { AuthLoginParams, AuthLoginResponse, AuthProfileResponse, AuthRegisterParams, AuthRegisterResponse } from "./auth.types";
 
 export class AuthService {
   public login(username: string, password: string): Promise<AuthLoginResponse> {
@@ -15,21 +9,13 @@ export class AuthService {
     });
   }
 
-  public register(
-    email: string,
-    username: string,
-    password: string,
-    passwordAgain: string
-  ): Promise<AuthRegisterResponse> {
-    return postToApi<AuthRegisterParams, AuthRegisterResponse>(
-      "auth/register",
-      {
-        email,
-        username,
-        password,
-        passwordAgain,
-      }
-    );
+  public register(email: string, username: string, password: string, passwordAgain: string): Promise<AuthRegisterResponse> {
+    return postToApi<AuthRegisterParams, AuthRegisterResponse>("auth/register", {
+      email,
+      username,
+      password,
+      passwordAgain,
+    });
   }
 
   public viewAuthenticatedUser(): Promise<AuthProfileResponse> {
@@ -39,10 +25,6 @@ export class AuthService {
   public async generateSSO(): Promise<string> {
     const response: Record<"sso", string> = await fetchFromApi("auth/sso");
     return response.sso;
-  }
-
-  public async logout(): Promise<void> {
-    await postToApi("auth/logout", {});
   }
 }
 

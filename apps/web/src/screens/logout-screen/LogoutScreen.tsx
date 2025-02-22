@@ -1,14 +1,18 @@
-import { onMount, type Component } from "solid-js";
+import { createEffect, onMount, type Component } from "solid-js";
 import { SiteTitle, useAuth, UserGuard } from "@crabshell/shared-web";
-import { authService } from "@crabshell/public-client";
 import { redirect } from "@solidjs/router";
 
 const LogoutScreen: Component = () => {
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
   onMount(async () => {
-    await authService.logout();
+    localStorage.clear();
     setUser(null);
-    return redirect("/login");
+  });
+
+  createEffect(() => {
+    if (!user()) {
+      return redirect("/login");
+    }
   });
 
   return (

@@ -5,6 +5,9 @@ export interface AuthLoginParams {
   password: string;
 }
 
-export type AuthLoginResponse = AdminUserWire;
+export interface AuthLoginResponse {
+  token: string;
+  user: AdminUserWire;
+}
 
 export type AuthProfileResponse = AdminUserWire;

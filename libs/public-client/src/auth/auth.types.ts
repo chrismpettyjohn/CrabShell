@@ -5,7 +5,10 @@ export interface AuthLoginParams {
   password: string;
 }
 
-export type AuthLoginResponse = UserWire;
+export interface AuthLoginResponse {
+  token: string;
+  user: UserWire;
+}
 
 export interface AuthRegisterParams {
   email: string;
@@ -14,5 +17,9 @@ export interface AuthRegisterParams {
   passwordAgain: string;
 }
 
-export type AuthRegisterResponse = UserWire;
+export interface AuthRegisterResponse {
+  token: string;
+  user: UserWire;
+}
+
 export type AuthProfileResponse = UserWire;

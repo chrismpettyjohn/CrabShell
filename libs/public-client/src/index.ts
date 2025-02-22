@@ -41,3 +41,5 @@ export * from "./ranks/ranks.types";
 // User
 export * from "./user/user.service";
 export * from "./user/user.types";
+
+export * from "./client.const";

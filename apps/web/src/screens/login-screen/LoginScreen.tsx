@@ -1,5 +1,5 @@
 import { createSignal, type Component } from "solid-js";
-import { GuestGuard, useAuth, SiteTitle } from "@crabshell/shared-web";
+import { GuestGuard, useAuth, SiteTitle, CRAB_SESSION_STORAGE } from "@crabshell/shared-web";
 import { authService } from "@crabshell/public-client";
 import { A, redirect } from "@solidjs/router";
 import { useOnlineUsers } from "../../context/OnlineUsersContext";
@@ -16,8 +16,9 @@ const LoginScreen: Component = () => {
     try {
       e.preventDefault();
       if (!canSubmit()) return;
-      const user = await authService.login(username(), password());
-      setUser(user);
+      const response = await authService.login(username(), password());
+      localStorage.setItem(CRAB_SESSION_STORAGE, response.token);
+      setUser(response.user);
       return redirect("/me");
     } catch (e: any) {
       alert("Failed to login");
@@ -78,33 +79,3 @@ const LoginScreen: Component = () => {
 };
 
 export default LoginScreen;
-
-/*
- <form onSubmit={onLogin}>
-              <h2>Username</h2>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Username"
-                value={username()}
-                onInput={(e) => setUsername(e.target.value ?? "")}
-                required
-              />
-
-              <h2>Password</h2>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Password"
-                value={password()}
-                onInput={(e) => setPassword(e.target.value ?? "")}
-                required
-              />
-
-              <button type="submit" class="success-btn" disabled={!canSubmit()}>
-                Log In
-              </button>
-            </form>
-*/

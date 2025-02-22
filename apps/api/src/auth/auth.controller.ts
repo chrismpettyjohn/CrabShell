@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  UseGuards,
-  Res,
-  Req,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, UseGuards, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { SessionGuard } from './session.guard';
@@ -14,30 +6,25 @@ import { UserDTO } from '../user/user.dto';
 import { UserEntity } from '../database/user.entity';
 import { Response } from 'express';
 import { GetSession } from './get-session.decorator';
+import {
+  AuthLoginResponse,
+  AuthRegisterResponse,
+} from '@crabshell/public-client';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  async login(
-    @Body() loginDto: AuthLoginDTO,
-    @Res() response,
-  ): Promise<UserDTO> {
-    const user: UserEntity = await this.authService.login(loginDto, response);
-    return response.json(UserDTO.fromEntity(user));
+  login(@Body() loginDto: AuthLoginDTO): Promise<AuthLoginResponse> {
+    return this.authService.login(loginDto);
   }
 
   @Post('register')
-  async register(
+  register(
     @Body() registerDto: AuthRegisterDTO,
-    @Res() response,
-  ): Promise<UserDTO> {
-    const user: UserEntity = await this.authService.register(
-      registerDto,
-      response,
-    );
-    return response.json(UserDTO.fromEntity(user));
+  ): Promise<AuthRegisterResponse> {
+    return this.authService.register(registerDto);
   }
 
   @Post('logout')
