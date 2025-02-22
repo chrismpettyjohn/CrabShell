@@ -1,6 +1,6 @@
 import { createSignal, type Component } from "solid-js";
-import { GuestGuard, useAuth, SiteTitle, CRAB_SESSION_STORAGE } from "@crabshell/shared-web";
-import { authService } from "@crabshell/public-client";
+import { GuestGuard, useAuth, SiteTitle } from "@crabshell/shared-web";
+import { authService, CRAB_SESSION_STORAGE } from "@crabshell/public-client";
 import { A, redirect } from "@solidjs/router";
 import { useOnlineUsers } from "../../context/OnlineUsersContext";
 
