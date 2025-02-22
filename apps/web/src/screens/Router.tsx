@@ -18,6 +18,8 @@ const MostAchievementsScreen = lazy(() => import("./high-scores/most-achievement
 const StaffScreen = lazy(() => import("./staff-screen/StaffScreen"));
 const ProfileScreen = lazy(() => import("./profile-screen/ProfileScreen"));
 const GroupsViewScreen = lazy(() => import("./groups-view-screen/GroupsViewScreen"));
+const PhotosListScreen = lazy(() => import("./photos-list-screen/PhotosListScreen"));
+const PhotosViewScreen = lazy(() => import("./photos-view-screen/PhotosViewScreen"));
 
 export const Router: Component = () => {
   return (
@@ -39,6 +41,8 @@ export const Router: Component = () => {
       <Route path="/staff" component={StaffScreen} />
       <Route path="/profile/:username" component={ProfileScreen} />
       <Route path="/groups/:groupId" component={GroupsViewScreen} />
+      <Route path="/photos" component={PhotosListScreen} />
+      <Route path="/photos/:photoId" component={PhotosViewScreen} />
     </BaseRouter>
   );
 };

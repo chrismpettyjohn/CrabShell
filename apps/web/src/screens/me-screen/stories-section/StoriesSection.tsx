@@ -20,7 +20,7 @@ export function StoriesSection() {
     <Show when={!!stories().length} fallback="No photos found!">
       <div class="stories-container">
         {stories().map((_) => (
-          <A href={`/stories/${_.id}`}>
+          <A href={`/photos/${_.id}`}>
             <img src={_.imageUrl} class="story" />
           </A>
         ))}

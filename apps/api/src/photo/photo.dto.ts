@@ -35,6 +35,7 @@ export class PhotoDTO implements PhotoWire {
     dto.timestamp = entity.timestamp;
     dto.imageUrl = entity.imageUrl;
     dto.visible = entity.visible === PhotoVisibility.Visible;
+    dto.user = entity.user ? UserDTO.fromEntity(entity.user) : undefined;
     return dto;
   }
 }

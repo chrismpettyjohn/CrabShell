@@ -11,6 +11,7 @@ export class PhotoPipe implements PipeTransform {
       where: {
         id: photoId,
       },
+      relations: ['user', 'user.rank'],
     });
 
     if (!photo) {
