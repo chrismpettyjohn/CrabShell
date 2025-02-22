@@ -2,7 +2,6 @@ import { Controller, Get } from '@nestjs/common';
 import {
   HighScoresByAchievementsDTO,
   HighScoresByCreditsDTO,
-  HighScoresByDiamondsDTO,
   HighScoresByOnlineTimeDTO,
   HighScoresByRespectsReceivedDTO,
 } from './high-scores.dto';
@@ -17,13 +16,6 @@ export class HighScoresController {
     const items = await this.highScoresService.byCredits();
     return { items };
   }
-
-  @Get('diamonds')
-  async byDiamonds(): Promise<HighScoresByDiamondsDTO> {
-    const items = await this.highScoresService.byDiamonds();
-    return { items };
-  }
-
   @Get('online-time')
   async byOnlineTime(): Promise<HighScoresByOnlineTimeDTO> {
     const items = await this.highScoresService.byOnlineTime();

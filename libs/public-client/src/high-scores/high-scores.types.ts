@@ -8,16 +8,6 @@ export interface HighScoresByCreditsResponse {
   items: HighScoresByCreditsRow[];
 }
 
-export interface HighScoresByDiamondsRow {
-  id: number;
-  username: string;
-  look: string;
-  diamonds: number;
-}
-export interface HighScoresByDiamondsResponse {
-  items: HighScoresByDiamondsRow[];
-}
-
 export interface HighScoresByOnlineTimeRow {
   id: number;
   username: string;

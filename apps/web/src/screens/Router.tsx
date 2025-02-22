@@ -11,7 +11,6 @@ const LogoutScreen = lazy(() => import("./logout-screen/LogoutScreen"));
 const ArticlesListScreen = lazy(() => import("./articles-list-screen/ArticlesListScreen"));
 const ArticlesViewScreen = lazy(() => import("./articles-view-screen/ArticlesViewScreen"));
 const MostCreditsScreen = lazy(() => import("./high-scores/most-credits-screen/MostCreditsScreen"));
-const MostDiamondsScreen = lazy(() => import("./high-scores/most-diamonds-screen/MostDiamondsScreen"));
 const MostOnlineTimeScreen = lazy(() => import("./high-scores/most-online-time-screen/MostOnlineTimeScreen"));
 const MostRespectsScreen = lazy(() => import("./high-scores/most-respects-screen/MostRespectsScreen"));
 const MostAchievementsScreen = lazy(() => import("./high-scores/most-achievements-screen/MostAchievementsScreen"));
@@ -35,7 +34,6 @@ export const Router: Component = () => {
       <Route path="/articles" component={ArticlesListScreen} />
       <Route path="/articles/:articleId" component={ArticlesViewScreen} />
       <Route path="/high-scores/credits" component={MostCreditsScreen} />
-      <Route path="/high-scores/diamonds" component={MostDiamondsScreen} />
       <Route path="/high-scores/online-time" component={MostOnlineTimeScreen} />
       <Route path="/high-scores/respects" component={MostRespectsScreen} />
       <Route path="/high-scores/achievements" component={MostAchievementsScreen} />

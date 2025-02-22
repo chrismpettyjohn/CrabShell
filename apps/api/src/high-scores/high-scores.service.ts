@@ -3,7 +3,6 @@ import { UserRepository } from '../database/user.repository';
 import {
   HighScoresByAchievementsRow,
   HighScoresByCreditsRow,
-  HighScoresByDiamondsRow,
   HighScoresByOnlineTimeRow,
   HighScoresByRespectsReceivedRow,
 } from '@crabshell/public-client';
@@ -25,21 +24,6 @@ export class HighScoresService {
       username: _.username,
       look: _.look,
       credits: _.credits,
-    }));
-  }
-
-  async byDiamonds(): Promise<HighScoresByDiamondsRow[]> {
-    const topUsers: UserEntity[] = await this.userRepo.find({
-      order: {
-        vipPoints: 'DESC',
-      },
-      take: 20,
-    });
-    return topUsers.map((_) => ({
-      id: _.id!,
-      username: _.username,
-      look: _.look,
-      diamonds: _.vipPoints,
     }));
   }
 

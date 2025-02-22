@@ -13,10 +13,6 @@ const HIGH_SCORE_LINKS: Array<{ label: string; href: string }> = [
     href: "/high-scores/credits",
   },
   {
-    label: "Diamonds",
-    href: "/high-scores/diamonds",
-  },
-  {
     label: "Online Time",
     href: "/high-scores/online-time",
   },
@@ -42,9 +38,7 @@ export function HighScoresLayout({ children }: HighScoresLayoutProps) {
           <div class="tabs-container">
             {HIGH_SCORE_LINKS.map((_) => (
               <A href={_.href}>
-                <span class={_.href === pathname ? "active" : ""}>
-                  {_.label}
-                </span>
+                <span class={_.href === pathname ? "active" : ""}>{_.label}</span>
               </A>
             ))}
           </div>
