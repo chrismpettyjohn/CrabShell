@@ -57,9 +57,13 @@ export class AuthService {
   async login(loginDto: AuthLoginDTO): Promise<AuthLoginResponse> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
-    const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, {
-      expiresIn: JWT_EXPIRATION,
-    });
+    const token = jwt.sign(
+      { id: session.id, userId: user.id!, user },
+      JWT_SECRET,
+      {
+        expiresIn: JWT_EXPIRATION,
+      },
+    );
     return { token, user: UserDTO.fromEntity(user) };
   }
 

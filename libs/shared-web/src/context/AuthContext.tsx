@@ -18,8 +18,8 @@ export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
     try {
       const token = localStorage.getItem(CRAB_SESSION_STORAGE);
       if (token) {
-        const decodedUser = jwtDecode<UserWire>(token);
-        setUser(decodedUser);
+        const decodedUser = jwtDecode<{ user: UserWire }>(token);
+        setUser(decodedUser.user);
       }
     } finally {
       setLoading(false);
