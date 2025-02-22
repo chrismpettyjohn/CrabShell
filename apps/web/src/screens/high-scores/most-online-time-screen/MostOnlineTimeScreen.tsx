@@ -38,7 +38,13 @@ const MostOnlineTimesScreen: Component = () => {
                     {_.username}
                   </A>
                 </td>
-                <td>{_.onlineTime}</td>
+                <td>
+                  {_.onlineTime / 3600 >= 48
+                    ? parseInt(`${_.onlineTime / 86400}`).toLocaleString() + " days"
+                    : _.onlineTime / 3600 >= 2
+                      ? parseInt(`${_.onlineTime / 3600}`).toLocaleString() + " hours"
+                      : parseInt(`${_.onlineTime / 60}`).toLocaleString() + " minutes"}
+                </td>
               </tr>
             ))}
           </tbody>
