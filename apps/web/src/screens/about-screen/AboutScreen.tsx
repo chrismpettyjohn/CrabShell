@@ -1,12 +1,17 @@
 import { A } from "@solidjs/router";
 import { SITE_NAME } from "../../App.const";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle, useAuth, UserGuard } from "@crabshell/shared-web";
+import { Show } from "solid-js";
 
 export function AboutScreen() {
+  const { user } = useAuth();
   return (
     <>
       <SiteTitle>About</SiteTitle>
+      <Show when={!!user()}>
+        <SiteSidebar />
+      </Show>
       <main>
         <div class="main-content news-article-page">
           <h2 style="margin:0;">Psalms 144:1-2</h2>
