@@ -26,7 +26,6 @@ const SIDEBAR_LINKS: Array<{
     scope: undefined,
   },
   { path: "/staff", icon: "fa-users", label: "Staff Team", scope: undefined },
-  { path: "/play", icon: "fa-gamepad", label: "Play Game", scope: undefined },
   { path: "/logout", icon: "fa-sign-out", label: "Logout", scope: undefined },
 ];
 
