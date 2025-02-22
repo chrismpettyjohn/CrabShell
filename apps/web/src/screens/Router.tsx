@@ -16,7 +16,7 @@ const MostRespectsScreen = lazy(() => import("./high-scores/most-respects-screen
 const MostAchievementsScreen = lazy(() => import("./high-scores/most-achievements-screen/MostAchievementsScreen"));
 const StaffScreen = lazy(() => import("./staff-screen/StaffScreen"));
 const ProfileScreen = lazy(() => import("./profile-screen/ProfileScreen"));
-const GroupsViewScreen = lazy(() => import("./groups-view-screen/GroupsViewScreen"));
+const GroupsProfileScreen = lazy(() => import("./groups-profile-screen/GroupsProfileScreen"));
 const PhotosListScreen = lazy(() => import("./photos-list-screen/PhotosListScreen"));
 const PhotosViewScreen = lazy(() => import("./photos-view-screen/PhotosViewScreen"));
 const OnlineListScreen = lazy(() => import("./online-list-screen/OnlineListScreen"));
@@ -39,7 +39,7 @@ export const Router: Component = () => {
       <Route path="/high-scores/achievements" component={MostAchievementsScreen} />
       <Route path="/staff" component={StaffScreen} />
       <Route path="/profile/:username" component={ProfileScreen} />
-      <Route path="/groups/:groupId" component={GroupsViewScreen} />
+      <Route path="/groups/:groupId" component={GroupsProfileScreen} />
       <Route path="/photos" component={PhotosListScreen} />
       <Route path="/photos/:photoId" component={PhotosViewScreen} />
       <Route path="/online" component={OnlineListScreen} />

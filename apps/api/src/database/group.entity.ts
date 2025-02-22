@@ -1,3 +1,4 @@
+import { GroupMembershipEntity } from './group-membership.entity';
 import { UserEntity } from './user.entity';
 import {
   Column,
@@ -5,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  ManyToMany,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('guilds')
@@ -27,7 +30,13 @@ export class GroupEntity {
   @Column({ name: 'room_id', type: 'int' })
   roomID!: number;
 
+  @Column({ name: 'date_created', type: 'int' })
+  createdAt!: number;
+
   @ManyToOne(() => UserEntity)
   @JoinColumn({ name: 'user_id' })
   user?: UserEntity;
+
+  @OneToMany(() => GroupMembershipEntity, (guildMember) => guildMember.guild)
+  members: GroupMembershipEntity[];
 }

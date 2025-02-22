@@ -11,6 +11,7 @@ export class GroupPipe implements PipeTransform {
       where: {
         id: groupID,
       },
+      relations: ['members', 'members.user', 'members.user.rank'],
     });
 
     if (!group) {

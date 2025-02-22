@@ -2,6 +2,8 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -16,6 +18,8 @@ import {
 } from '../app.const';
 import { RankEntity } from './rank.entity';
 import { UserCommandLogEntity } from './user-command-log.entity';
+import { GroupEntity } from './group.entity';
+import { GroupMembershipEntity } from './group-membership.entity';
 
 @Entity('users')
 export class UserEntity {
@@ -82,4 +86,11 @@ export class UserEntity {
 
   @OneToMany(() => UserCommandLogEntity, (commandLog) => commandLog.user)
   commandLogs?: UserCommandLogEntity[];
+
+  @ManyToMany(
+    () => GroupMembershipEntity,
+    (groupMembership) => groupMembership.user,
+  )
+  @JoinTable()
+  groupMemberships?: GroupMembershipEntity[];
 }

@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { GroupEntity } from './group.entity';
+import { UserEntity } from './user.entity';
 
 @Entity('guilds_members')
 export class GroupMembershipEntity {
@@ -16,4 +24,12 @@ export class GroupMembershipEntity {
 
   @Column({ name: 'member_since', type: 'int' })
   createdAt!: number;
+
+  @ManyToOne(() => UserEntity, (user) => user.groupMemberships)
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
+
+  @ManyToOne(() => GroupEntity, (guild) => guild.members)
+  @JoinColumn({ name: 'guild_id' })
+  guild: GroupEntity;
 }
