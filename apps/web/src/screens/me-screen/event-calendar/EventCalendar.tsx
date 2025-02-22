@@ -2,6 +2,7 @@ import { createEffect, createSignal, onMount, Show } from "solid-js";
 import { Calendar } from "../../../components/calendar/Calendar";
 import { eventsService, EventWire } from "@crabshell/public-client";
 import { getMonthDateYear, getTime } from "../../../App.util";
+import { A } from "@solidjs/router";
 
 export function EventCalendar() {
   const [currentDate, setCurrentDate] = createSignal(new Date());
@@ -15,29 +16,21 @@ export function EventCalendar() {
     setEvents(response);
   });
 
-  const navigate = (dir) => {
+  const navigate = (dir: any) => {
     setCurrentDate((prev) => {
       const newDate = new Date(prev);
       newDate.setMonth(newDate.getMonth() + dir);
-      setSelectedDate(newDate); // Sync selectedDate with currentDate
+      setSelectedDate(newDate);
       return newDate;
     });
   };
 
   return (
     <div class="calendar-container" style="height:100%;">
-      <Calendar
-        date={currentDate()}
-        selectedDate={selectedDate()}
-        onNavigate={navigate}
-        onDateSelect={setSelectedDate}
-      />
+      <Calendar date={currentDate()} selectedDate={selectedDate()} onNavigate={navigate} onDateSelect={setSelectedDate} />
       <div class="event-plan">
         <h3>Events on {getMonthDateYear(selectedDate())}</h3>
-        <Show
-          when={events() !== undefined}
-          fallback={<i class="fa fa-spinner fa-spin" />}
-        >
+        <Show when={events() !== undefined} fallback={<i class="fa fa-spinner fa-spin" />}>
           {events()?.map((_) => (
             <div class="event">
               <span class="time">{getTime(new Date(_.startsAt * 1000))}</span>
@@ -45,7 +38,10 @@ export function EventCalendar() {
                 <h4>{_.title}</h4>
                 <p>{_.content}</p>
                 <div style="text-align:right;">
-                  Hosted by <b class="text-brand">{_.user.username}</b>
+                  Hosted by&nbsp;
+                  <A href={`/profile/${_.user.username}`}>
+                    <b class="text-brand">{_.user.username}</b>
+                  </A>
                 </div>
               </div>
             </div>

@@ -28,13 +28,6 @@ const SIDEBAR_LINKS: Array<{
   { path: "/staff", icon: "fa-users", label: "Staff Team", scope: undefined },
   { path: "/play", icon: "fa-gamepad", label: "Play Game", scope: undefined },
   { path: "/logout", icon: "fa-sign-out", label: "Logout", scope: undefined },
-  {
-    path: ADMIN_PANEL_URL,
-    icon: "fa-shield",
-    label: "Admin Panel",
-    scope: RankScope.ADMIN_PANEL,
-    css: "background:red;color:white;",
-  },
 ];
 
 export function SiteSidebar() {
@@ -56,19 +49,12 @@ export function SiteSidebar() {
         <UserArea />
         <div class="navigation">
           {SIDEBAR_LINKS.map(({ path, icon, label, scope, css }) => {
-            const currentBase = location.pathname
-              .split("/")
-              .slice(0, 2)
-              .join("/");
+            const currentBase = location.pathname.split("/").slice(0, 2).join("/");
             const linkBase = path.split("/").slice(0, 2).join("/");
             const isActive = currentBase === linkBase;
 
             const linkContent = (
-              <A
-                href={path}
-                class={`${isActive ? "current" : ""}`.trim()}
-                style={css}
-              >
+              <A href={path} class={`${isActive ? "current" : ""}`.trim()} style={css}>
                 <i class={`fa ${icon}`} />
                 {label}
               </A>
@@ -83,6 +69,18 @@ export function SiteSidebar() {
 
             return linkContent;
           })}
+
+          <div style="height:40px;width:100%;" />
+          <ScopeGuard scope={RankScope.ADMIN_PANEL} redirect={false}>
+            <A href={ADMIN_PANEL_URL} style="background:#e42c2f;color:white;margin-bottom:14px;">
+              <i class="fa fa-shield" />
+              <b>Admin</b>
+            </A>
+          </ScopeGuard>
+          <A href="/play" style="background:#489253;color:white;">
+            <i class="fa fa-caret-right" />
+            <b>Play Game</b>
+          </A>
         </div>
         <footer>
           <A href="/about">

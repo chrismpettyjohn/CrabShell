@@ -143,8 +143,8 @@ header .actions {
 
 .enter-hotel-btn {
     cursor: pointer;
-    background: #ffc500;
-    color: black;
+    background: #489253;
+    color: white;
     font-weight: 800;
     border-radius: 4px;
     font-size: 14px;
@@ -1531,4 +1531,39 @@ button:hover {
 .stories-container .story:hover {
     border-color: var(--bg-brand);
     object-fit: cover;
+}
+
+html, body, .client, iframe {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.client-page .client-controls {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.client-page .client-controls a {
+    background: var(--bg-two);
+    border-radius: var(--radius-two);
+    color: white;
+    text-decoration: none;
+    padding: 8px;
+}
+
+.client-page .client-controls a:hover {
+    background: var(--bg-three);
+}
+
+.client-page .client-controls a i {
+    margin-right: 8px;
 }
