@@ -22,32 +22,19 @@ const ArticlesViewScreen: Component = () => {
       <main>
         <div class="main-content news-article-page">
           <div class="card">
-            <Show
-              when={article()}
-              fallback={<i class="fa fa-spinner fa-spin" />}
-            >
-              <div
-                style={`border-radius:8px;border:1px solid white;display:flex;padding:8px;flex:1;justify-content:space-between;align-items:center;background:url('${article()?.imageUrl}');background-position:center;background-repeat:no-repeat;background-size:cover;height:120px;`}
-              >
+            <Show when={article()} fallback={<i class="fa fa-spinner fa-spin" />}>
+              <>
+                <div class="background" style={`background:url('${article()?.imageUrl}');`} />
                 <h1 style="color:white;">{article()?.name}</h1>
-                <p style="color:white;">
-                  Posted {getFormattedDateTime(new Date(article()?.createdAt!))}
-                </p>
-              </div>
-              <div innerHTML={article()?.content} />
+                <p style="color:white;">Posted {getFormattedDateTime(new Date(article()?.createdAt!))}</p>
+                <div innerHTML={article()?.content} />
+              </>
             </Show>
           </div>
           <br />
-          <div
-            class="card"
-            style="height:fit-content;display:flex;justify-content:space-between;align-items:center;"
-          >
+          <div class="card" style="height:fit-content;display:flex;justify-content:space-between;align-items:center;">
             <div style="display:flex;">
-              <img
-                class="avatar"
-                src={`${IMAGER_BASE_URL}?figure=${article()?.user?.look}&headonly=1`}
-                style="object-fit: contain; height: 65px"
-              />
+              <img class="avatar" src={`${IMAGER_BASE_URL}?figure=${article()?.user?.look}&headonly=1`} style="object-fit: contain; height: 65px" />
               <div style="margin-top:12px;">
                 <div style="margin-bottom:8px;">Posted by:</div>
                 <h2>{article()?.user?.username}</h2>

@@ -1032,6 +1032,33 @@ button:hover {
     gap: 20px;
 }
 
+.news-article-page .background {
+    align-items:center;
+    background-position:center;
+    border-radius:8px;
+    border:1px solid white;
+    display:flex;
+    padding:8px;
+    position: relative;
+    flex:1;
+    justify-content:space-between;
+    background-repeat:no-repeat;
+    background-size:cover;
+    height:120px;
+}
+
+.news-article-page .background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    z-index: 1;
+}
+
 .news-article-page .article-card {
     background-size: cover;
     background-position: center;
@@ -1498,8 +1525,8 @@ button:hover {
     border: 2px solid var(--bg-two);
     border-radius: 100%;
     cursor: pointer;
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
 }
 .stories-container .story:hover {
     border-color: var(--bg-brand);

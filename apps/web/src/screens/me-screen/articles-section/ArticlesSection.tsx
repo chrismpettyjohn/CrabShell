@@ -1,6 +1,7 @@
 import { articleService, ArticleWire } from "@crabshell/public-client";
 import { A } from "@solidjs/router";
 import { createSignal, onMount } from "solid-js";
+import { getMonthDateYear } from "../../../App.util";
 
 export function ArticlesSection() {
   const [articles, setArticles] = createSignal<ArticleWire[]>([]);
@@ -17,10 +18,9 @@ export function ArticlesSection() {
           <A href={`/articles/${_.id}`}>
             <div class="card" style={`background-image: url(${_.imageUrl});`}>
               <div class="card-content">
-                <div class="label">Client</div>
                 <h3>{_.name}</h3>
                 <p>{_.description}</p>
-                <span>{_.createdAt}</span>
+                <span>{getMonthDateYear(new Date(_.createdAt))}</span>
               </div>
             </div>
           </A>

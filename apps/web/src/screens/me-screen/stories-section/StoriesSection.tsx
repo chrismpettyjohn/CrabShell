@@ -21,7 +21,7 @@ export function StoriesSection() {
       <div class="stories-container">
         {stories().map((_) => (
           <A href={`/stories/${_.id}`}>
-            <img src={_.imageUrl} className="story" />
+            <img src={_.imageUrl} class="story" />
           </A>
         ))}
       </div>
