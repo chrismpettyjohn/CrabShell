@@ -27,15 +27,14 @@ const RegisterScreen: Component = () => {
     <GuestGuard>
       <SiteTitle>Register</SiteTitle>
       <div class="login-page">
-        <div class="container">
-          <div class="logo">
-            <img src="/img/logo.png" alt="Habbo Logo" />
+        <img src="/img/logo.png" class="logo" />
+        <div class="users-now">
+          <b>{onlineUsers().length}</b> crabs in the reef
+        </div>
+        <div class="login-box">
+          <div class="left-side">
+            <img src="https://i.imgur.com/IVT4J9o.png" />
           </div>
-          <p class="online-status">{onlineUsers().length} crabs online</p>
-          <br />
-          <div class="login-box">
-            <h2>Join HabCrab Today!</h2>
-            <p>Create your free account</p>
             <form onSubmit={onRegister}>
               <h2>Username</h2>
               <input

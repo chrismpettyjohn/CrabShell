@@ -1,13 +1,13 @@
 :root {
-    --bg-primary: #f0f0f0;
-    --bg-brand: #FCA05E;
-    --bg-success: #0E8F19;
-    --bg-info: #FFD413;
-    --bg-one: #1D1E2F;
-    --bg-two: #19212C;
-    --bg-three: #2E3440;
-    --bg-four: #232732;
-    --bg-five: #0f1415;
+    --bg-primary: rgba(240, 240, 240, 0.8);
+    --bg-brand: rgba(252, 160, 94, 0.8);
+    --bg-success: rgba(14, 143, 25, 0.8);
+    --bg-info: rgba(255, 212, 19, 0.8);
+    --bg-one: rgba(29, 30, 47, 0.8);
+    --bg-two: rgba(25, 33, 44, 0.8);
+    --bg-three: rgba(46, 52, 64, 0.8);
+    --bg-four: rgba(35, 39, 50, 0.8);
+    --bg-five: rgba(15, 20, 21, 0.8);
     --shadow-one: 0 4px 4px var(--bg-three), 0 6px 16px var(--bg-three);
     --color-brand: white;
     --color-success: white;
@@ -447,7 +447,6 @@ h1 {
     justify-content: center;
 }
 
-
 .login-page a {
   margin: 0;
   padding: 0;
@@ -455,7 +454,7 @@ h1 {
 
 .login-page button {
   width: 100%;
-  height: 100%;
+  height: 45px;
 }
 
 .login-page .container {
@@ -515,6 +514,7 @@ h1 {
   padding: 10px;
   border-radius: 5px;
   border: none;
+  color: var(--bg-brand);
   outline: none;
   font-size: 16px;
 }
