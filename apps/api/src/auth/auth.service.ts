@@ -7,6 +7,7 @@ import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
 import { generate } from 'randomstring';
 import {
+  JWT_EXPIRATION,
   JWT_SECRET,
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
@@ -19,8 +20,6 @@ import { Injectable } from '@nestjs/common';
 import { AuthLoginResponse } from '@crabshell/admin-client';
 import { UserDTO } from '../user/user.dto';
 import { AuthRegisterResponse } from '@crabshell/public-client';
-
-const JWT_EXPIRATION = '1h';
 
 @Injectable()
 export class AuthService {

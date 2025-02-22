@@ -2,6 +2,7 @@ import { UserWire } from "@crabshell/public-client";
 import { createContext, useContext, createSignal, type Component, type JSX, onMount, Show } from "solid-js";
 import { jwtDecode } from "jwt-decode";
 import { CRAB_SESSION_STORAGE } from "@crabshell/public-client";
+import toast from "solid-toast";
 
 interface AuthContextValue {
   user: () => UserWire | null;
@@ -18,8 +19,14 @@ export const AuthProvider: Component<{ children: JSX.Element }> = (props) => {
     try {
       const token = localStorage.getItem(CRAB_SESSION_STORAGE);
       if (token) {
-        const decodedUser = jwtDecode<{ user: UserWire }>(token);
-        setUser(decodedUser.user);
+        const decoded = jwtDecode<{ user: UserWire; exp: number }>(token);
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (decoded.exp > currentTime) {
+          setUser(decoded.user);
+          return;
+        }
+        toast.error(`You've been logged out`);
+        localStorage.removeItem(CRAB_SESSION_STORAGE);
       }
     } finally {
       setLoading(false);

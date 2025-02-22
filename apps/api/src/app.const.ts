@@ -14,6 +14,7 @@ export const DB_NAME = process.env.DB_NAME;
 
 // JWT
 export const JWT_SECRET = process.env.JWT_SECRET!;
+export const JWT_EXPIRATION = `${process.env.JWT_EXPIRATION_HOURS}h`;
 
 // User Defaults
 export const USER_DEFAULT_DUCKETS = Number(process.env.USER_DEFAULT_DUCKETS);
