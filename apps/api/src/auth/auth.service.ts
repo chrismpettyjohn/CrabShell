@@ -58,7 +58,7 @@ export class AuthService {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
     const token = jwt.sign(
-      { id: session.id, userId: user.id!, user },
+      { id: session.id, userId: user.id!, user: UserDTO.fromEntity(user) },
       JWT_SECRET,
       {
         expiresIn: JWT_EXPIRATION,
