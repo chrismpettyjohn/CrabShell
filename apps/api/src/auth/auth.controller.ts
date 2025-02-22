@@ -20,13 +20,24 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('login')
-  login(@Body() loginDto: AuthLoginDTO, @Res() response): Promise<Response> {
-    return this.authService.login(loginDto, response);
+  async login(
+    @Body() loginDto: AuthLoginDTO,
+    @Res() response,
+  ): Promise<UserDTO> {
+    const user: UserEntity = await this.authService.login(loginDto, response);
+    return response.json(UserDTO.fromEntity(user));
   }
 
   @Post('register')
-  register(@Body() registerDto: AuthRegisterDTO, @Res() response): Promise<Response> {
-    return this.authService.register(registerDto, response);
+  async register(
+    @Body() registerDto: AuthRegisterDTO,
+    @Res() response,
+  ): Promise<UserDTO> {
+    const user: UserEntity = await this.authService.register(
+      registerDto,
+      response,
+    );
+    return response.json(UserDTO.fromEntity(user));
   }
 
   @Post('logout')
@@ -37,7 +48,7 @@ export class AuthController {
 
   @Get('sso')
   @UseGuards(SessionGuard)
-  async generateSSO(@GetSession()user: UserEntity): Promise<{ sso: string }> {
+  async generateSSO(@GetSession() user: UserEntity): Promise<{ sso: string }> {
     return { sso: await this.authService.generateSSO(user.id!) };
   }
 

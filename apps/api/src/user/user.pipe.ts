@@ -11,6 +11,7 @@ export class UserPipe implements PipeTransform {
       where: !isNaN(Number(identifier))
         ? { id: Number(identifier) }
         : { username: identifier as string },
+      relations: ['rank'],
     });
 
     if (!user) {

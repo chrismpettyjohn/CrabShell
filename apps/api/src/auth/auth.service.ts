@@ -52,7 +52,7 @@ export class AuthService {
     return gameSSO;
   }
 
-  async login(loginDto: AuthLoginDTO, res: Response): Promise<Response> {
+  async login(loginDto: AuthLoginDTO, res: Response): Promise<UserEntity> {
     const user = await this.validateUser(loginDto.username, loginDto.password);
     const session = await this.sessionRepo.create({ userID: user.id });
     const token = jwt.sign({ id: session.id, userId: user.id! }, JWT_SECRET, {
@@ -63,16 +63,16 @@ export class AuthService {
       sameSite: 'lax',
       path: '/',
     });
-
-    return res.json(user);
+    return user;
   }
 
   async register(
     registerDto: AuthRegisterDTO,
     res: Response,
-  ): Promise<Response> {
+  ): Promise<UserEntity> {
     const existingUser = await this.userRepo.findOne({
       where: [{ username: registerDto.username }, { email: registerDto.email }],
+      relations: ['rank'],
     });
 
     if (existingUser) {
