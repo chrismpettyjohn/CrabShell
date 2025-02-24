@@ -64,8 +64,8 @@ const LoginScreen: Component = () => {
               Log In
             </button>
             <A href="/register">
-              <button type="submit" class="success-btn" disabled={!canSubmit()}>
-                Join Today
+              <button type="submit" class="success-btn">
+                Join for free
               </button>
             </A>
           </form>

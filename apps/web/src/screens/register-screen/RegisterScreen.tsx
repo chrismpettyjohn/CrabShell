@@ -1,8 +1,9 @@
 import { createSignal, type Component } from "solid-js";
 import { GuestGuard, SiteTitle, useAuth } from "@crabshell/shared-web";
 import { A, redirect } from "@solidjs/router";
-import { authService } from "@crabshell/public-client";
+import { authService, CRAB_SESSION_STORAGE } from "@crabshell/public-client";
 import { useOnlineUsers } from "../../context/OnlineUsersContext";
+import toast from "solid-toast";
 
 const RegisterScreen: Component = () => {
   const { setUser } = useAuth();
@@ -12,10 +13,14 @@ const RegisterScreen: Component = () => {
   const [password, setPassword] = createSignal("");
   const [passwordAgain, setPasswordAgain] = createSignal("");
 
+  const canSubmit = () => !!username() && !!email() && !!password() && !!password() === !!passwordAgain();
+
   async function onRegister(e: Event) {
     e.preventDefault();
-    const user = await authService.register(email(), username(), password(), passwordAgain());
-    setUser(user);
+    const response = await authService.register(email(), username(), password(), passwordAgain());
+    localStorage.setItem(CRAB_SESSION_STORAGE, response.token);
+    setUser(response.user);
+    toast.success(`🦀 Welcome to the reef, ${response.user.username}`);
     return redirect("/me");
   }
   return (
@@ -66,14 +71,15 @@ const RegisterScreen: Component = () => {
               onInput={(e) => setPasswordAgain(e.target.value ?? "")}
               required
             />
-
-            <button type="submit" class="success-btn">
-              Create Account
+            <button type="submit" class="info-btn" disabled={!canSubmit()}>
+              Join for free
             </button>
+            <A href="/me">
+              <button type="submit" class="success-btn">
+                Already have an account?
+              </button>
+            </A>
           </form>
-          <div class="actions">
-            <A href="/login">Return to Login</A>
-          </div>
         </div>
         <br />
         <footer>

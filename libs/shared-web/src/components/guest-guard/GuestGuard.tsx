@@ -17,9 +17,5 @@ export function GuestGuard({ children }: GuestGuardProps) {
     }
   });
 
-  return (
-    <Show when={!user()} fallback="">
-      {children}
-    </Show>
-  );
+  return <Show when={!user()}>{children}</Show>;
 }
