@@ -1,7 +1,4 @@
-import {
-  findRetrosService,
-  FindRetrosVoteStatusResponse,
-} from "@crabshell/public-client";
+import { findRetrosService, FindRetrosVoteStatusResponse } from "@crabshell/public-client";
 import { createEffect, createSignal, JSX, onMount, Show } from "solid-js";
 import { FINDRETROS_GUARD_ENABLED } from "../../App.const";
 
@@ -9,11 +6,18 @@ export interface FindRetrosGuardProps {
   children: JSX.Element;
 }
 
+const FINDRETROS_VOTE_EXPIRATION = "findretros-vote-expiration";
+
 export function FindRetrosGuard({ children }: FindRetrosGuardProps) {
   const [vote, setVote] = createSignal<FindRetrosVoteStatusResponse>();
+  const storedExpiration = localStorage.getItem(FINDRETROS_VOTE_EXPIRATION);
+  const now = Date.now();
+  const isVoteExpired = !storedExpiration || now >= Number(storedExpiration);
+
+  const skipVoting = !isVoteExpired || !FINDRETROS_GUARD_ENABLED;
 
   onMount(async () => {
-    if (!FINDRETROS_GUARD_ENABLED) {
+    if (skipVoting) {
       return;
     }
     const didVote = await findRetrosService.getVoteStatus();
@@ -21,15 +25,17 @@ export function FindRetrosGuard({ children }: FindRetrosGuardProps) {
   });
 
   createEffect(() => {
-    if (!FINDRETROS_GUARD_ENABLED) {
+    if (skipVoting) {
       return;
     }
     if (vote() && !vote()?.success && vote()?.href) {
+      const expirationTime = now + 24 * 60 * 60 * 1000;
+      localStorage.setItem(FINDRETROS_VOTE_EXPIRATION, expirationTime.toString());
       window.location.href = vote()!.href!;
     }
   });
 
-  if (!FINDRETROS_GUARD_ENABLED) {
+  if (skipVoting) {
     return children;
   }
 

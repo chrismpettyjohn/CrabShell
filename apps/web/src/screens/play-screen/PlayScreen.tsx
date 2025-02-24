@@ -12,11 +12,8 @@ const PlayScreen: Component = () => {
 
   onMount(async () => {
     const response = await authService.generateSSO();
-    console.log(response);
     setSSO(response);
   });
-
-  console.log(sso());
 
   return (
     <UserGuard>
