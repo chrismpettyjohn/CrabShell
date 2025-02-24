@@ -3,6 +3,7 @@ import { authService } from "@crabshell/admin-client";
 import { A, redirect } from "@solidjs/router";
 import toast from "solid-toast";
 import { GuestGuard, SiteTitle, useAuth } from "@crabshell/shared-web";
+import { CRAB_SESSION_STORAGE } from "@crabshell/public-client";
 
 const LoginScreen: Component = () => {
   const [username, setUsername] = createSignal("");
@@ -15,9 +16,10 @@ const LoginScreen: Component = () => {
     try {
       e.preventDefault();
       if (!canSubmit()) return;
-      const user = await authService.login(username(), password());
-      setUser(user);
-      toast.success(`Welcome back, ${user.username}`);
+      const response = await authService.login(username(), password());
+      localStorage.setItem(CRAB_SESSION_STORAGE, response.token);
+      setUser(response.user);
+      toast.success(`Welcome back, ${response.user.username}`);
       return redirect("/dashboard");
     } catch (e: any) {
       toast.error("Invalid username or password");
