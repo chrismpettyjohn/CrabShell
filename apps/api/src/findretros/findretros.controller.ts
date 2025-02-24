@@ -13,7 +13,6 @@ export class FindRetrosController {
   async didUserVote(
     @IpAddress() ipAddress: string,
   ): Promise<FindRetrosVoteStatusResponse> {
-    console.log({ ipAddress });
     const success = await this.findRetrosService.validateVote(ipAddress);
     const href = this.findRetrosService.getVoteUrl(true, true);
     return { success, href };
