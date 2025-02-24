@@ -7,7 +7,7 @@ import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { UserEntity } from '../database/user.entity';
 import { generate } from 'randomstring';
 import {
-  JWT_EXPIRATION,
+  JWT_EXPIRATION_HOURS,
   JWT_SECRET,
   USER_DEFAULT_CREDITS,
   USER_DEFAULT_DUCKETS,
@@ -60,7 +60,7 @@ export class AuthService {
       { id: session.id, userId: user.id!, user: UserDTO.fromEntity(user) },
       JWT_SECRET,
       {
-        expiresIn: JWT_EXPIRATION,
+        expiresIn: JWT_EXPIRATION_HOURS * 60,
       },
     );
     return { token, user: UserDTO.fromEntity(user) };
