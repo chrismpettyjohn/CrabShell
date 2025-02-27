@@ -75,32 +75,34 @@ html, body, p {
     font-weight: 500;
 }
 
-html, body, #root {
+html body #root  {
     color:  var(--color-one);
     display: flex;
     flex: 1;
     font-family: 'Quicksand', sans-serif;
+    font-size: var(--text-body);
     margin: 0;
     padding: 0;
-    min-height: 100%;
-    min-width: 100%;
-    font-size: var(--text-body);
+    height: 100vh;
     overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100vw;
 }
 
 .moving-bg {
+    animation: bgMove 45s linear infinite;
+    background-image: url('https://i.imgur.com/Z6OQ77U.png');
+    background-color: rgba(0, 0, 0, 0.5);
     content: "";
-    position: absolute;
     top: 0;
     left: 0;
     width: 200%; 
     min-height: 100vh;
-    background-image: url('https://i.imgur.com/Z6OQ77U.png');
-    background-color: rgba(0, 0, 0, 0.5);
-    animation: bgMove 45s linear infinite;
-    z-index: -1; 
+    overflow: hidden;
+    position: fixed;
     will-change: transform;
-
+    z-index: -1; 
 }
 
 @keyframes bgMove {
@@ -1586,7 +1588,7 @@ html, body, .client, iframe {
     padding: 14px;
     visibility: hidden;
     z-index: 1000;
-    width: calc(48%);
+    width: calc(50%);
     overflow: hidden;
   }
 
