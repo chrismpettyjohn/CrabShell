@@ -27,6 +27,7 @@
     --space-one: 16px;
     --space-two: 20px;
     --main-max-width: 960px;
+    --main-max-height: calc(100% - var(--header-height) - 4px);
 }
 
 .text-brand {
@@ -76,14 +77,15 @@ html, body, p {
 
 html, body, #root {
     color:  var(--color-one);
+    display: flex;
+    flex: 1;
     font-family: 'Quicksand', sans-serif;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    width: 100%;
+    min-height: 100%;
     min-width: 100%;
     font-size: var(--text-body);
-    scrollbar-width: thin;
+    overflow: hidden;
 }
 
 .moving-bg {
@@ -92,7 +94,7 @@ html, body, #root {
     top: 0;
     left: 0;
     width: 200%; 
-    height: 100%;
+    min-height: 100vh;
     background-image: url('https://i.imgur.com/Z6OQ77U.png');
     background-color: rgba(0, 0, 0, 0.5);
     animation: bgMove 45s linear infinite;
@@ -175,7 +177,7 @@ header .text-logo  {
     gap: 14px;
     flex-direction: column;
     width: var(--sidebar-width);
-    height: 100%;
+    height: var(--main-max-height);
     position: relative;
 }
 
@@ -328,7 +330,8 @@ main {
     display: flex;
     flex: 1;
     justify-content: center;
-    overflow: auto;
+    overflow-y: auto;
+    height: var(--main-max-height);
     z-index: 100;
     animation: fadeInSlideUp 0.6s ease-out;
 }
@@ -1575,12 +1578,12 @@ html, body, .client, iframe {
 }
 
 #mobile-nav {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     background: #222;
-    display: flex;
     flex-direction: column;
     padding: 14px;
     visibility: hidden;
@@ -1608,8 +1611,19 @@ html, body, .client, iframe {
         margin-top: 20px;
 }
 
+#mobile-header {
+    align-items: center;
+    display: none;
+    justify-content: space-between;
+    padding-left:14px;
+    padding-right:14px;
+ }
 
 @media (max-width: 768px) {
+    #mobile-header {
+        display: flex;
+    }
+
     .login-page .login-box {
         flex-direction: column;
     }

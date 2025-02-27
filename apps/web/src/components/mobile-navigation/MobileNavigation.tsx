@@ -13,7 +13,7 @@ export function MobileNavigation() {
 
   return (
     <>
-      <header style="align-items: center;justify-content: space-between;padding-left:14px;padding-right:14px;">
+      <header id="mobile-header">
         <div class="brand-container" style="width: fit-content;">
           <img class="logo" src="/img/logo.png" style="height: 60px;" />
         </div>
