@@ -74,7 +74,7 @@ html, body, p {
     font-weight: 500;
 }
 
-html, body {
+html, body, #root {
     color:  var(--color-one);
     font-family: 'Quicksand', sans-serif;
     margin: 0;
@@ -121,9 +121,6 @@ header {
     padding-right: 8px;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
 }
 
 header .brand-container {
@@ -179,10 +176,7 @@ header .text-logo  {
     gap: 14px;
     flex-direction: column;
     width: var(--sidebar-width);
-    height: calc(100% - var(--header-height));
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
+    height: 100%;
 }
 
 #sidebar .user-area {
