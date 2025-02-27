@@ -29,6 +29,7 @@ const LoginScreen: Component = () => {
   return (
     <GuestGuard>
       <SiteTitle>Log In</SiteTitle>
+      <div class="moving-bg" />
       <div class="login-page">
         <img src="/img/logo.png" class="logo" />
         <div class="users-now">

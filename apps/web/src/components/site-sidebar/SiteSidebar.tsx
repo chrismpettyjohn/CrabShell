@@ -33,6 +33,7 @@ export function SiteSidebar() {
   const location = useLocation();
   return (
     <>
+      <div class="moving-bg" />
       <header>
         <div class="brand-container">
           <div style="display:flex;justify-content: center;align-items: center;gap:4px;">

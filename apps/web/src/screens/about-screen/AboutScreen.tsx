@@ -29,7 +29,7 @@ export function AboutScreen() {
   return (
     <>
       <SiteTitle>About</SiteTitle>
-      <Show when={!!user()}>
+      <Show when={!!user()} fallback={<div class="moving-bg" />}>
         <SiteSidebar />
       </Show>
       <main>

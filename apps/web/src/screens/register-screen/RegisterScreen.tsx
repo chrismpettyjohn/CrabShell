@@ -25,6 +25,7 @@ const RegisterScreen: Component = () => {
   }
   return (
     <GuestGuard>
+      <div class="moving-bg" />
       <SiteTitle>Register</SiteTitle>
       <div class="login-page">
         <img src="/img/logo.png" class="logo" />

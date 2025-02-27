@@ -15,6 +15,8 @@ const PlayScreen: Component = () => {
     setSSO(response);
   });
 
+  document.body.addEventListener("touchstart", function () {});
+
   return (
     <UserGuard>
       <SiteTitle>Play</SiteTitle>

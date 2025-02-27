@@ -87,17 +87,18 @@ html, body {
     font-size: var(--text-body);
 }
 
-body::before {
+.moving-bg {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    width: 200%; /* Ensure enough space for movement */
+    width: 200%; 
     height: 100%;
     background-image: url('https://i.imgur.com/Z6OQ77U.png');
-    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% transparency */
+    background-color: rgba(0, 0, 0, 0.5);
     animation: bgMove 45s linear infinite;
-    z-index: -1;    will-change: transform;
+    z-index: -1; 
+    will-change: transform;
 
 }
 
