@@ -31,6 +31,9 @@ const PlayScreen: Component = () => {
         >
           <div class="client-page">
             <div class="client-controls">
+              <A href="/me">
+                <i class="fa fa-home" style={{ margin: 0 }} />
+              </A>
               <A href="/online">
                 <i class="fa fa-users" />
                 <b>{onlineUsers().length} </b>online

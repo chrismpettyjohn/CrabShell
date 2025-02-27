@@ -1560,7 +1560,7 @@ html, body, .client, iframe {
     gap: 14px;
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 40px;
     z-index: 1000;
 }
 
@@ -1569,7 +1569,8 @@ html, body, .client, iframe {
     border-radius: var(--radius-two);
     color: white;
     text-decoration: none;
-    padding: 8px;
+    font-size: 14px;
+    padding: 14px;
 }
 
 .client-page .client-controls a:hover {
