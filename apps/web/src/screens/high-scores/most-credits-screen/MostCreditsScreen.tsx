@@ -38,7 +38,7 @@ const MostCreditsScreen: Component = () => {
                     {_.username}
                   </A>
                 </td>
-                <td>{_.credits}</td>
+                <td>{Number(_.credits).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

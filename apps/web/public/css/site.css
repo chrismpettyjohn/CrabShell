@@ -188,7 +188,7 @@ header .text-logo  {
     margin-top: auto;
 }
 
-#sidebar footer a {
+footer a {
     color: var(--color-brand);
     font-family: 'MilkyNice', sans-serif;
     font-weight: 600;
@@ -200,7 +200,7 @@ header .text-logo  {
     padding-right: 4px;
 }
 
-#sidebar footer a:hover {
+footer a:hover {
     border-color: var(--color-four);
 }
 
@@ -1586,7 +1586,8 @@ html, body, .client, iframe {
     padding: 14px;
     visibility: hidden;
     z-index: 1000;
-    width: calc(50%);
+    width: calc(48%);
+    overflow: hidden;
   }
 
 .open {
@@ -1607,6 +1608,13 @@ html, body, .client, iframe {
 }
 #mobile-nav .navigation {
         margin-top: 20px;
+}
+
+#mobile-nav footer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
 }
 
 #mobile-header {

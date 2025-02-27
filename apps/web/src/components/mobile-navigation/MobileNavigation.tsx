@@ -15,7 +15,9 @@ export function MobileNavigation() {
     <>
       <header id="mobile-header">
         <div class="brand-container" style="width: fit-content;">
-          <img class="logo" src="/img/logo.png" style="height: 60px;" />
+          <A href="/me">
+            <img class="logo" src="/img/logo.png" style="height: 60px;" />
+          </A>
         </div>
         <div class="actions">
           <button class="mobile-nav-toggle" onClick={() => setIsOpen(!isOpen())}>
