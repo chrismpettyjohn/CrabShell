@@ -1,7 +1,6 @@
 import { A } from "@solidjs/router";
-import { SITE_NAME } from "../../App.const";
 import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, useAuth, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle, useAuth } from "@crabshell/shared-web";
 import { Show, createSignal, onMount } from "solid-js";
 
 const bibleVerses = [
