@@ -79,12 +79,11 @@ html, body, #root {
     font-family: 'Quicksand', sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     width: 100%;
     min-width: 100%;
-    overflow: hidden;
     font-size: var(--text-body);
+    scrollbar-width: thin;
 }
 
 .moving-bg {
@@ -169,7 +168,7 @@ header .text-logo  {
     align-items: center;
 }
 
-#sidebar {
+ #sidebar {
     background: var(--bg-two);
     border-right: 2px solid var(--bg-three);
     display: flex;
@@ -180,7 +179,7 @@ header .text-logo  {
     position: relative;
 }
 
-#sidebar .user-area {
+.user-area {
     align-items: center;
     background: var(--bg-three);
     display: flex;
@@ -217,7 +216,7 @@ header .text-logo  {
 
 
 
-#sidebar .user-area .quick-stats {
+.user-area .quick-stats {
     align-items: center;
     display: flex;
     gap: 14px;
@@ -225,7 +224,7 @@ header .text-logo  {
     width: 100%;
 }
 
-#sidebar .user-area .quick-stats .stat-block {
+.user-area .quick-stats .stat-block {
     align-items: center;
     color: var(--color-one);
     display: flex;
@@ -236,24 +235,24 @@ header .text-logo  {
     border-right: 1px solid var(--bg-four);
 }
 
-#sidebar .user-area .quick-stats .stat-block:last-child {
+ .user-area .quick-stats .stat-block:last-child {
     padding-right: 0;
     border-right: none;
 }
 
-#sidebar .user-area .quick-stats .stat-block h3 {
+ .user-area .quick-stats .stat-block h3 {
     margin: 0;
     font-weight: bold;
     font-size: 14px;
 }
 
-#sidebar .user-area .quick-stats .stat-block p {
+ .user-area .quick-stats .stat-block p {
     margin: 0;
     font-size: 12px;
 }
 
 
-#sidebar .navigation {
+ .navigation {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -261,7 +260,7 @@ header .text-logo  {
     overflow: auto;
 }
 
-#sidebar .navigation a {
+ .navigation a {
     display: block;
     border-radius: var(--radius-one);
     border: 1px solid transparent;
@@ -272,23 +271,23 @@ header .text-logo  {
     width: 80%;
 }
 
-#sidebar .navigation a i {
+ .navigation a i {
     width: 20px;
     padding-right: 14px;
 }
 
-#sidebar .navigation a:hover {
+ .navigation a:hover {
     border-color: var(--bg-two);
     background-color: var(--color-four);
     color: var(--color-brand);
 }
 
-#sidebar .navigation .active, #sidebar .navigation .current {
+ .navigation .active,  .navigation .current {
     border-color: var(--bg-two);
     background-color: var(--color-four);
     color: var(--color-brand);
 }
-#sidebar footer {
+ footer {
     align-items: center;
     display: flex;
     justify-content: center;
@@ -298,7 +297,7 @@ header .text-logo  {
     height: 40px;
 }
 
-#sidebar footer a {
+ footer a {
     color: var(--color-brand);
     font-family: 'MilkyNice', sans-serif;
     font-weight: 600;
@@ -310,7 +309,7 @@ header .text-logo  {
     padding-right: 4px;
 }
 
-#sidebar footer a:hover {
+ footer a:hover {
     border-color: var(--color-four);
 }
 
@@ -1019,6 +1018,7 @@ button:hover {
 
 .news-article-page .news-articles {
     margin-top: 20px;
+    padding: 20px;
 }
 
 .news-article-page .container {
@@ -1572,4 +1572,61 @@ html, body, .client, iframe {
 
 .client-page .client-controls a i {
     margin-right: 8px;
+}
+
+#mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    visibility: hidden;
+    z-index: 1000;
+    width: calc(50%);
+  }
+
+.open {
+    visibility: visible !important
+ }
+  
+ #mobile-nav .mobile-nav-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    margin-left: 10px;
+}
+
+#mobile-nav .navigation {
+        margin-top: 20px;
+}
+#mobile-nav .navigation {
+        margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .login-page .login-box {
+        flex-direction: column;
+    }
+
+     #sidebar {
+        display: none;
+    }
+
+    .sidebar-header {
+        display: none;
+    }
+
+    .grid {
+        flex-direction: column;
+    }
+
+    main {
+        padding: 20px;
+    }
 }

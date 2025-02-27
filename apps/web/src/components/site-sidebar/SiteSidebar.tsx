@@ -5,7 +5,7 @@ import { UserArea } from "./user-area/UserArea";
 import { RankScope } from "@crabshell/public-client";
 import { ScopeGuard } from "@crabshell/shared-web";
 
-const SIDEBAR_LINKS: Array<{
+export const SIDEBAR_LINKS: Array<{
   path: string;
   icon: string;
   label: string;
@@ -34,7 +34,7 @@ export function SiteSidebar() {
   return (
     <>
       <div class="moving-bg" />
-      <header>
+      <header class="sidebar-header">
         <div class="brand-container">
           <div style="display:flex;justify-content: center;align-items: center;gap:4px;">
             <img class="logo" src="/img/logo.png" style="height: 60px;" />
