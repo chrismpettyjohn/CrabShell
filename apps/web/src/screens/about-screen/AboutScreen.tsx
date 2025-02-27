@@ -1,7 +1,7 @@
 import { A } from "@solidjs/router";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { SiteTitle, useAuth } from "@crabshell/shared-web";
 import { Show, createSignal, onMount } from "solid-js";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const bibleVerses = [
   "The Lord is my shepherd; I shall not want. - Psalm 23:1",
@@ -25,55 +25,62 @@ export function AboutScreen() {
     setDailyVerse(bibleVerses[randomIndex]);
   });
 
+  const content = (
+    <main>
+      <div class="main-content">
+        <div class="grid">
+          <div class="column col-4">
+            <div class="card">
+              <h2 style="margin:0;">
+                <i class="fa fa-cross" style="margin-right: 8px;" />
+                Today's Message
+              </h2>
+              <p style="margin:0;">{dailyVerse()}</p>
+            </div>
+            <div class="card" style="justify-content:center;align-items:center;display:flex;flex-direction: column;">
+              <h2 style="margin:0;">Crabshell v1</h2>
+              <p>Designed and developed from the ground up with a focus on user experience and functionality.</p>
+              <p>Crabshell is built using the best tools such as NodeJS, Typescript, Bun, SolidJS and NestJS</p>
+              <img src="/img/logo.png" style="height:220px;object-fit:cover;" />
+            </div>
+            <h2 style="margin:auto;">
+              Built by <b>LeChris</b>
+            </h2>
+          </div>
+          <div class="column col-8">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/oj-qH2QJ4N0?autoplay=1&start=55"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              style="flex:1;"
+            />
+          </div>
+        </div>
+        <Show when={!user()}>
+          <br />
+          <A href="/">
+            <button class="btn-success" style={{ width: "100%" }}>
+              Go back
+            </button>
+          </A>
+        </Show>
+      </div>
+    </main>
+  );
+
   return (
     <>
       <SiteTitle>About</SiteTitle>
-      <Show when={!!user()} fallback={<div class="moving-bg" />}>
-        <SiteSidebar />
+      <Show when={!user()}>
+        <div class="moving-bg" />
+        {content}
       </Show>
-      <main>
-        <div class="main-content">
-          <div class="grid">
-            <div class="column col-4">
-              <div class="card">
-                <h2 style="margin:0;">
-                  <i class="fa fa-cross" style="margin-right: 8px;" />
-                  Today's Message
-                </h2>
-                <p style="margin:0;">{dailyVerse()}</p>
-              </div>
-              <div class="card" style="justify-content:center;align-items:center;display:flex;flex-direction: column;">
-                <h2 style="margin:0;">Crabshell v1</h2>
-                <p>Designed and developed from the ground up with a focus on user experience and functionality.</p>
-                <p>Crabshell is built using the best tools such as NodeJS, Typescript, Bun, SolidJS and NestJS</p>
-                <img src="/img/logo.png" style="height:220px;object-fit:cover;" />
-              </div>
-              <h2 style="margin:auto;">
-                Built by <b>LeChris</b>
-              </h2>
-            </div>
-            <div class="column col-8">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/oj-qH2QJ4N0?autoplay=1&start=55"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-                style="flex:1;"
-              />
-            </div>
-          </div>
-          <Show when={!user()}>
-            <br />
-            <A href="/">
-              <button class="btn-success" style={{ width: "100%" }}>
-                Go back
-              </button>
-            </A>
-          </Show>
-        </div>
-      </main>
+      <Show when={!!user()}>
+        <UserLayout>{content}</UserLayout>
+      </Show>
     </>
   );
 }

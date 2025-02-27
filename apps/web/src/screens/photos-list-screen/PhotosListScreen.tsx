@@ -1,7 +1,7 @@
 import { createSignal, onMount, Show, type Component } from "solid-js";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle } from "@crabshell/shared-web";
 import { photoService, PhotoWire } from "@crabshell/public-client";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const PhotosListScreen: Component = () => {
   const [photos, setPhotos] = createSignal<PhotoWire[]>([]);
@@ -12,15 +12,14 @@ const PhotosListScreen: Component = () => {
   });
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle>Photos</SiteTitle>
-      <SiteSidebar />
       <main>
         <Show when={!!photos().length} fallback={<i class="fa fa-spinner fa-spin" />}>
           <div class="main-content news-photo-page">issa list</div>
         </Show>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 };
 

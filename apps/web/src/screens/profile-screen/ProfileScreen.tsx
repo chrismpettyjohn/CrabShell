@@ -1,6 +1,5 @@
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle } from "@crabshell/shared-web";
 import { useParams } from "@solidjs/router";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { createSignal, onMount, Show } from "solid-js";
 import { usersService, UserWire } from "@crabshell/public-client";
 import toast from "solid-toast";
@@ -10,6 +9,7 @@ import { MyGroupsCard } from "./my-groups-card/MyGroupsCard";
 import { MyRoomsCard } from "./my-rooms-card/MyRoomsCard";
 import { MyBadgesCard } from "./my-badges-card/MyBadgesCard";
 import { MyStatsCard } from "./my-stats-card/MyStatsCard";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 export function ProfileScreen() {
   const { username } = useParams<{ username: string }>();
@@ -26,9 +26,8 @@ export function ProfileScreen() {
   });
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle children={`Profile - ${username}`} />
-      <SiteSidebar />
       <main>
         <div class="main-content">
           <Show when={!!profile()} fallback={<i class="fa fa-spinner fa-spin" />}>
@@ -55,7 +54,7 @@ export function ProfileScreen() {
           </Show>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 }
 

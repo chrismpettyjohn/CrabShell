@@ -1,10 +1,10 @@
 import { createSignal, onMount, Show, type Component } from "solid-js";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle } from "@crabshell/shared-web";
 import { articleService, ArticleWire } from "@crabshell/public-client";
 import { useParams } from "@solidjs/router";
 import { IMAGER_BASE_URL } from "../../App.const";
 import { getFormattedDateTime } from "../../App.util";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const ArticlesViewScreen: Component = () => {
   const params: { articleId: string } = useParams();
@@ -16,9 +16,8 @@ const ArticlesViewScreen: Component = () => {
   });
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle>Articles</SiteTitle>
-      <SiteSidebar />
       <main>
         <div class="main-content news-article-page">
           <div class="card">
@@ -44,7 +43,7 @@ const ArticlesViewScreen: Component = () => {
           </div>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 };
 

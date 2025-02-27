@@ -1,12 +1,12 @@
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle } from "@crabshell/shared-web";
 import { useParams } from "@solidjs/router";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
 import { createSignal, onMount, Show } from "solid-js";
 import { groupsService, GroupWire } from "@crabshell/public-client";
 import toast from "solid-toast";
 import { GroupMembersCard } from "./group-members-card/GroupMembersCard";
 import { GroupStatsCard } from "./group-stats-card/GroupStatsCard";
 import { GroupInfoCard } from "./group-info-card/GroupInfoCard";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 export function GroupsProfileScreen() {
   const { groupId } = useParams<{ groupId: string }>();
@@ -24,9 +24,8 @@ export function GroupsProfileScreen() {
   });
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle children={`Profile - ${groupId}`} />
-      <SiteSidebar />
       <main>
         <div class="main-content">
           <Show when={!!group()} fallback={<i class="fa fa-spinner fa-spin" />}>
@@ -43,7 +42,7 @@ export function GroupsProfileScreen() {
           </Show>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 }
 

@@ -1,21 +1,20 @@
 import type { Component } from "solid-js";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, useAuth, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle, useAuth } from "@crabshell/shared-web";
 import { ArticlesSection } from "./articles-section/ArticlesSection";
 import { UsersCard } from "./users-card/UsersCard";
 import { GroupsCard } from "./groups-card/GroupsCard";
 import { EventCalendar } from "./event-calendar/EventCalendar";
 import { UserOfTheWeekCard } from "./user-of-the-week-card/UserOfTheWeekCard";
 import { UserContainer } from "./user-container/UserContainer";
-import { DISCORD_INVITE_URL, SITE_NAME } from "../../App.const";
+import { DISCORD_INVITE_URL } from "../../App.const";
 import { StoriesSection } from "./stories-section/StoriesSection";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const MeScreen: Component = () => {
   const { user } = useAuth();
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle>Me</SiteTitle>
-      <SiteSidebar />
       <main>
         <div class="main-content">
           <StoriesSection />
@@ -48,7 +47,7 @@ const MeScreen: Component = () => {
           </div>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 };
 

@@ -1,9 +1,9 @@
 import { createSignal, onMount, Show, type Component } from "solid-js";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle } from "@crabshell/shared-web";
 import { photoService, PhotoWire } from "@crabshell/public-client";
 import { useParams } from "@solidjs/router";
 import { IMAGER_BASE_URL } from "../../App.const";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const PhotosViewScreen: Component = () => {
   const params: { photoId: string } = useParams();
@@ -15,9 +15,8 @@ const PhotosViewScreen: Component = () => {
   });
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle>Photos</SiteTitle>
-      <SiteSidebar />
       <main>
         <div class="main-content news-photo-page">
           <div class="card" style={{ height: "calc(100% - 140px)" }}>
@@ -38,7 +37,7 @@ const PhotosViewScreen: Component = () => {
           </div>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 };
 

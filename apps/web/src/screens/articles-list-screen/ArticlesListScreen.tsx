@@ -1,9 +1,9 @@
 import { createSignal, onMount, type Component } from "solid-js";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { SiteTitle } from "@crabshell/shared-web";
 import { articleService, ArticleWire } from "@crabshell/public-client";
 import { A } from "@solidjs/router";
 import { getMonthDateYear } from "../../App.util";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const ArticlesListScreen: Component = () => {
   const [articles, setArticles] = createSignal<ArticleWire[]>([]);
@@ -14,9 +14,8 @@ const ArticlesListScreen: Component = () => {
   });
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle>Articles</SiteTitle>
-      <SiteSidebar />
       <main>
         <div class="main-content news-article-page">
           <div class="news-articles">
@@ -36,7 +35,7 @@ const ArticlesListScreen: Component = () => {
           </div>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 };
 

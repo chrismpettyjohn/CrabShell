@@ -325,11 +325,8 @@ header .text-logo  {
 
 main {
     display: flex;
+    flex: 1;
     justify-content: center;
-    height: calc(100vh - var(--header-height) - var(--space-two));
-    width: calc(100% - var(--sidebar-width));
-    margin-left: var(--sidebar-width);
-    margin-top: var(--header-height);
     overflow: auto;
     z-index: 100;
     animation: fadeInSlideUp 0.6s ease-out;

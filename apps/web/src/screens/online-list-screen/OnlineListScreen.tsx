@@ -1,17 +1,16 @@
-import { Show, type Component } from "solid-js";
-import { SiteSidebar } from "../../components/site-sidebar/SiteSidebar";
-import { SiteTitle, UserGuard } from "@crabshell/shared-web";
+import { type Component } from "solid-js";
+import { SiteTitle } from "@crabshell/shared-web";
 import { useOnlineUsers } from "../../context/OnlineUsersContext";
 import { A } from "@solidjs/router";
 import { IMAGER_BASE_URL } from "../../App.const";
+import { UserLayout } from "../../components/user-layout/UserLayout";
 
 const OnlineListScreen: Component = () => {
   const { onlineUsers } = useOnlineUsers();
 
   return (
-    <UserGuard>
+    <UserLayout>
       <SiteTitle>Online</SiteTitle>
-      <SiteSidebar />
       <main>
         <div class="high-scores-page main-content">
           <h2>Online</h2>
@@ -45,7 +44,7 @@ const OnlineListScreen: Component = () => {
           </div>
         </div>
       </main>
-    </UserGuard>
+    </UserLayout>
   );
 };
 
