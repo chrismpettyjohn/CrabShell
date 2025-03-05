@@ -1627,7 +1627,7 @@ html, body, .client, iframe {
     padding-right:14px;
  }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
     #mobile-header {
         display: flex;
     }
@@ -1651,4 +1651,9 @@ html, body, .client, iframe {
     main {
         padding: 20px;
     }
+
+   .client-page .client-controls {
+        display: none !important;
+    }
 }
+
