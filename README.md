@@ -1,4 +1,5 @@
 # CrabShell
+Developed and designed by Chris P
 
 ## Prerequisites
 1. Install Bun
@@ -25,21 +26,30 @@ bun run build
 
 ## Development
 
-Start the development servers:
+### API 
+1. Go to the api directory `cd ./apps/api`
+2. Copy the `.env.example` and name it `.env`
+3. Update `.env` with your database credentials
+4. Run the API via `bun run dev`
 
-```bash
-# SolidJS web app
-bun run dev:web
+### Admin UI
+1. Go to the admin directory `cd ./apps/admin`
+2. Copy the `.env.example` and name it `.env`
+3. Update `.env` with the correct URLs
+4. Run the UI via `bun run dev`
 
-# NestJS API
-bun run dev:api
-```
+### Public UI
+1. Go to the admin directory `cd ./apps/web`
+2. Copy the `.env.example` and name it `.env`
+3. Update `.env` with the correct URLs
+4. Run the UI via `bun run dev`
 
 ## Project Structure
 
 ```
 apps/
-  ├── web/          # SolidJS frontend
+  ├── admin/        # SolidJS admin frontend
+  ├── web/          # SolidJS public frontend
   └── api/          # NestJS backend
 libs/
   └── client/       # Shared client library
@@ -55,7 +65,8 @@ bun run build:api     # Build NestJS app
 bun run build:client  # Build client library
 
 # Development
-bun run dev:web       # Start SolidJS dev server
+bun run dev:admin     # Start SolidJS admin dev server
+bun run dev:web       # Start SolidJS public dev server
 bun run dev:api       # Start NestJS dev server
 
 # Maintenance
@@ -67,4 +78,3 @@ bun run clean         # Clean all build artifacts
 - Frontend: SolidJS
 - Backend: NestJS
 - Package Manager: Bun
-- Monorepo Management: Bun Workspaces

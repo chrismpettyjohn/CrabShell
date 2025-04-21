@@ -15,7 +15,7 @@
         "build:shared-web": "bun run --cwd libs/shared-web build",
         "dev:admin": "bun run --cwd apps/admin dev",
         "dev:web": "bun run --cwd apps/web dev",
-        "dev:api": "bun run --cwd apps/api start:dev",
+        "dev:api": "bun run --cwd apps/api dev",
         "purge": "find . -name 'node_modules' -type d -prune -exec rm -rf {} + && rm -rf bun.lock"
     },
     "engines": {
