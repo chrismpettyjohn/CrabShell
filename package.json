@@ -6,6 +6,7 @@
     ],
     "scripts": {
         "fix": "gts fix",
+        "setup": "bun run ./scripts/setup.ts",
         "build": "bun run --cwd apps/web build && bun run --cwd libs/admin-client build && bun run --cwd libs/public-client build&& bun run --cwd libs/shared-web build",
         "build:admin": "bun run --cwd apps/admin build",
         "build:web": "bun run --cwd apps/web build",
