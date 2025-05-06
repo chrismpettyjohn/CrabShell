@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node_modules/.bin/ts-node -r tsconfig-paths/register src/main.ts",
-    "dev": "nodemon --exec bun run start"
+    "dev": "bun run ts-node -r tsconfig-paths/register src/main.ts"
   },
   "dependencies": {
     "class-validator": "0.14.1",

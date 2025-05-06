@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { UserRepository } from '../database/user.repository';
 import { SessionRepository } from '../database/session.repository';
 import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';

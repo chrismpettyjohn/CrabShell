@@ -4,7 +4,7 @@ import { AuthLoginDTO, AuthRegisterDTO } from './auth.dto';
 import { SessionGuard } from './session.guard';
 import { UserDTO } from '../user/user.dto';
 import { UserEntity } from '../database/user.entity';
-import { Response } from 'express';
+import type { Response } from 'express';
 import { GetSession } from './get-session.decorator';
 import {
   AuthLoginResponse,
