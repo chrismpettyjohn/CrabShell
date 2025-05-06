@@ -9,10 +9,10 @@
     "build": "bun run scripts/build.ts"
   },
   "devDependencies": {
-    "@types/node": "22.13.1",
+    "@types/node": "22.15.9",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "~5.7.3"
+    "typescript": "~5.8.3"
   },
   "dependencies": {
     "@rollup/plugin-json": "^6.1.0"
